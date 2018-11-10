@@ -1,0 +1,20 @@
+header,nav,section,body,footer,aside {
+	border:  1px solid grey; /*si posesesim *{} és per a tots els tags del html*/
+	margin:  1%;
+	padding: 0.7%;
+	
+}
+
+section {
+	float:	right;
+	width:	65%;
+}
+
+aside{
+	float: 	left;
+	width:	25%;
+}
+
+.nofloat{
+	clear:	BOTH;
+}
