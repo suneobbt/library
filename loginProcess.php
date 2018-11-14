@@ -18,7 +18,7 @@ if ($connexion->connect_errno) {
     die();
 }
 
-$sentenciaSQL = "SELECT dni FROM users where dni='$_POST[user]' and pass='$_POST[pass]';";
+$sentenciaSQL = "SELECT dni,user_type FROM users where dni='$_POST[user]' and pass='$_POST[pass]';";
 echo $sentenciaSQL;
 
 $sql_result = $connexion->query($sentenciaSQL);
@@ -32,9 +32,11 @@ if (!$sql_result->num_rows) {
 /**Extract the necessary values*/
 while($row = mysqli_fetch_assoc($sql_result)) {
     $user = $row['dni'];
+    $_SESSION['user_type'] = $row['user_type'];
 }
 
 session_name($user);
+
 
 header("Location:http://localhost/library/pageUser.php?sessionName=" . session_name() ."&" . "id=" . session_id()); /*LOG IN OK*/
 
