@@ -2,6 +2,8 @@
 session_cache_limiter ('nocache,private');
 session_start();
 
+include ('confirmIfSessionSet.php');
+
 if (isset($_GET['id'])){
    include('delete.php');
 }
@@ -28,12 +30,12 @@ if (isset($_GET['id'])){
 <main>
     <!-- Aside 1(left top) for tools acces -->
     <aside id="ad1">
-        <p>aside</p>
+        <?php include('extendedUser_toolsMenu.inc');?>
     </aside>
 
     <!-- Aside 2(right top) for login -->
     <aside id="ad2">
-        login
+        <?php include ('loggedInAs.inc') ?>
     </aside>
 
     <section>
@@ -44,7 +46,7 @@ if (isset($_GET['id'])){
         // variables to create a MakeTable object
         $dbName = "library";
         $tableName = $_GET['ref'];
-        $condition = $_SESSION['user'];
+        $condition = $_SESSION['user_id'];
         $fieldCondition = "";
 
         // files where to jump to Browse, Edit and Delete the selected row.

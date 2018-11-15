@@ -25,20 +25,19 @@ $sql_result = $connexion->query($sentenciaSQL);
 
 /**LOG IN NOK*/
 if (!$sql_result->num_rows) {
-    header("Location:http://localhost/library/index.php?mser=802");
+    header("Location:http://localhost/library/index.php?msg=802");
     die();
 }
 
 /**Extract the necessary values*/
 while($row = mysqli_fetch_assoc($sql_result)) {
-    $user = $row['dni'];
+    $_SESSION['user_id']= $row['dni'];
     $_SESSION['user_type'] = $row['user_type'];
 }
 
-session_name($user);
+$_SESSION['session_id'] = session_id();
 
-
-header("Location:http://localhost/library/pageUser.php?sessionName=" . session_name() ."&" . "id=" . session_id()); /*LOG IN OK*/
+header("Location:http://localhost/library/pageUser.php"); /*LOG IN OK*/
 
 mysqli_close($connexion);
 

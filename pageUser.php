@@ -2,11 +2,8 @@
 <?php
 session_cache_limiter ('nocache,private');
 session_start();
-session_name($_GET['sessionName']);
 
-if	(session_id()!= $_GET['id']){
-		header ("Location:http://localhost/library/index.php?mser=801");
-	}
+include ('confirmIfSessionSet.php');
 ?>
 
 <html>

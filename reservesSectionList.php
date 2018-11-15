@@ -14,12 +14,14 @@ if ($connexion->connect_errno) {
     echo "Failed to connect to MySQL: " . $mysqli->connect_error;
     die();
 }
+$dni=$_SESSION['user_id'];
+
 // TODO: Adapt $Sentencia to object user
 $sentenciaSQL = "SELECT reserve.id_reserve, reserve.start_time_reserve, copy.isbn, book.title 
     FROM reserve JOIN copy 
         on copy.id_copy = reserve.id_copy 
         JOIN book 
-            on copy.isbn=book.isbn where reserve.dni='$_GET[sessionName]' ";
+            on copy.isbn=book.isbn where reserve.dni='$dni' ";
 
 $sql_result = $connexion->query($sentenciaSQL);
 ?>

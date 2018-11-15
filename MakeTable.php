@@ -125,7 +125,7 @@ class MakeTable
 
         if ($this->fileDelete != "") {
            // echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/delete.png'> </a></td>";
-            echo "<td width='30' height='30' align = 'center' onclick=\"deleteRow('$idToGiveInGet','$this->tableName','$this->fileDelete')\"> <img src='res/delete.png'> </a></td>";
+            echo "<td width='30' height='30' align = 'center' onclick=\"deleteRow('$idToGiveInGet','$this->tableName','$this->fileDelete')\"> <a href=#> <img src='res/delete.png'> </a></td>";
         }
 
     } // paintRow

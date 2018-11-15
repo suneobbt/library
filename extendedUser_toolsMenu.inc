@@ -8,15 +8,15 @@
 
 include('User.php');
 
-$work_user=new User($_GET['sessionName']);
-$user_type=$work_user->getUserType();
+/*$work_user=new User($_GET['sessionName']);
+$user_type=$work_user->getUserType();*/
 
 switch ($_SESSION['user_type']) {
 
     case 0:
         echo "
             <h2>Actions</h2>
-            <a href=\"register.php?sessionName=".$work_user->getDni()."&form=userEdit\">My data</a></br>
+            <a href=\"register.php?sessionName=".$_SESSION['user_id']."&form=userEdit\">My data</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
             <a href=\"estadistics.php\">Estadistics</a></br>
             <a href=\"index.php\">Stadistics</a></br>";
@@ -27,6 +27,7 @@ switch ($_SESSION['user_type']) {
     case 1:
         echo "
             <h2>Actions</h2>
+            <a href=\"\">Home panel</a></br>
             <a href=\"pageListed.php\">Defaulters</a></br>
             <a href=\"pageListed.php?ref=users\">Users</a></br>
             <a href=\"pageBook.php\">Add book</a></br>

@@ -8,12 +8,12 @@
 
 include_once('User.php');
 
-//$work_user=new User($_GET['sessionName']);
+$work_user=new User($_SESSION['user_id']);
 // $work_user created on first include in extendedUser_toolsMenu
 
 echo "
-    <h3>Welcome!</br> You are logged in as " . $work_user->getName() . " " . $work_user->getSurname() . "." . " </h3>
-    <form action=\"index.php\">
+    <h3>You are logged in as " . $work_user->getName() . " " . $work_user->getSurname() . "." . " </h3>
+    <form action=\"logOut.php\">
         <input type=\"submit\" value=\"Log Out\" />
     </form>";
 

@@ -36,20 +36,28 @@
 
     <!-- Aside 2(right top) for login -->
     <aside id="ad2">
+        <?php
+        session_start();
+        $valid_session = isset($_SESSION['session_id']) ? $_SESSION['session_id'] === session_id() : FALSE;
 
-        <form action="loginProcess.php" method="post">
-            <h2>Login</h2>
-            <label for="user">User</label>
-            <input type="text" name="user" id="user" placeholder="DNI+letter" required=""/>
-            <br/><br/>
-
-            <label for="pass">Password</label>
-            <input type="password" name="pass" id="pass" required=""/>
-            <br/><br/>
-            <input type="submit" value="Get in"/>
-            <br/><br/>
-            <div>You aren't a client yet? <a href="register.php?form=new">Register here</a></div>
-        </form>
+        if ($valid_session) {
+            include('loggedInAs.inc');
+        } else {
+            echo "
+            <form action=\"loginProcess.php\" method=\"post\">
+                <h2>Login</h2>
+                <label for=\"user\">User</label>
+                <input type=\"text\" name=\"user\" id=\"user\" placeholder=\"DNI+letter\" required=\"\"/>
+                <br/><br/>
+                <label for=\"pass\">Password</label>
+                <input type=\"password\" name=\"pass\" id=\"pass\" required=\"\"/>
+                <br/><br/>
+                <input type=\"submit\" value=\"Get in\"/>
+                <br/><br/>
+                <div>You aren't a client yet? <a href=\"register.php?form=new\">Register here</a></div>
+            </form>";
+        }
+        ?>
     </aside>
 
     <section>
