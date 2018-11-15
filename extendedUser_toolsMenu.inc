@@ -19,7 +19,7 @@ switch ($_SESSION['user_type']) {
             <a href=\"register.php?sessionName=".$work_user->getDni()."&form=userEdit\">My data</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
             <a href=\"estadistics.php\">Estadistics</a></br>
-            <a href=\"index.php\">Estadistics</a></br>";
+            <a href=\"index.php\">Stadistics</a></br>";
         break;
     //end case 0
 
@@ -28,10 +28,11 @@ switch ($_SESSION['user_type']) {
         echo "
             <h2>Actions</h2>
             <a href=\"pageListed.php\">Defaulters</a></br>
+            <a href=\"pageListed.php?ref=users\">Users</a></br>
             <a href=\"pageBook.php\">Add book</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
             <a href=\"pageListed.php?ref=lend\">Lends</a></br>
-            <a href=\"index.php\">Estadistics</a></br>";
+            <a href=\"index.php\">Stadistics</a></br>";
         break;
     //end case 1
 
@@ -43,10 +44,11 @@ switch ($_SESSION['user_type']) {
             <a href=\"register.php?form=superEdit\">Edit user</a></br>
             <a href=\"register.php\">Edit librarian</a></br>
             <a href=\"pageListed.php\">Defaulters</a></br>
+            <a href=\"pageListed.php?ref=users\">Users</a></br>
             <a href=\"pageBook.php\">Add book</a></br>
-            <a href=\"pageListed.php\">Reserves</a></br>
-            <a href=\"pageListed.php\">Lends</a></br>
-            <a href=\"index.php\">Estadistics</a></br>";
+            <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
+            <a href=\"pageListed.php?ref=lend\">Lends</a></br>
+            <a href=\"index.php\">Stadistics</a></br>";
         break;
     //end case 2
 }

@@ -1,3 +1,5 @@
+<script type="text/javascript" src="functionsJS.js"></script>
+
 <?php
 
 class MakeTable
@@ -10,22 +12,26 @@ class MakeTable
     private $nextRow;
     private $registers;
     private $fileBrowse, $fileUpdate, $fileDelete;
+    private $condition;
+    private $fieldCondition;
 
 
-    function __construct($dbName, $tableName, $fieldList, $fileBrowse = "", $fileUpdate = "", $fileDelete = "")
+    function __construct($dbName, $tableName, $fieldList, $fileBrowse = "", $fileUpdate = "", $fileDelete = "", $condition = "", $fieldCondition = "")
     {
         $this->dbName = $dbName;
         $this->tableName = $tableName;
         $this->numFields = count($fieldList);
 
-        for ($i = 0; $i < $this->numFields; $i++)
-        {
+        for ($i = 0; $i < $this->numFields; $i++) {
             $this->fieldList [$i] = $fieldList [$i];
         }
 
         $this->fileBrowse = $fileBrowse;
         $this->fileUpdate = $fileUpdate;
         $this->fileDelete = $fileDelete;
+
+        $this->condition = $condition;
+        $this->fieldCondition = $fieldCondition;
 
         $this->connectDB($dbName);
     }
@@ -35,7 +41,7 @@ class MakeTable
     {
         include("connection_data.inc");
         // conectamos a la BD
-        $this->mysqli = new mysqli ($mysql_server,$mysql_login,$mysql_pass,$dbName);
+        $this->mysqli = new mysqli ($mysql_server, $mysql_login, $mysql_pass, $dbName);
         if ($this->mysqli->connect_errno)
             echo "Failed to connect to MySQL: " . $this->mysqli->connect_error;
     }
@@ -85,12 +91,16 @@ class MakeTable
         {
             $sentenciaSQL .= $this->fieldList[$i] . ", ";
         }
+
         $sentenciaSQL .= $this->fieldList[$this->numFields - 1] . " from " . $this->tableName;
 
-         //echo " ".$sentenciaSQL;
+        if ($this->fieldCondition != "") {
+            $sentenciaSQL = $sentenciaSQL . " where " . $this->fieldCondition . "='" . $this->condition . "';";
+        }
 
+        //echo "sentence:  " . $sentenciaSQL;
 
-        $this->registers = $this->mysqli->query ($sentenciaSQL);
+        $this->registers = $this->mysqli->query($sentenciaSQL);
 
         return $this->mysqli;
     } // paintHeader
@@ -106,15 +116,16 @@ class MakeTable
 
         $idToGiveInGet = $this->row[$this->fieldList[0]];
         if ($this->fileBrowse != "") {
-            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileBrowse?id=" . $idToGiveInGet . "'> <img src='res/browse.png'> </a></td>";
+            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileBrowse?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/browse.png'> </a></td>";
         }
 
         if ($this->fileUpdate != "") {
-            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileUpdate?id=" . $idToGiveInGet . "'> <img src='res/edit.png'> </a></td>"; // alta.php cridat amb paràmetre c vol dir editar codi c
+            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileUpdate?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/edit.png'> </a></td>";
         }
 
         if ($this->fileDelete != "") {
-            echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "'> <img src='res/delete.png'> </a></td>";
+           // echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/delete.png'> </a></td>";
+            echo "<td width='30' height='30' align = 'center' onclick=\"deleteRow('$idToGiveInGet','$this->tableName','$this->fileDelete')\"> <img src='res/delete.png'> </a></td>";
         }
 
     } // paintRow

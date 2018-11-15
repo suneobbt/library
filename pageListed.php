@@ -1,9 +1,13 @@
 <?php
+session_cache_limiter ('nocache,private');
 session_start();
+
+if (isset($_GET['id'])){
+   include('delete.php');
+}
 ?>
 
 <!DOCTYPE html>
-
 
 <html>
 
@@ -40,6 +44,8 @@ session_start();
         // variables to create a MakeTable object
         $dbName = "library";
         $tableName = $_GET['ref'];
+        $condition = $_SESSION['user'];
+        $fieldCondition = "";
 
         // files where to jump to Browse, Edit and Delete the selected row.
         $fileBrowse = "browse.php";
@@ -48,7 +54,7 @@ session_start();
 
         if ($_SESSION['user_type'] != '0') {
             $fileUpdate = "edit.php";
-            $fileDelete = "delete.php";
+            $fileDelete = "pageListed.php";
         }
 
         // name of fields to be shown
@@ -57,12 +63,18 @@ session_start();
                 $fields = array("id_lend", "dni", "start_time_lend");
                 if ($_SESSION['user_type'] != '0'){
                     $fields[]="id_copy";
+                }else{
+                    //add condition to show only her lends
+                    $fieldCondition = "dni";
                 }
                 break;
             case "reserve":
                 $fields = array("id_reserve", "dni", "start_time_reserve");
                 if ($_SESSION['user_type'] != '0'){
                     $fields[]="id_copy";
+                }else{
+                    //add condition to show only her reserves
+                    $fieldCondition = "dni";
                 }
                 break;
             case "book":
@@ -74,7 +86,7 @@ session_start();
         }
 
         $t = new MakeTable($dbName, $tableName, $fields, $fileBrowse,
-            $fileUpdate, $fileDelete);
+            $fileUpdate, $fileDelete,$condition,$fieldCondition);
         $t->paintTable();
 
         ?>
