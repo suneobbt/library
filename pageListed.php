@@ -1,11 +1,11 @@
 <?php
-session_cache_limiter ('nocache,private');
+session_cache_limiter('nocache,private');
 session_start();
 
-include ('confirmIfSessionSet.php');
+include('confirmIfSessionSet.php');
 
-if (isset($_GET['id'])){
-   include('delete.php');
+if (isset($_GET['id'])) {
+    include('delete.php');
 }
 ?>
 
@@ -30,12 +30,12 @@ if (isset($_GET['id'])){
 <main>
     <!-- Aside 1(left top) for tools acces -->
     <aside id="ad1">
-        <?php include('extendedUser_toolsMenu.inc');?>
+        <?php include('extendedUser_toolsMenu.inc'); ?>
     </aside>
 
     <!-- Aside 2(right top) for login -->
     <aside id="ad2">
-        <?php include ('loggedInAs.inc') ?>
+        <?php include('loggedInAs.inc') ?>
     </aside>
 
     <section>
@@ -60,35 +60,40 @@ if (isset($_GET['id'])){
         }
 
         // name of fields to be shown
+        //TODO: Implement copy list
+
         switch ($tableName) {
             case "lend":
                 $fields = array("id_lend", "dni", "start_time_lend");
-                if ($_SESSION['user_type'] != '0'){
-                    $fields[]="id_copy";
-                }else{
+                if ($_SESSION['user_type'] != '0') {
+                    $fields[] = "id_copy";
+                } else {
                     //add condition to show only her lends
                     $fieldCondition = "dni";
                 }
                 break;
+
             case "reserve":
                 $fields = array("id_reserve", "dni", "start_time_reserve");
-                if ($_SESSION['user_type'] != '0'){
-                    $fields[]="id_copy";
-                }else{
+                if ($_SESSION['user_type'] != '0') {
+                    $fields[] = "id_copy";
+                } else {
                     //add condition to show only her reserves
                     $fieldCondition = "dni";
                 }
                 break;
+
             case "book":
-                $fields = array("isbn","title","author","editorial","year","language");
+                $fields = array("isbn", "title", "author", "editorial", "year", "language");
                 break;
+
             case "users":
-                $fields = array("dni","name","surname","user_type");
+                $fields = array("dni", "name", "surname", "user_type");
                 break;
         }
 
         $t = new MakeTable($dbName, $tableName, $fields, $fileBrowse,
-            $fileUpdate, $fileDelete,$condition,$fieldCondition);
+            $fileUpdate, $fileDelete, $condition, $fieldCondition);
         $t->paintTable();
 
         ?>

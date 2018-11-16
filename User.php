@@ -23,6 +23,9 @@ class User
      * User constructor.
      * @param $user
      */
+
+    //TODO: Overload constructor, same as book class. One for news users and other one for users already in db
+
     function __construct($user)
     {
         include("connection_data.inc");

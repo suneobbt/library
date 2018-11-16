@@ -6,10 +6,10 @@
  * Time: 20:38
  */
 
-session_cache_limiter ('nocache,private');
+session_cache_limiter('nocache,private');
 session_start();
 
-include ('confirmIfSessionSet.php');
+include('confirmIfSessionSet.php');
 
 ?>
 
@@ -34,31 +34,61 @@ include ('confirmIfSessionSet.php');
 <main>
     <!-- Aside 1(left top) for tools acces -->
     <aside id="ad1">
-        <?php include('extendedUser_toolsMenu.inc');?>
+        <?php include('extendedUser_toolsMenu.inc'); ?>
     </aside>
 
     <!-- Aside 2(right top) for login -->
     <aside id="ad2">
-        <?php include ('loggedInAs.inc') ?>
+        <?php include('loggedInAs.inc') ?>
     </aside>
 
     <section>
 
         <?php
         require_once("MakeForm.php");
+        require_once("Book.php");
+        //lets modify some tables
+
+        $tableName = $_GET['ref'];
+        $id = $_GET['id'];
+
+        $form = new MakeForm("modifyProcess.php?ref=".$tableName, "Modify ".$tableName);
+        //TODO: Implement form creator
+        switch ($tableName) {
+            case 'book':
+
+                $work_book=new Book($id);
+                $form->addField("isbn","ISBN","text","",$work_book->getIsbn(),"");
+                $form->addField();
+
+                break;
+
+            case 'users':
+                $work_user=new Book($id);
+                $form->addField();
+
+                break;
+
+            case 'lend':
+                $work_lend=new Book($id);
+                $form->addField();
+
+                break;
+
+            case 'reserve':
+                $work_reserve=new Book($id);
+                $form->addField();
+
+                break;
+
+            case 'copy':
+                $work_copy=new Book($id);
+                $form->addField();
+
+                break;
+        }
 
 
-        
-
-
-        $form = new MakeForm("process.php","Submit Phone");
-
-        $form->addField("first_name","First Name","text");
-        $form->addField("last_name" ,"Last Name","text","disabled","","");
-        $form->addField("phone","Phone","text");
-        $form->addField("phone","Phone","text");
-        $form->addField("phone","Phone","text");
-        $form->addField("phone","Phone","text");
 
         $form->displayForm();
 

@@ -23,7 +23,6 @@ Class Book
 
     /**
      * Book constructor. Construct overloading.
-     * @param $isbn
      */
     public function __construct()
     {
@@ -44,7 +43,6 @@ Class Book
             call_user_func_array(array($this, $f_constructor), $params);
         }
     }
-
 
     /**
      * Book constructor no1. Make an object book using data from database.
@@ -116,7 +114,7 @@ Class Book
     /**
      *
      */
-    public function insertToBD()
+    public function insertBookToBD()
     {
         //TODO: Implement method to insert the values from an object into a database
     }
@@ -124,9 +122,9 @@ Class Book
     /**
      *
      */
-    public function updateToBD()
+    public function updateBookOfBD()
     {
-        //TODO: Implement method who modify the data from database with the recived data from the object
+        //TODO: Implement method who modify the data from database with the received data from the object
     }
 
     /**
