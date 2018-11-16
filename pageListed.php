@@ -50,12 +50,12 @@ if (isset($_GET['id'])){
         $fieldCondition = "";
 
         // files where to jump to Browse, Edit and Delete the selected row.
-        $fileBrowse = "browse.php";
+        $fileBrowse = "pageBook.php";
         $fileUpdate = "";
         $fileDelete = "";
 
         if ($_SESSION['user_type'] != '0') {
-            $fileUpdate = "edit.php";
+            $fileUpdate = "pageForm.php";
             $fileDelete = "pageListed.php";
         }
 
@@ -80,7 +80,7 @@ if (isset($_GET['id'])){
                 }
                 break;
             case "book":
-                $fields = array("isbn","title","author","editorial","year","language","book_condition");
+                $fields = array("isbn","title","author","editorial","year","language");
                 break;
             case "users":
                 $fields = array("dni","name","surname","user_type");

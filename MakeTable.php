@@ -9,7 +9,7 @@ class MakeTable
     private $fieldList = array();
     private $mysqli;
     private $row;
-    private $nextRow;
+    //private $nextRow;
     private $registers;
     private $fileBrowse, $fileUpdate, $fileDelete;
     private $condition;

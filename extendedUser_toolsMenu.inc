@@ -27,10 +27,11 @@ switch ($_SESSION['user_type']) {
     case 1:
         echo "
             <h2>Actions</h2>
-            <a href=\"\">Home panel</a></br>
+            <a href=\"pageUser.php\">Home panel</a></br>
             <a href=\"pageListed.php\">Defaulters</a></br>
             <a href=\"pageListed.php?ref=users\">Users</a></br>
             <a href=\"pageBook.php\">Add book</a></br>
+            <a href=\"pageListed.php?ref=book\">Books</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
             <a href=\"pageListed.php?ref=lend\">Lends</a></br>
             <a href=\"index.php\">Stadistics</a></br>";

@@ -19,6 +19,10 @@ class User
     private $direction;
     private $pass;
 
+    /**
+     * User constructor.
+     * @param $user
+     */
     function __construct($user)
     {
         include("connection_data.inc");

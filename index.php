@@ -13,7 +13,7 @@
     <h2>Where knowledge occupies place</h2>
 </header>
 
-<nav>Link1 | Link2 | Link3 | Link4</nav>
+<nav><a href="pageUser.php">User Page</a> | Link2 | Link3 | Link4</nav>
 
 <main>
     <!-- Aside 1(left top) for news -->
