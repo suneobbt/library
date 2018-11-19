@@ -23,7 +23,7 @@ class MakeForm
 
 // Function that adds a field to the form. The user needs to
 // send the name of the field and a label to be displayed.
-    public function addField($id,$label,$type,$disabled="",$value="",$placeholder="")
+    public function addField($id,$label,$type,$required="",$disabled="",$value="",$placeholder="")
     {
         $this->fields[$this->Nfields]['id']  = $id;
         $this->fields[$this->Nfields]['label'] = $label;
@@ -31,6 +31,7 @@ class MakeForm
         $this->fields[$this->Nfields]['value'] = $value;
         $this->fields[$this->Nfields]['placeholder'] = $placeholder;
         $this->fields[$this->Nfields]['disabled'] = $disabled;
+        $this->fields[$this->Nfields]['required'] = $required;
 
 
         $this->Nfields++;
@@ -44,7 +45,7 @@ class MakeForm
         {
             echo "<p><label for='{$this->fields[$j - 1]['id']}'>{$this->fields[$j - 1]['label']}: </label>";
 
-            echo "<input type='{$this->fields[$j - 1]['type']}' id='{$this->fields[$j - 1]['id']}' placeholder='{$this->fields[$j - 1]['placeholder']}' value='{$this->fields[$j - 1]['value']}' {$this->fields[$j - 1]['disabled']}><br/>";
+            echo "<input type='{$this->fields[$j - 1]['type']}' id='{$this->fields[$j - 1]['id']}' placeholder='{$this->fields[$j - 1]['placeholder']}' value='{$this->fields[$j - 1]['value']}' {$this->fields[$j - 1]['disabled']} {$this->fields[$j - 1]['required']}><br/>";
         } // for
 
         echo "<p><input type='submit' value='{$this->submit}'></p>";

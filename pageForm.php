@@ -52,42 +52,67 @@ include('confirmIfSessionSet.php');
         $tableName = $_GET['ref'];
         $id = $_GET['id'];
 
-        $form = new MakeForm("modifyProcess.php?ref=".$tableName, "Modify ".$tableName);
+        $form = new MakeForm("modifyProcess.php?ref=" . $tableName, "Modify " . $tableName);
         //TODO: Implement form creator
         switch ($tableName) {
             case 'book':
-
-                $work_book=new Book($id);
-                $form->addField("isbn","ISBN","text","",$work_book->getIsbn(),"");
-                $form->addField();
-
+                $work_book = new Book($id);
+                $form->addField("isbn", "ISBN", "text", "required", "", $work_book->getIsbn());
+                $form->addField("title", "Title", "text", "", "required", $work_book->getTitle());
+                $form->addField("author", "Author", "text", "", "required", $work_book->getAuthor());
+                $form->addField("editorial", "Editorial", "text", "required", "", $work_book->getEditorial());
+                $form->addField("edition", "Edition", "text", "", "", $work_book->getEdition());
+                $form->addField("year", "Year", "text", "required", "", $work_book->getYear());
+                $form->addField("category", "Category", "text", "", "", $work_book->getCategory());
+                $form->addField("language", "Language", "text", "required", "", $work_book->getLanguage());
+                $form->addField("description", "Description", "text", "", "", $work_book->getDescription());
+                $form->addField("bookCondition", "Book Condition", "text", "", "", $work_book->getBookCondition());
+                $form->addField("continuousOf", "Continuous Of", "text", "", "", $work_book->getContinuousOf());
+                $form->addField("continuedBy", "Continued By", "text", "", "", $work_book->getContinuedBy());
                 break;
 
             case 'users':
-                $work_user=new Book($id);
-                $form->addField();
+                $work_user = new User($id);
+                $form->addField("dni", "DNI", "text", "required", "", $work_user->getDni());
+                $form->addField("name", "Name", "text", "required", "", $work_user->getName());
+                $form->addField("surname", "Surname", "text", "required", "", $work_user->getSurname());
+                $form->addField("pass", "Password", "password", "required", "", $work_user->getPass());
+                $form->addField("email", "E-Mail", "email", "required", "", $work_user->getEmail());
+                $form->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "", $work_user->getUserType());
+                $form->addField("phone_number", "Phone Number", "text", "required", "", $work_user->getPhoneNumber());
+                $form->addField("direction", "Direction", "text", "", "", $work_user->getDirection());
+                $form->addField("city", "City", "text", "", "", $work_user->getCity());
+                $form->addField("postal_code", "Postal Code", "text", "", "", $work_user->getPostalCode());
 
                 break;
 
             case 'lend':
-                $work_lend=new Book($id);
-                $form->addField();
+                $work_lend = new Lend($id);
+                $form->addField("lend_id", "Lend ID", "text", "required", "", $work_lend->getID());
+                $form->addField("start_time_lend", "Start day of the lend", "date", "required", "", $work_lend->getStartTime());
+                $form->addField("dni", "DNI", "text", "required", "", $work_lend->getDni());
+                $form->addField("copy_id", "Copy ID", "text", "required", "", $work_lend->getCopyID());
+
 
                 break;
 
             case 'reserve':
-                $work_reserve=new Book($id);
-                $form->addField();
+                $work_reserve = new Reserve($id);
+                $form->addField("reserve_id", "Reserve ID", "text", "required", "", $work_reserve->getID());
+                $form->addField("start_time_reserve", "Start day of the lend", "date", "required", "", $work_reserve->getStartTime());
+                $form->addField("dni", "DNI", "text", "required", "", $work_reserve->getDni());
+                $form->addField("copy_id", "Copy ID", "text", "required", "", $work_reserve->getCopyID());
+
 
                 break;
 
             case 'copy':
-                $work_copy=new Book($id);
-                $form->addField();
+                $work_copy=new Copy($id);
+                $form->addField("isbn", "ISBN", "text", "required", "", $work_copy->getIsbn());
+                $form->addField("copy_id", "Copy ID", "text", "required", "", $work_copy->getCopyID());
 
                 break;
         }
-
 
 
         $form->displayForm();
