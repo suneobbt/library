@@ -18,7 +18,7 @@ include('confirmIfSessionSet.php');
 <html>
 
 <head>
-    <title>The Library - Form </title>
+    <title>The Library - Browse </title>
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>

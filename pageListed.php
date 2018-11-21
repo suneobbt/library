@@ -50,7 +50,7 @@ if (isset($_GET['id'])) {
         $fieldCondition = "";
 
         // files where to jump to Browse, Edit and Delete the selected row.
-        $fileBrowse = "pageBook.php";
+        $fileBrowse = "pageBrowse.php";
         $fileUpdate = "";
         $fileDelete = "";
 

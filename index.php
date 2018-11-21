@@ -6,7 +6,6 @@
     <meta charset="utf-8"/>
     <link rel="stylesheet" type="text/css" href="css/index.css">
 </head>
-
 <body>
 <header>
     <h1>The Library</h1>
@@ -37,6 +36,7 @@
     <!-- Aside 2(right top) for login -->
     <aside id="ad2">
         <?php
+        //TODO : Page generator html
         session_start();
         $valid_session = isset($_SESSION['session_id']) ? $_SESSION['session_id'] === session_id() : FALSE;
 

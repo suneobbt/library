@@ -116,16 +116,16 @@ class MakeTable
 
         $idToGiveInGet = $this->row[$this->fieldList[0]];
         if ($this->fileBrowse != "") {
-            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileBrowse?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/browse.png'> </a></td>";
+            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileBrowse?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/browse.png'> </a></td>";
         }
 
         if ($this->fileUpdate != "") {
-            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileUpdate?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/edit.png'> </a></td>";
+            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileUpdate?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/edit.png'> </a></td>";
         }
 
         if ($this->fileDelete != "") {
-           // echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/delete.png'> </a></td>";
-            echo "<td width='30' height='30' align = 'center' onclick=\"deleteRow('$idToGiveInGet','$this->tableName','$this->fileDelete')\"> <a href=#> <img src='res/delete.png'> </a></td>";
+           // echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/delete.png'> </a></td>";
+            echo "<td width='30' height='30' align = 'center' onclick=\"deleteRow('$idToGiveInGet','$this->tableName','$this->fileDelete')\"> <a href=#> <img src='res/icons/delete.png'> </a></td>";
         }
 
     } // paintRow

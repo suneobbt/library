@@ -120,12 +120,40 @@ Class Book
     }
 
     /**
-     *
      */
     public function updateBookOfBD()
     {
         //TODO: Implement method who modify the data from database with the received data from the object
+        include_once('connection_data.inc');
+
+        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
+
+        if ($connexion->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            die();
+        }
+
+        $sentenciaSQL = "UPDATE book SET 
+            isbn='$this->isbn',
+            title='$this->title',
+            author='$this->author',
+            editorial='$this->editorial',
+            edition='$this->edition',
+            year='$this->year',
+            category='$this->category',
+            language='$this->language',
+            description='$this->description',
+            book_condition='$this->book_condition',
+            continuous_of='$this->continuous_of',
+            continued_by='$this->continued_by'
+            WHERE isbn='$this->isbn';";
+
+        echo $sentenciaSQL;
+
+        $sql_result = $connexion->query($sentenciaSQL);
+        header ("Location: pageBrowse.php?id=".$this->isbn."ref=book");
     }
+
 
     /**
      * @return mixed
