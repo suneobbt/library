@@ -123,7 +123,6 @@ Class Book
      */
     public function updateBookOfBD()
     {
-        //TODO: Implement method who modify the data from database with the received data from the object
         include_once('connection_data.inc');
 
         $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
@@ -148,10 +147,10 @@ Class Book
             continued_by='$this->continued_by'
             WHERE isbn='$this->isbn';";
 
-        echo $sentenciaSQL;
+        //echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
-        header ("Location: pageBrowse.php?id=".$this->isbn."ref=book");
+        header ("Location: pageBrowse.php?id=".$this->isbn."&ref=book");
     }
 
 

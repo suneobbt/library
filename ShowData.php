@@ -8,40 +8,45 @@
 
 class ShowData
 {
-    private $fields = array(); 		 # contains field names and labels
-    private $NLines = 0; 			 # number of fields added to the form
-    private $actionValue;
+    private $lines = array();         # contains field names and labels
+    private $NLines = 0;             # number of fields added to the form
+    private $actionModify;
+    private $actionDelete;
+    private $buttonsOn = false;
 
 
-    public function __construct($actionValue)
+    public function __construct()
     {
-        $this->actionValue = $actionValue;
+    }
 
-    } // __construct
-
-
-
-    public function addLine($name,$data)
+    public function addButtons($actionDelete, $actionModify)
     {
-        $this->fields[$this->NLines]['name']  = $name;
-        $this->fields[$this->NLines]['data'] = $data;
+        $this->buttonsOn = true;
+        $this->actionModify = $actionModify;
+        $this->actionDelete = $actionDelete;
+
+    }
+
+    public function addLine($name, $data)
+    {
+        $this->lines[$this->NLines]['name'] = $name;
+        $this->lines[$this->NLines]['data'] = $data;
 
         $this->NLines++;
     } // addField
 
-    /* Display form function to display the data.*/
+    /* Display data function to display the data.*/
     public function displayData()
     {
-        echo "<h2></h2>";
-        for($j=1; $j <= sizeof($this->fields); $j++)
-        {
-            echo "<p><label for='{$this->fields[$j - 1]['id']}'>{$this->fields[$j - 1]['label']}: </label>";
 
-            echo "<input type='{$this->fields[$j - 1]['type']}' id='{$this->fields[$j - 1]['id']}' name='{$this->fields[$j - 1]['id']}' placeholder='{$this->fields[$j - 1]['placeholder']}' value='{$this->fields[$j - 1]['value']}' {$this->fields[$j - 1]['disabled']} {$this->fields[$j - 1]['required']}><br/>";
+        for ($j = 1; $j <= sizeof($this->lines); $j++) {
+            echo "<p><b>{$this->lines[$j - 1]['name']}:</b>  ";
+
+            echo " {$this->lines[$j - 1]['data']}</p>";
         } // for
 
-        echo "<p><input type='submit' onclick='{$this->actionValue}'>Modify data</p>";
-        echo "</form>";
+        if ($this->buttonsOn) echo "<a href='{$this->actionModify}'>Modify data</a>"."<a onclick='{$this->actionDelete}'>Delete it</a>";
+
     } // displayForm
 
 } // class ShowData

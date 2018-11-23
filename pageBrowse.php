@@ -45,7 +45,7 @@ include('confirmIfSessionSet.php');
     <section>
 
         <?php
-        require_once("MakeForm.php");
+        require_once("ShowData.php");
         require_once("Book.php");
         require_once("Lend.php");
         require_once("Reserve.php");
@@ -54,73 +54,92 @@ include('confirmIfSessionSet.php');
         $tableName = $_GET['ref'];
         $id = $_GET['id'];
 
-        $form = new MakeForm("modifyProcess.php?ref=" . $tableName, "Modify " . $tableName);
-        //TODO: Implement form creator
+        //TODO: Implement button delete url
+        $data = new ShowData();
+
+        $actionModify = "pageForm.php?ref=" . $tableName . "&id=" . $id;
+        $actionDelete = "delete";
 
         switch ($tableName) {
             case 'book':
                 $work_book = new Book($id);
-                $form->addField("isbn", "ISBN", "text", "required", "", $work_book->getIsbn());
-                $form->addField("title", "Title", "text", "", "required", $work_book->getTitle());
-                $form->addField("author", "Author", "text", "", "required", $work_book->getAuthor());
-                $form->addField("editorial", "Editorial", "text", "required", "", $work_book->getEditorial());
-                $form->addField("edition", "Edition", "text", "", "", $work_book->getEdition());
-                $form->addField("year", "Year", "text", "required", "", $work_book->getYear());
-                $form->addField("category", "Category", "text", "", "", $work_book->getCategory());
-                $form->addField("language", "Language", "text", "required", "", $work_book->getLanguage());
-                $form->addField("description", "Description", "text", "", "", $work_book->getDescription());
-                $form->addField("book_condition", "Book Condition", "text", "", "", $work_book->getBookCondition());
-                $form->addField("continuous_of", "Continuous Of", "text", "", "", $work_book->getContinuousOf());
-                $form->addField("continued_by", "Continued By", "text", "", "", $work_book->getContinuedBy());
+                echo "<h2>" . $work_book->getTitle() . " - " . $work_book->getAuthor() . "</h2>";
+                $data->addLine("ISBN", $work_book->getIsbn());
+                $data->addLine("Title", $work_book->getTitle());
+                $data->addLine("Author", $work_book->getAuthor());
+                $data->addLine("Editorial", $work_book->getEditorial());
+                $data->addLine("Edition", $work_book->getEdition());
+                $data->addLine("Year", $work_book->getYear());
+                $data->addLine("Category", $work_book->getCategory());
+                $data->addLine("Language", $work_book->getLanguage());
+                $data->addLine("Description", $work_book->getDescription());
+                $data->addLine("Book Condition", $work_book->getBookCondition());
+                $data->addLine("Continuous Of", $work_book->getContinuousOf());
+                $data->addLine("Continued By", $work_book->getContinuedBy());
+
+                if ($_SESSION['user_type'] != '0') {
+                    $data->addButtons($actionDelete, $actionModify);
+                }
+
                 break;
 
             case 'users':
                 $work_user = new User($id);
-                $form->addField("dni", "DNI", "text", "required", "", $work_user->getDni());
-                $form->addField("name", "Name", "text", "required", "", $work_user->getName());
-                $form->addField("surname", "Surname", "text", "required", "", $work_user->getSurname());
-                $form->addField("pass", "Password", "password", "required", "", $work_user->getPass());
-                $form->addField("email", "E-Mail", "email", "required", "", $work_user->getEmail());
-                $form->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "", $work_user->getUserType());
-                $form->addField("phone_number", "Phone Number", "text", "required", "", $work_user->getPhoneNumber());
-                $form->addField("direction", "Direction", "text", "", "", $work_user->getDirection());
-                $form->addField("city", "City", "text", "", "", $work_user->getCity());
-                $form->addField("postal_code", "Postal Code", "text", "", "", $work_user->getPostalCode());
+                echo "<h2>" . $work_user->getName() . " - " . $work_user->getDni() . "</h2>";
+                $data->addLine("DNI", $work_user->getDni());
+                $data->addLine("Name", $work_user->getName());
+                $data->addLine("Surname", $work_user->getSurname());
+                $data->addLine("Password", $work_user->getPass());
+                $data->addLine("E-Mail", $work_user->getEmail());
+                $data->addLine("User Type (0-Normal user, 1-Librarian, 2-Administrator)", $work_user->getUserType());
+                $data->addLine("Phone Number", $work_user->getPhoneNumber());
+                $data->addLine("Direction", $work_user->getDirection());
+                $data->addLine("City", $work_user->getCity());
+                $data->addLine("Postal Code", $work_user->getPostalCode());
 
+                if ($_SESSION['user_type'] != '0') {
+                    $data->addButtons($actionDelete, $actionModify);
+                }
                 break;
 
             case 'lend':
                 $work_lend = new Lend($id);
-                $form->addField("lend_id", "Lend ID", "text", "required", "", $work_lend->getIdLend());
-                $form->addField("start_time_lend", "Start day of the lend", "date", "required", "", $work_lend->getStartTimeLend());
-                $form->addField("dni", "DNI", "text", "required", "", $work_lend->getDni());
-                $form->addField("copy_id", "Copy ID", "text", "required", "", $work_lend->getIdCopy());
+                echo "<h2>Lend ID: " . $work_lend->getIdLend() . "</h2>";
+                $data->addLine("Lend ID", $work_lend->getIdLend());
+                $data->addLine("Start day of the lend", $work_lend->getStartTimeLend());
+                $data->addLine("DNI", $work_lend->getDni());
+                $data->addLine("Copy ID", $work_lend->getIdCopy());
 
+                if ($_SESSION['user_type'] != '0') {
+                    $data->addButtons($actionDelete, $actionModify);
+                }
 
                 break;
 
             case 'reserve':
                 $work_reserve = new Reserve($id);
-                $form->addField("reserve_id", "Reserve ID", "text", "required", "", $work_reserve->getIdReserve());
-                $form->addField("start_time_reserve", "Start day of the lend", "date", "required", "", $work_reserve->getStartTimeReserve());
-                $form->addField("dni", "DNI", "text", "required", "", $work_reserve->getDni());
-                $form->addField("copy_id", "Copy ID", "text", "required", "", $work_reserve->getIdCopy());
+                echo "<h2>Reserve ID: " . $work_reserve->getIdReserve() . "</h2>";
+                $data->addLine("Reserve ID", $work_reserve->getIdReserve());
+                $data->addLine("Start day of the lend", $work_reserve->getStartTimeReserve());
+                $data->addLine("DNI", $work_reserve->getDni());
+                $data->addLine("Copy ID", $work_reserve->getIdCopy());
 
-
+                $data->addButtons($actionDelete, $actionModify);
                 break;
 
             case 'copy':
-                $work_copy=new Copy($id);
-                $form->addField("isbn", "ISBN", "text", "required", "", $work_copy->getIsbn());
-                $form->addField("copy_id", "Copy ID", "text", "required", "", $work_copy->getIdCopy());
+                $work_copy = new Copy($id);
+                echo "<h2>ISBN: " . $work_copy->getIsbn() . " - Copy ID: " . $work_copy->getIdCopy() . "</h2>";
+                $data->addLine("ISBN", $work_copy->getIsbn());
+                $data->addLine("Copy ID", $work_copy->getIdCopy());
 
                 break;
         }
 
 
-        $form->displayForm();
 
-        echo "</body></html>";
+        $data->displayData();
+
 
         ?>
 

@@ -94,6 +94,7 @@ if (isset($_GET['id'])) {
 
         $t = new MakeTable($dbName, $tableName, $fields, $fileBrowse,
             $fileUpdate, $fileDelete, $condition, $fieldCondition);
+
         $t->paintTable();
 
         ?>

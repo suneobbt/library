@@ -82,7 +82,27 @@ class Reserve
 
     public function updateReserveOfBD()
     {
-        //TODO: Implement method who modify the data from database with the received data from the object
+        include_once('connection_data.inc');
+
+        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
+
+        if ($connexion->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            die();
+        }
+
+        $sentenciaSQL = "UPDATE reserve SET 
+            id_reserve='$this->id_reserve',
+            start_time_reserve='$this->start_time_reserve',
+            dni='$this->dni',
+            id_copy='$this->id_copy'
+
+            WHERE id_reserve='$this->id_reserve';";
+
+        echo $sentenciaSQL;
+
+        $sql_result = $connexion->query($sentenciaSQL);
+       // header ("Location: pageBrowse.php?id=".$this->id_reserve."&ref=reserve");
     }
 
     /**
