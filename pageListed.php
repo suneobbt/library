@@ -49,6 +49,9 @@ if (isset($_GET['id'])) {
         $condition = $_SESSION['user_id'];
         $fieldCondition = "";
 
+        $adminUser=false;
+        if ($_SESSION['user_type']==2) $adminUser=true;
+
         // files where to jump to Browse, Edit and Delete the selected row.
         $fileBrowse = "pageBrowse.php";
         $fileUpdate = "";
@@ -89,6 +92,11 @@ if (isset($_GET['id'])) {
 
             case "users":
                 $fields = array("dni", "name", "surname", "user_type");
+
+                if (!$adminUser){
+                    $fieldCondition = "user_type";
+                    $condition = "'0' OR user_type='1'";
+                }
                 break;
         }
 

@@ -53,8 +53,8 @@ include('confirmIfSessionSet.php');
 
         $tableName = $_GET['ref'];
         $id = $_GET['id'];
-       // $superUser=
-        //if ($_GET['id'])
+        $superUser=false;
+        if ($_GET['id']!=0) $superUser=true;
 
 
         $data = new MakeForm("modifyProcess.php?ref=" . $tableName, "Modify " . $tableName);
@@ -83,7 +83,7 @@ include('confirmIfSessionSet.php');
                 $data->addField("surname", "Surname", "text", "required", "", $work_user->getSurname());
                 $data->addField("pass", "Password", "password", "required", "", $work_user->getPass());
                 $data->addField("email", "E-Mail", "email", "required", "", $work_user->getEmail());
-                $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "", $work_user->getUserType());
+                if ($superUser) $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "", $work_user->getUserType());
                 $data->addField("phone_number", "Phone Number", "text", "required", "", $work_user->getPhoneNumber());
                 $data->addField("direction", "Direction", "text", "", "", $work_user->getDirection());
                 $data->addField("city", "City", "text", "", "", $work_user->getCity());
@@ -110,7 +110,7 @@ include('confirmIfSessionSet.php');
                 break;
 
             case 'copy':
-                $work_copy=new Copy($id);
+                $work_copy = new Copy($id);
                 $data->addField("isbn", "ISBN", "text", "required", "", $work_copy->getIsbn());
                 $data->addField("copy_id", "Copy ID", "text", "required", "", $work_copy->getIdCopy());
 

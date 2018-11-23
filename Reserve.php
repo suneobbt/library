@@ -102,7 +102,7 @@ class Reserve
         echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
-       // header ("Location: pageBrowse.php?id=".$this->id_reserve."&ref=reserve");
+        header ("Location: pageBrowse.php?id=".$this->id_reserve."&ref=reserve");
     }
 
     /**

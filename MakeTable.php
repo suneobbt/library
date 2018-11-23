@@ -95,7 +95,7 @@ class MakeTable
         $sentenciaSQL .= $this->fieldList[$this->numFields - 1] . " from " . $this->tableName;
 
         if ($this->fieldCondition != "") {
-            $sentenciaSQL = $sentenciaSQL . " where " . $this->fieldCondition . "='" . $this->condition . "';";
+            $sentenciaSQL = $sentenciaSQL . " where " . $this->fieldCondition . "=" . $this->condition . ";";
         }
 
         //echo "sentence:  " . $sentenciaSQL;
