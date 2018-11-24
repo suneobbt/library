@@ -116,7 +116,41 @@ Class Book
      */
     public function insertBookToBD()
     {
-        //TODO: Implement method to insert the values from an object into a database
+        include_once('connection_data.inc');
+
+        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
+
+        if ($connexion->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            die();
+        }
+
+        $sentenciaSQL = "INSERT INTO book VALUES( 
+            '$this->isbn',
+            '$this->title',
+            '$this->author',
+            '$this->editorial',
+            '$this->edition',
+            '$this->year',
+            '$this->category',
+            '$this->language',
+            '$this->description',
+            '$this->book_condition',
+            '$this->continuous_of',
+            '$this->continued_by'
+            );";
+
+        echo $sentenciaSQL;
+
+        $sql_result = $connexion->query($sentenciaSQL);
+
+         if ($sql_result) {
+             header("Location: pageBrowse.php?id=" . $this->isbn . "&ref=book");
+         }else{
+             header("Location:".$_SERVER['HTTP_REFERER']."&msg=805");
+         }
+
+
     }
 
     /**
@@ -150,7 +184,7 @@ Class Book
         //echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
-        header ("Location: pageBrowse.php?id=".$this->isbn."&ref=book");
+        header("Location: pageBrowse.php?id=" . $this->isbn . "&ref=book");
     }
 
 

@@ -57,8 +57,8 @@ include('confirmIfSessionSet.php');
         if ($_SESSION['user_type'] == 2) $superUser = true;
 
         if ($id == "new") {
-            $data = new MakeForm("modifyProcess.php?ref=" . $tableName."&new=true", "Insert new " . $tableName);
-            echo"<h2>Insert new ".$tableName."</h2>";
+            $data = new MakeForm("modifyProcess.php?ref=" . $tableName . "&new=true", "Insert new " . $tableName);
+            echo "<h2>Insert new " . $tableName . "</h2>";
             switch ($tableName) {
                 case 'book':
                     $data->addField("isbn", "ISBN", "text", "required", "", "");
@@ -99,7 +99,7 @@ include('confirmIfSessionSet.php');
                     $data->addField("start_time_lend", "Start day of the lend", "date", "required", "", "");
                     $data->addField("dni", "DNI", "text", "required", "readonly", "");
                     $data->addField("id_copy", "Copy ID", "text", "required", "readonly", "");
-
+                    $data->addField("returned", "Returned", "text", "required", "", "");
 
                     break;
 
@@ -116,7 +116,7 @@ include('confirmIfSessionSet.php');
                     break;
             }
         } else {
-            $data = new MakeForm("modifyProcess.php?ref=" . $tableName."&new=false", "Modify " . $tableName);
+            $data = new MakeForm("modifyProcess.php?ref=" . $tableName . "&new=false", "Modify " . $tableName);
 
             switch ($tableName) {
                 case 'book':
@@ -155,7 +155,10 @@ include('confirmIfSessionSet.php');
                     $data->addField("start_time_lend", "Start day of the lend", "date", "required", "", $work_lend->getStartTimeLend());
                     $data->addField("dni", "DNI", "text", "required", "readonly", $work_lend->getDni());
                     $data->addField("id_copy", "Copy ID", "text", "required", "readonly", $work_lend->getIdCopy());
+                    $returnedValue = $work_lend->getReturned() === '1'? 'true': 'false';
+                    $data->addField("returned", "Returned", "text", "required", "", $returnedValue);
                     $data->addNote("* If you change this values, is like make a new lend. For it, delete the lend and create a new one.");
+
 
 
                     break;

@@ -30,11 +30,13 @@ switch ($_SESSION['user_type']) {
             <a href=\"pageUser.php\">Home panel</a></br>
             <a href=\"pageListed.php\">Defaulters</a></br>
             <a href=\"pageListed.php?ref=users\">Users</a></br>
-            <a href=\"pageForm.php?id=new&ref=users\">Add user</a></br>
-            <a href=\"pageBrowse.php\">Add book</a></br>
+            <a href=\"pageForm.php?id=new&ref=users\">Add user</a></br>        
             <a href=\"pageListed.php?ref=book\">Books</a></br>
+            <a href=\"pageForm.php?id=new&ref=book\">Add book</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
+            <a href=\"pageForm.php?id=new&ref=reserve\">New reserve</a></br>
             <a href=\"pageListed.php?ref=lend\">Lends</a></br>
+            <a href=\"pageForm.php?id=new&ref=lend\">New lend</a></br>
             <a href=\"index.php\">Stadistics</a></br>";
         break;
     //end case 1

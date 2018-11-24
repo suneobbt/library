@@ -54,7 +54,7 @@
                 <br/><br/>
                 <input type=\"submit\" value=\"Get in\"/>
                 <br/><br/>
-                <div>You aren't a client yet? <a href=\"register.php?form=new\">Register here</a></div>
+                <div>You aren't a client yet? <a href=\"pageForm.php?id=register&ref=user\">Register here</a></div>
             </form>";
         }
         ?>

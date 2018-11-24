@@ -117,6 +117,9 @@ include('confirmIfSessionSet.php');
                 $data->addLine("DNI", $work_lend->getDni());
                 $data->addLine("Copy ID", $work_lend->getIdCopy());
 
+                $returnedValue = $work_lend->getReturned() === '1'? 'true': 'false';
+                $data->addLine("Returned", $returnedValue);
+
                 if ($_SESSION['user_type'] != '0') {
                     $data->addButtons($actionDelete, $actionModify);
                 }

@@ -13,6 +13,7 @@ class Lend
     private $start_time_lend;
     private $dni;
     private $id_copy;
+    private $returned;
 
     /**
      * Lend constructor. Construct overloading.
@@ -62,6 +63,7 @@ class Lend
             $this->start_time_lend = $row['start_time_lend'];
             $this->dni = $row['dni'];
             $this->id_copy = $row['id_copy'];
+            $this->returned = $row['returned'];
         }
     }
 
@@ -71,13 +73,15 @@ class Lend
      * @param $start_time_lend
      * @param $dni
      * @param $id_copy
+     * @param $returned
      */
-    public function __construct4($id_lend, $start_time_lend, $dni, $id_copy)
+    public function __construct5($id_lend, $start_time_lend, $dni, $id_copy,$returned)
     {
         $this->id_lend = $id_lend;
         $this->start_time_lend = $start_time_lend;
         $this->dni = $dni;
         $this->id_copy = $id_copy;
+        $this->returned = $returned;
     }
 
 
@@ -97,11 +101,14 @@ class Lend
             die();
         }
 
+        $returnedValue = $this->returned === 'true'? 1: 0;
+
         $sentenciaSQL = "UPDATE lend SET 
             id_lend='$this->id_lend',
             start_time_lend='$this->start_time_lend',
             dni='$this->dni',
-            id_copy='$this->id_copy'
+            id_copy='$this->id_copy',
+            returned='$returnedValue'
 
             WHERE id_lend='$this->id_lend';";
 
@@ -109,6 +116,22 @@ class Lend
 
         $sql_result = $connexion->query($sentenciaSQL);
         header ("Location: pageBrowse.php?id=".$this->id_lend."&ref=lend");
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getReturned()
+    {
+        return $this->returned;
+    }
+
+    /**
+     * @param mixed $returned
+     */
+    public function setReturned($returned)
+    {
+        $this->returned = $returned;
     }
 
     /**

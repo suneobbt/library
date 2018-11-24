@@ -77,7 +77,32 @@ class Reserve
 
     public function insertReserveToBD()
     {
-        //TODO: Implement method to insert the values from an object into a database
+        include_once('connection_data.inc');
+
+        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
+
+        if ($connexion->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            die();
+        }
+
+        $sentenciaSQL = "INSERT INTO reserve VALUES( 
+            '$this->id_reserve',
+            '$this->start_time_reserve',
+            '$this->dni',
+            '$this->id_copy'
+            );";
+
+        echo $sentenciaSQL;
+
+        $sql_result = $connexion->query($sentenciaSQL);
+
+        if ($sql_result) {
+            header("Location: pageBrowse.php?id=" . $this->id_reserve . "&ref=reserve");
+        }else{
+            header("Location:".$_SERVER['HTTP_REFERER']."&msg=805");
+        }
+
     }
 
     public function updateReserveOfBD()

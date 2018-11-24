@@ -30,8 +30,8 @@ if (!$sql_result->num_rows) {
 }
 
 /**Extract the necessary values*/
-while($row = mysqli_fetch_assoc($sql_result)) {
-    $_SESSION['user_id']= $row['dni'];
+while ($row = mysqli_fetch_assoc($sql_result)) {
+    $_SESSION['user_id'] = $row['dni'];
     $_SESSION['user_type'] = $row['user_type'];
 }
 
