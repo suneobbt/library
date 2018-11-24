@@ -12,18 +12,26 @@ class ShowData
     private $NLines = 0;             # number of fields added to the form
     private $actionModify;
     private $actionDelete;
-    private $buttonsOn = false;
+    private $buttonModifyOn = false;
+    private $buttonDeleteOn = false;
 
 
     public function __construct()
-    {
-    }
+    {}
 
     public function addButtons($actionDelete, $actionModify)
     {
-        $this->buttonsOn = true;
-        $this->actionModify = $actionModify;
-        $this->actionDelete = $actionDelete;
+        if ($actionModify!="")
+        {
+            $this->buttonModifyOn = true;
+            $this->actionModify = $actionModify;
+        }
+        if ($actionDelete!="")
+        {
+            $this->buttonDeleteOn = true;
+            $this->actionDelete = $actionDelete;
+        }
+
 
     }
 
@@ -45,7 +53,8 @@ class ShowData
             echo " {$this->lines[$j - 1]['data']}</p>";
         } // for
 
-        if ($this->buttonsOn) echo "<a href='{$this->actionModify}'>Modify data</a>"."<a onclick='{$this->actionDelete}'>Delete it</a>";
+        if ($this->buttonModifyOn) echo "<a href='{$this->actionModify}'>Modify data</a>";
+        if ($this->buttonDeleteOn) echo "<a onclick='{$this->actionDelete}'>Delete it</a>";
 
     } // displayForm
 

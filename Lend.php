@@ -97,18 +97,18 @@ class Lend
             die();
         }
 
-        $sentenciaSQL = "UPDATE reserve SET 
-            id_reserve='$this->id_lend',
-            start_time_reserve='$this->start_time_lend',
+        $sentenciaSQL = "UPDATE lend SET 
+            id_lend='$this->id_lend',
+            start_time_lend='$this->start_time_lend',
             dni='$this->dni',
             id_copy='$this->id_copy'
 
-            WHERE id_reserve='$this->id_lend';";
+            WHERE id_lend='$this->id_lend';";
 
         echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
-        //header ("Location: pageBrowse.php?id=".$this->id_lend."&ref=reserve");
+        header ("Location: pageBrowse.php?id=".$this->id_lend."&ref=lend");
     }
 
     /**

@@ -53,11 +53,15 @@ include('confirmIfSessionSet.php');
 
         $tableName = $_GET['ref'];
         $id = $_GET['id'];
+        $superUser=false;
 
-        //TODO: Implement button delete url
+        if ($_SESSION['user_type'] == 2) $superUser = true;
+
+
         $data = new ShowData();
 
         $actionModify = "pageForm.php?ref=" . $tableName . "&id=" . $id;
+        //TODO: Implement button delete url
         $actionDelete = "delete";
 
         switch ($tableName) {
@@ -91,13 +95,16 @@ include('confirmIfSessionSet.php');
                 $data->addLine("Surname", $work_user->getSurname());
                 $data->addLine("Password", $work_user->getPass());
                 $data->addLine("E-Mail", $work_user->getEmail());
-                $data->addLine("User Type (0-Normal user, 1-Librarian, 2-Administrator)", $work_user->getUserType());
+                if ($superUser) $data->addLine("User Type (0-Normal user, 1-Librarian, 2-Administrator)", $work_user->getUserType());
                 $data->addLine("Phone Number", $work_user->getPhoneNumber());
                 $data->addLine("Direction", $work_user->getDirection());
                 $data->addLine("City", $work_user->getCity());
                 $data->addLine("Postal Code", $work_user->getPostalCode());
 
                 if ($_SESSION['user_type'] != '0') {
+                    $data->addButtons($actionDelete, $actionModify);
+                }else{
+                    $actionDelete="";
                     $data->addButtons($actionDelete, $actionModify);
                 }
                 break;

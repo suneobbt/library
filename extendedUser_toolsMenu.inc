@@ -16,7 +16,7 @@ switch ($_SESSION['user_type']) {
     case 0:
         echo "
             <h2>Actions</h2>
-            <a href=\"pageForm.php?id=".$_SESSION['user_id']."&ref=users\">My data</a></br>
+            <a href=\"pageBrowse.php?id=".$_SESSION['user_id']."&ref=users\">My data</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
             <a href=\"estadistics.php\">Estadistics</a></br>
             <a href=\"index.php\">Stadistics</a></br>";
@@ -30,6 +30,7 @@ switch ($_SESSION['user_type']) {
             <a href=\"pageUser.php\">Home panel</a></br>
             <a href=\"pageListed.php\">Defaulters</a></br>
             <a href=\"pageListed.php?ref=users\">Users</a></br>
+            <a href=\"pageForm.php?id=new&ref=users\">Add user</a></br>
             <a href=\"pageBrowse.php\">Add book</a></br>
             <a href=\"pageListed.php?ref=book\">Books</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
@@ -47,6 +48,7 @@ switch ($_SESSION['user_type']) {
             <a href=\"register.php\">Edit librarian</a></br>
             <a href=\"pageListed.php\">Defaulters</a></br>
             <a href=\"pageListed.php?ref=users\">Users</a></br>
+            <a href=\"pageForm.php?id=new&ref=users\">Add user</a></br>
             <a href=\"pageBrowse.php\">Add book</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
             <a href=\"pageListed.php?ref=lend\">Lends</a></br>

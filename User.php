@@ -19,14 +19,34 @@ class User
     private $direction;
     private $pass;
 
+
     /**
-     * User constructor.
-     * @param $user
+     * User constructor. Construct overloading.
      */
+    public function __construct()
+    {
+        //get an array with the parameters sent to the function
+        $params = func_get_args();
 
-    //TODO: Overload constructor, same as book class. One for news users and other one for users already in db
+        //extract the number of parameters received
+        $num_params = func_num_args();
 
-    function __construct($user)
+        //each constructor of a given number of parameters will have a function name
+        //attending to the following model __construct1() __construct2()...
+        $f_constructor = '__construct' . $num_params;
+
+        //check if there is a constructor with that number of parameters
+        if (method_exists($this, $f_constructor)) {
+
+            // if that function existed,invoke it, resending the parameters received in the original constructor
+            call_user_func_array(array($this, $f_constructor), $params);
+        }
+    }
+
+    /**
+     * @param $dni
+     */
+    function __construct1($dni)
     {
         include("connection_data.inc");
 
@@ -37,7 +57,7 @@ class User
             die();
         }
 
-        $sentenciaSQL = "SELECT dni,name,surname,user_type,phone_number,city,postal_code,email,direction,pass FROM users where dni='$user';";
+        $sentenciaSQL = "SELECT * FROM users where dni='$dni';";
 
         $sql_result = $connexion->query($sentenciaSQL);
 
@@ -57,6 +77,85 @@ class User
         mysqli_close($connexion);
     }
 
+    function __construct10($dni,$name,$surname,$pass,$user_type,$phone_number,$city,$postal_code,$email,$direction){
+        $this->dni = $dni;
+        $this->name =$name;
+        $this->surname = $surname;
+        $this->user_type = $user_type;
+        $this->phone_number = $phone_number;
+        $this->city = $city;
+        $this->postal_code = $postal_code;
+        $this->email = $email;
+        $this->direction = $direction;
+        $this->pass = $pass;
+    }
+
+    public function insertUserToBD()
+    {
+        include_once('connection_data.inc');
+
+        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
+
+        if ($connexion->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            die();
+        }
+
+        $sentenciaSQL = "INSERT INTO users VALUES( 
+            '$this->dni',
+            '$this->name',
+            '$this->surname',
+            '$this->pass',
+            '$this->user_type',
+            '$this->phone_number',
+            '$this->city',
+            '$this->postal_code',
+            '$this->email',
+            '$this->direction'
+            );";
+
+        echo $sentenciaSQL;
+
+        $sql_result = $connexion->query($sentenciaSQL);
+
+        if ($sql_result) {
+            header("Location: pageBrowse.php?id=" . $this->dni . "&ref=users");
+        }else{
+            header("Location:".$_SERVER['HTTP_REFERER']."&msg=805");
+        }
+
+    }
+
+    public function updateUserOfBD()
+    {
+        include_once('connection_data.inc');
+
+        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
+
+        if ($connexion->connect_errno) {
+            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
+            die();
+        }
+
+        $sentenciaSQL = "UPDATE users SET 
+            dni='$this->dni',
+            name='$this->name',
+            surname='$this->surname',
+            user_type='$this->user_type',
+            phone_number='$this->phone_number',
+            city='$this->city',
+            postal_code='$this->postal_code',
+            email='$this->email',
+            direction='$this->direction',
+            pass='$this->pass'
+
+            WHERE dni='$this->dni';";
+
+        //echo $sentenciaSQL;
+
+        $sql_result = $connexion->query($sentenciaSQL);
+        header ("Location: pageBrowse.php?id=".$this->dni."&ref=users");
+    }
     //Getters and setters
 
     /**
