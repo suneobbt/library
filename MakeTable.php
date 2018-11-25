@@ -13,10 +13,11 @@ class MakeTable
     private $registers;
     private $fileBrowse, $fileUpdate, $fileDelete;
     private $condition;
+    private $condition2;
     private $fieldCondition;
 
 
-    function __construct($dbName, $tableName, $fieldList, $fileBrowse = "", $fileUpdate = "", $fileDelete = "", $condition = "", $fieldCondition = "")
+    function __construct($dbName, $tableName, $fieldList, $fileBrowse = "", $fileUpdate = "", $fileDelete = "", $condition = "", $fieldCondition = "",$condition2="")
     {
         $this->dbName = $dbName;
         $this->tableName = $tableName;
@@ -31,6 +32,7 @@ class MakeTable
         $this->fileDelete = $fileDelete;
 
         $this->condition = $condition;
+        $this->condition2 = $condition2;
         $this->fieldCondition = $fieldCondition;
 
         $this->connectDB($dbName);
@@ -85,17 +87,24 @@ class MakeTable
         $this->row = 0;
 
         // builing select string
-        $sentenciaSQL = "select ";
+        $sentenciaSQL = "SELECT ";
 
         for ($i = 0; $i < $this->numFields - 1; $i++) // adding fields to show exc. last.
         {
             $sentenciaSQL .= $this->fieldList[$i] . ", ";
         }
 
-        $sentenciaSQL .= $this->fieldList[$this->numFields - 1] . " from " . $this->tableName;
+        $sentenciaSQL .= $this->fieldList[$this->numFields - 1] . " FROM " . $this->tableName;
 
         if ($this->fieldCondition != "") {
-            $sentenciaSQL = $sentenciaSQL . " where " . $this->fieldCondition . "=" . $this->condition . ";";
+            $sentenciaSQL = $sentenciaSQL . " WHERE " . $this->fieldCondition . "=" . $this->condition;
+        }
+
+        if ($this->condition2!="")
+        {
+            $sentenciaSQL = $sentenciaSQL . $this->condition2 . ";";
+        }else{
+            $sentenciaSQL = $sentenciaSQL . ";";
         }
 
         //echo "sentence:  " . $sentenciaSQL;

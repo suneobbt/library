@@ -16,10 +16,21 @@ switch ($work_user->getUserType()) {
         ?>
         <article>
             <h3>Find your next book</h3>
-            <form method="post">
-                <label for="search">Search for it</label>
-                <input type="text" name="search" id="search" placeholder="ISBN, title, author..."
-                required=""/>
+            <form method="post" action="pageListed.php?ref=book">
+                <label for="patternSearch">Search</label>
+                <input type="text" name="patternSearch" id="patternSearch" required=""/><br/>
+
+                <label for="fieldSearch">Search by: </label>
+                <select id="fieldSearch" name="fieldSearch" required="">
+                    <option value="isbn" selected="selected">ISBN</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="editorial">Editorial</option>
+                    <option value="year">Year</option>
+                    <option value="category">Category</option>
+                    <option value="language">Language</option>
+                </select><br/>
+
                 <input type="submit" value="Search"/>
             </form>
         </article>
@@ -41,18 +52,42 @@ switch ($work_user->getUserType()) {
         ?>
         <article>
             <h3>Return & pickup books</h3>
-            <form method="post" action="">
-                <label for="search">Search </label>
-                <input type="text" name="search" id="search" placeholder="ISBN" required=""/>
-                <input type="submit" value="Submit"/>
+            <form method="post" action="pageListed.php?ref=book">
+                <label for="patternSearch">Search</label>
+                <input type="text" name="patternSearch" id="patternSearch" required=""/><br/>
+
+                <label for="fieldSearch">Search by: </label>
+                <select id="fieldSearch" name="fieldSearch" required="">
+                    <option value="isbn" selected="selected">ISBN</option>
+                    <option value="title">Title</option>
+                    <option value="author">Author</option>
+                    <option value="editorial">Editorial</option>
+                    <option value="year">Year</option>
+                    <option value="category">Category</option>
+                    <option value="language">Language</option>
+                </select><br/>
+
+                <input type="submit" value="Search"/>
             </form>
         </article>
 
         <article>
             <h3>Edit User</h3>
-            <form method="post" action="register.php?form=superEdit\">
-                <label for="search">Search </label>
-                <input type="text" name="searchUser" id="searchUser" placeholder="DNI" required=""/>
+            <form method="post" action="pageListed.php?ref=users">
+                <label for="patternSearch">Search </label>
+                <input type="text" name="patternSearch" id="patternSearch" placeholder="" required=""/><br/>
+
+                <label for="fieldSearch">Search by: </label>
+                <select id="fieldSearch" name="fieldSearch" required="">
+                    <option value="dni" selected="selected">Dni</option>
+                    <option value="name">Name</option>
+                    <option value="surname">Surname</option>
+                    <option value="email">E-Mail</option>
+                    <option value="phone_number">Phone number</option>
+                    <option value="postal_code">Postal code</option>
+                    <option value="city">City</option>
+                </select><br/>
+
                 <input type="submit" value="Search"/>
             </form>
         </article>

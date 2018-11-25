@@ -95,7 +95,7 @@ include('confirmIfSessionSet.php');
                     break;
 
                 case 'lend':
-                    $data->addField("id_lend", "Lend ID", "text", "required", "readonly", "");
+                    //$data->addField("id_lend", "Lend ID", "text", "required", "readonly", "");
                     $data->addField("start_time_lend", "Start day of the lend", "date", "required", "", "");
                     $data->addField("dni", "DNI", "text", "required", "readonly", "");
                     $data->addField("id_copy", "Copy ID", "text", "required", "readonly", "");
@@ -104,7 +104,7 @@ include('confirmIfSessionSet.php');
                     break;
 
                 case 'reserve':
-                    $data->addField("id_reserve", "Reserve ID", "text", "required", "readonly", "");
+                    //$data->addField("id_reserve", "Reserve ID", "text", "required", "readonly", "");
                     $data->addField("start_time_reserve", "Start day of the lend", "date", "required", "", "");
                     $data->addField("dni", "DNI", "text", "required", "readonly", "");
                     $data->addField("id_copy", "Copy ID", "text", "required", "readonly", "");

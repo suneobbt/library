@@ -16,9 +16,10 @@ switch ($_SESSION['user_type']) {
     case 0:
         echo "
             <h2>Actions</h2>
+            <a href=\"pageUser.php\">Home panel</a></br>
             <a href=\"pageBrowse.php?id=".$_SESSION['user_id']."&ref=users\">My data</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
-            <a href=\"estadistics.php\">Estadistics</a></br>
+            <a href=\"pageListed.php?ref=lend\">Lends</a></br>
             <a href=\"index.php\">Stadistics</a></br>";
         break;
     //end case 0

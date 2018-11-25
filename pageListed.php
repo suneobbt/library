@@ -49,6 +49,11 @@ if (isset($_GET['id'])) {
         $condition = $_SESSION['user_id'];
         $fieldCondition = "";
 
+        //list search values
+        $condition2="";
+        if (isset($_POST['patternSearch'])) $condition2=$_POST['fieldSearch'] ." LIKE '%".$_POST['patternSearch']."%'";
+
+
         $adminUser=false;
         if ($_SESSION['user_type']==2) $adminUser=true;
 
@@ -68,6 +73,7 @@ if (isset($_GET['id'])) {
         switch ($tableName) {
             case "lend":
                 $fields = array("id_lend", "dni", "start_time_lend");
+
                 if ($_SESSION['user_type'] != '0') {
                     $fields[] = "id_copy";
                 } else {
@@ -78,6 +84,7 @@ if (isset($_GET['id'])) {
 
             case "reserve":
                 $fields = array("id_reserve", "dni", "start_time_reserve");
+
                 if ($_SESSION['user_type'] != '0') {
                     $fields[] = "id_copy";
                 } else {
@@ -88,10 +95,14 @@ if (isset($_GET['id'])) {
 
             case "book":
                 $fields = array("isbn", "title", "author", "editorial", "year", "language");
+                if ($condition2!="")$condition2 = $condition2=" WHERE ".$condition2;
+
                 break;
 
             case "users":
                 $fields = array("dni", "name", "surname", "user_type");
+                if ($condition2!="") $condition2=" AND ".$condition2;
+
 
                 if (!$adminUser){
                     $fieldCondition = "user_type";
@@ -101,7 +112,7 @@ if (isset($_GET['id'])) {
         }
 
         $t = new MakeTable($dbName, $tableName, $fields, $fileBrowse,
-            $fileUpdate, $fileDelete, $condition, $fieldCondition);
+            $fileUpdate, $fileDelete, $condition, $fieldCondition,$condition2);
 
         $t->paintTable();
 

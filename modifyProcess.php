@@ -54,7 +54,6 @@ switch ($tableName) {
         break;
 
     case 'reserve':
-        echo($_POST["id_reserve"] . $_POST["start_time_reserve"] . $_POST["dni"] . $_POST["id_copy"]);
         $work_reserve = new Reserve ($_POST["id_reserve"], $_POST["start_time_reserve"], $_POST["dni"], $_POST["id_copy"]);
 
         if ($new) {
