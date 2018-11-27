@@ -51,7 +51,7 @@ switch ($work_user->getUserType()) {
     case 1:
         ?>
         <article>
-            <h3>Return & pickup books</h3>
+            <h3>Find a book</h3>
             <form method="post" action="pageListed.php?ref=book">
                 <label for="patternSearch">Search</label>
                 <input type="text" name="patternSearch" id="patternSearch" required=""/><br/>
@@ -72,7 +72,7 @@ switch ($work_user->getUserType()) {
         </article>
 
         <article>
-            <h3>Edit User</h3>
+            <h3>Find a user</h3>
             <form method="post" action="pageListed.php?ref=users">
                 <label for="patternSearch">Search </label>
                 <input type="text" name="patternSearch" id="patternSearch" placeholder="" required=""/><br/>
@@ -93,15 +93,13 @@ switch ($work_user->getUserType()) {
         </article>
 
         <article>
-            <h3>Find a book</h3>
-            <label for="search">Search </label>
-            <input type="text" name="search" id="search" placeholder="ISBN, title, author..." required=""/>
-            <input type="submit" value="Search"/>
+            <h3>ACT 3</h3>
+
         </article>
 
         <article>
-            <h3>Return book</h3>
-            In iaculis tortor quis nulla congue finibus. Curabitur egestas efficitur elementum.
+            <h3>ACT 4</h3>
+
         </article>
 
         <?php

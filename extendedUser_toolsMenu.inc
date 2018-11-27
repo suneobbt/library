@@ -29,7 +29,6 @@ switch ($_SESSION['user_type']) {
         echo "
             <h2>Actions</h2>
             <a href=\"pageUser.php\">Home panel</a></br>
-            <a href=\"pageListed.php\">Defaulters</a></br>
             <a href=\"pageListed.php?ref=users\">Users</a></br>
             <a href=\"pageForm.php?id=new&ref=users\">Add user</a></br>        
             <a href=\"pageListed.php?ref=book\">Books</a></br>

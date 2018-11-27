@@ -49,6 +49,7 @@ include('confirmIfSessionSet.php');
         require_once("Book.php");
         require_once("Lend.php");
         require_once("Reserve.php");
+        require_once("Available.php");
         //lets modify some tables
 
         $tableName = $_GET['ref'];
@@ -80,6 +81,7 @@ include('confirmIfSessionSet.php');
                 $data->addLine("Book Condition", $work_book->getBookCondition());
                 $data->addLine("Continuous Of", $work_book->getContinuousOf());
                 $data->addLine("Continued By", $work_book->getContinuedBy());
+                if ($_SESSION['user_type'] != '0') $data->addLine("Copies", Available::numberOfCopies($work_book->getIsbn()));
 
                 if ($_SESSION['user_type'] != '0') {
                     $data->addButtons($actionDelete, $actionModify);
