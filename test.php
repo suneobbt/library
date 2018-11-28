@@ -12,4 +12,6 @@ include ("Available.php");
 
 //echo Available::copyLend("11");
 
+//echo Available::copyAvailable("4","2018/11/22");
+
 echo Available::bookAvailable("9788445000663","2018/11/22");

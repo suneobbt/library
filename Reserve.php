@@ -75,16 +75,16 @@ class Reserve
         $this->id_copy = $id_copy;
     }
 
-    public function insertReserveToBD()
+    public function insertReserveToBD($isbn)
     {
-        include_once('connection_data.inc');
+        include_once('connection_data2.inc');
+        $copy="";
 
-        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
 
-        if ($connexion->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            die();
-        }
+
+        $this->id_copy=;
+
+
 
         $sentenciaSQL = "INSERT INTO reserve VALUES( 
             '$this->id_reserve',
@@ -97,10 +97,12 @@ class Reserve
 
         $sql_result = $connexion->query($sentenciaSQL);
 
+
         if ($sql_result) {
             header("Location: pageBrowse.php?id=" . $this->id_reserve . "&ref=reserve");
         }else{
-            header("Location:".$_SERVER['HTTP_REFERER']."&msg=805");
+            echo "<script type=\"text/javascript\">window.history.back();</script>";
+
         }
 
     }

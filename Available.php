@@ -13,56 +13,86 @@ class Available
 
     static function bookAvailable($isbn, $date)
     {
+
+        $copies = Available::copiesOfBook($isbn);
+        $copyAvailable = "";
+
+        foreach ($copies as $copy) {
+            if (Available::copyAvailable($copy, $date)) {
+                $copyAvailable = $copy;
+                break;
+            };
+        }
+        if($copyAvailable=="")$copyAvailable=-1;
+        return $copyAvailable;
+    }
+
+
+    static function copyAvailable($id_copy, $date)
+    {
+        echo "id_copy = " . $id_copy . "<br/>";
         $startDateNewReserve = date_create($date);
+        $result = false;
 
         $bigDateReserveStart = "";
         $smallDateReserveStart = "";
 
-        $datesReserves = Available::copyDayReserved("4");
-        foreach ($datesReserves as $dateReserve) echo "</br>date reserve = " . date_format($dateReserve, "Y/m/d");
+        $datesReserves = Available::copyDayReserved($id_copy);
+        if (sizeof($datesReserves)< 1) {
+            $result = true;
+        } else {
+            foreach ($datesReserves as $dateReserve) echo "</br>date reserve = " . date_format($dateReserve, "Y/m/d");
 
-        for ($i = 0; $i < count($datesReserves); $i++) {
+            for ($i = 0; $i < count($datesReserves); $i++) {
 
-            if ($startDateNewReserve > $datesReserves[count($datesReserves) - 1]) {
-                $bigDateReserveStart = date_create("1/1/3000");
-                $smallDateReserveStart = clone $datesReserves[count($datesReserves) - 1];
-            }
-
-            if ($startDateNewReserve < $datesReserves[$i]) {
-                $bigDateReserveStart = clone $datesReserves[$i];
-                if ($i - 1 < 0) {
-                    $smallDateReserveStart = date_create("1/1/1900");
-                } else {
-                    $smallDateReserveStart = clone $datesReserves[$i - 1];
+                if ($startDateNewReserve > $datesReserves[count($datesReserves) - 1]) {
+                    $bigDateReserveStart = date_create("1/1/3000");
+                    $smallDateReserveStart = clone $datesReserves[count($datesReserves) - 1];
                 }
-                break;
+
+                if ($startDateNewReserve < $datesReserves[$i]) {
+                    $bigDateReserveStart = clone $datesReserves[$i];
+                    if ($i - 1 < 0) {
+                        $smallDateReserveStart = date_create("1/1/1900");
+                    } else {
+                        $smallDateReserveStart = clone $datesReserves[$i - 1];
+                    }
+                    break;
+                }
             }
 
+            echo "</br></br>small one   = " . date_format($smallDateReserveStart, "Y/m/d");
+            echo "</br>date request     = " . date_format($startDateNewReserve, "Y/m/d");
+            echo "</br>big one          = " . date_format($bigDateReserveStart, "Y/m/d");
+
+            //diference days between dates
+            date_add($smallDateReserveStart, date_interval_create_from_date_string(self::DAYSOFLEND . "days"));
+
+            $diffDateStart = date_diff($smallDateReserveStart, $startDateNewReserve);
+            $diffValueStart = intval($diffDateStart->format("%R%a"));
+
+            date_add($startDateNewReserve, date_interval_create_from_date_string(self::DAYSOFLEND . "days"));
+            $diffDateEnd = date_diff($startDateNewReserve, $bigDateReserveStart);
+            $diffValueEnd = intval($diffDateEnd->format("%R%a"));
+
+            echo "</br></br>diff value start = " . $diffValueStart;
+            echo "</br>diff value end = " . $diffValueEnd;
+
+            if ($diffValueStart > 0) echo "</br></br>start true"; else echo "</br></br>start false";
+            if ($diffValueEnd > 0) echo "</br>end true"; else echo "</br>end false";
+
+            if ($diffValueEnd > 20 && $diffValueStart > 0) {
+                $result = true;
+                echo "</br><b>reserve true</b><br/><br/>";
+            } else {
+                $result = false;
+                echo "</br><b>reserve false</b><br/><br/>";
+            }
         }
-
-        echo "</br></br>small one   = " . date_format($smallDateReserveStart, "Y/m/d");
-        echo "</br>date request     = " . date_format($startDateNewReserve, "Y/m/d");
-        echo "</br>big one          = " . date_format($bigDateReserveStart, "Y/m/d");
-
-        //diference days between dates
-        date_add($smallDateReserveStart, date_interval_create_from_date_string(self::DAYSOFLEND . "days"));
-
-        $diffDateStart = date_diff($smallDateReserveStart, $startDateNewReserve);
-        $diffValueStart = intval($diffDateStart->format("%R%a"));
-
-        date_add($startDateNewReserve, date_interval_create_from_date_string(self::DAYSOFLEND . "days"));
-        $diffDateEnd = date_diff($startDateNewReserve, $bigDateReserveStart);
-        $diffValueEnd = intval($diffDateEnd->format("%R%a"));
-
-        echo"</br></br>diff value start = " . $diffValueStart;
-        echo"</br>diff value end = " . $diffValueEnd;
-
-        if($diffValueStart>0) echo"</br></br>start true";else echo "</br></br>start false";
-        if($diffValueEnd>0)echo"</br>end true";else echo "</br>end false";
-        if ($diffValueEnd>20&&$diffValueStart>0)echo "</br>reserve true";else echo "</br>reserve false";
+        return $result;
     }
 
-
+//TODO: limit the quantity of date returned adding sql condition like: where start_time_reserve > today -20 days
     static function copyDayReserved($id_copy)
     {
         include('connection_data2.inc');
@@ -114,7 +144,7 @@ class Available
 
     }
 
-    static function copyLend($id_copy)
+    static function copyLend($id_copy, $date)
     {
         include('connection_data2.inc');
         $copyStatus = true;
@@ -128,12 +158,5 @@ class Available
 
         return $copyStatus;
     }
-
-    static function copyReserved($id_copy)
-    {
-
-
-    }
-
 
 }
