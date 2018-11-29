@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1:3307
--- Temps de generació: 16-11-2018 a les 17:04:57
+-- Temps de generació: 29-11-2018 a les 04:02:09
 -- Versió del servidor: 10.1.28-MariaDB
 -- Versió de PHP: 7.1.10
 
@@ -54,12 +54,12 @@ INSERT INTO `book` (`isbn`, `title`, `author`, `editorial`, `edition`, `year`, `
 ('9788420674339', 'La muerte de Ivan Ilich : Hadyi Murad', 'Tolstoi, Leon', 'Alianza editorial', '4', '2011', 'Philosophy', 'Spanish', '320', 'good', '', ''),
 ('9788423324613', 'Una mochila para el universo', 'Punset, Elsa', 'Destino', '1', '2012', 'Self-help', 'Spanish', '320', 'bad', '', ''),
 ('9788429743838', 'Breu historia de Catalunya', 'Mestre I Godes, Jesus', 'Edicions 62', '3', '1998', 'Historical', 'Catalan', '272', 'medium', '', ''),
-('9788445000663', 'El señor de los anillos I: La comunidad del anillo ', 'Tolkien, J.R.R. ', 'Minotauro', '1', '2012', 'Fiction', 'Spanish', '576', 'good', '', '9788445000670'),
-('9788445000670', 'El señor de los anillos II: Las dos torres', 'Tolkien, J.R.R. ', 'Minotauro', '1', '2012', 'Fiction', 'Spanish', '480', 'good', '9788445000663', '9788445000687'),
-('9788445000687', 'El señor de los anillos III: El retorno del rey', 'Tolkien, J.R.R. ', 'Minotauro', '1', '2012', 'Fiction', 'Spanish', '606', 'good', '9788445000670', ''),
+('9788445000663', 'El seÃ±or de los anillos I: La comunidad del anillo ', 'Tolkien, J.R.R. ', 'Minotauro', '1', '2012', 'Fiction', 'Spanish', '576', 'good', '', '9788445000670'),
+('9788445000670', 'El seÃ±or de los anillos II: Las dos torres', 'Tolkien, J.R.R. ', 'Minotauro', '1', '2012', 'Fiction', 'Spanish', '480', 'good', '9788445000663', '9788445000687'),
+('9788445000687', 'El seÃ±or de los anillos III: El retorno del rey', 'Tolkien, J.R.R. ', 'Minotauro', '1', '2012', 'Fiction', 'Spanish', '606', 'good', '9788445000670', ''),
 ('9788445000694', 'La lengua de los elfos', 'Gonzalez Baixauli, Luis', 'Minotauro', '1', '2012', 'Fiction', 'Spanish', '272', 'good', '', ''),
-('9788467005035', 'Que la muerte te acompañe', 'Mejide, Risto', 'Espasa', '1', '2011', 'Novel', 'Spanish', '224', 'good', '', ''),
-('9788483469088', 'El món groc', 'Espinosa, Albert', 'Debolsillo', '2', '2012', 'Self-help', 'Catalan', '176', 'good', '', ''),
+('9788467005035', 'Que la muerte te acompaÃ±e', 'Mejide, Risto', 'Espasa', '1', '2011', 'Novel', 'Spanish', '224', 'good', '', ''),
+('9788483469088', 'El mÃ³n groc', 'Espinosa, Albert', 'Debolsillo', '2', '2012', 'Self-help', 'Catalan', '176', 'good', '', ''),
 ('9788484376866', 'Romeu i Julieta', 'Shakespeare, William ', 'Proa', '3', '2008', 'Theater', 'Catalan', '224', 'good', '', ''),
 ('9788492549597', 'Perdona si et dic amor', ' Moccia, Federico', 'Labutxaca', '5', '2010', 'Novel', 'Catalan', '624', 'good', '', ''),
 ('9788497914574', 'Secrets de Catalunya', 'Sust, Xavier', 'Cossetania', '1', '2009', 'Social', 'Catalan', '216', 'good', '', ''),
@@ -144,8 +144,18 @@ CREATE TABLE `lend` (
   `id_lend` int(11) NOT NULL,
   `start_time_lend` date NOT NULL,
   `dni` varchar(10) NOT NULL,
-  `id_copy` int(11) NOT NULL
+  `id_copy` int(11) NOT NULL,
+  `returned` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Bolcant dades de la taula `lend`
+--
+
+INSERT INTO `lend` (`id_lend`, `start_time_lend`, `dni`, `id_copy`, `returned`) VALUES
+(4, '2018-11-28', '00000000x', 2, 0),
+(5, '2018-11-25', '11111111x', 4, 0),
+(7, '2018-11-29', '33333333x', 35, 0);
 
 -- --------------------------------------------------------
 
@@ -165,8 +175,11 @@ CREATE TABLE `reserve` (
 --
 
 INSERT INTO `reserve` (`id_reserve`, `start_time_reserve`, `dni`, `id_copy`) VALUES
-(22, '2018-11-30', '00000000x', 4),
-(23, '2018-11-30', '00000000x', 4);
+(31, '2019-01-20', '00000000x', 4),
+(35, '2018-11-30', '33333333x', 3),
+(37, '2018-11-21', '00000000x', 1),
+(69, '2018-12-01', '33333333x', 2),
+(78, '2018-12-26', '22222222x', 35);
 
 -- --------------------------------------------------------
 
@@ -180,9 +193,9 @@ CREATE TABLE `users` (
   `surname` varchar(30) NOT NULL,
   `pass` varchar(8) NOT NULL,
   `user_type` int(1) NOT NULL,
-  `phone_number` varchar(9) DEFAULT NULL,
+  `phone_number` varchar(9) NOT NULL,
   `city` varchar(20) DEFAULT NULL,
-  `postal_code` int(11) NOT NULL,
+  `postal_code` varchar(11) DEFAULT NULL,
   `email` varchar(30) NOT NULL,
   `direction` varchar(50) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -192,9 +205,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`dni`, `name`, `surname`, `pass`, `user_type`, `phone_number`, `city`, `postal_code`, `email`, `direction`) VALUES
-('00000000x', 'Test', 'User', '00000', 0, NULL, NULL, 7003, '00000@mail.com', NULL),
-('11111111x', 'Test', 'Librarian', '11111', 1, NULL, NULL, 8000, '11111@mail.com', NULL),
-('22222222x', 'Test', 'Administrator', '22222', 2, NULL, NULL, 7701, '22222@mail.com', NULL);
+('00000000x', 'Test', 'User', '00000', 0, '88888888', '', '7003', '00000@mail.com', ''),
+('11111111x', 'Test', 'Librarian', '11111', 1, '', NULL, '8000', '11111@mail.com', NULL),
+('22222222x', 'Test', 'Administrator', '22222', 2, '', NULL, '7701', '22222@mail.com', NULL),
+('33333333x', 'Test', 'User 2', '333', 0, '', '', '', '33333@mail.com', '');
 
 --
 -- Indexos per taules bolcades
@@ -249,13 +263,13 @@ ALTER TABLE `copy`
 -- AUTO_INCREMENT per la taula `lend`
 --
 ALTER TABLE `lend`
-  MODIFY `id_lend` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_lend` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT per la taula `reserve`
 --
 ALTER TABLE `reserve`
-  MODIFY `id_reserve` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id_reserve` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
 
 --
 -- Restriccions per taules bolcades
