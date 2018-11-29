@@ -95,7 +95,7 @@ if (isset($_GET['id'])) {
 
             case "book":
                 $fields = array("isbn", "title", "author", "editorial", "year", "language");
-                if ($condition2!="")$condition2 = $condition2=" WHERE ".$condition2;
+                if ($condition2!="")$condition2=" WHERE ".$condition2;
 
                 break;
 

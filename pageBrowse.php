@@ -122,9 +122,10 @@ include('confirmIfSessionSet.php');
                 $returnedValue = $work_lend->getReturned() === '1'? 'true': 'false';
                 $data->addLine("Returned", $returnedValue);
 
-                if ($_SESSION['user_type'] != '0') {
+                //if ($_SESSION['user_type'] != '0') {
+                $actionModify="";
                     $data->addButtons($actionDelete, $actionModify);
-                }
+                // }
 
                 break;
 
@@ -136,6 +137,7 @@ include('confirmIfSessionSet.php');
                 $data->addLine("DNI", $work_reserve->getDni());
                 $data->addLine("Copy ID", $work_reserve->getIdCopy());
 
+                $actionModify="";
                 $data->addButtons($actionDelete, $actionModify);
                 break;
 
