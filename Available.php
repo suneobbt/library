@@ -13,7 +13,6 @@ class Available
 
     static function bookAvailable($isbn, $date)
     {
-
         $copies = Available::copiesOfBook($isbn);
         $copyAvailable = "";
 
@@ -23,7 +22,7 @@ class Available
                 break;
             };
         }
-        if($copyAvailable=="")$copyAvailable=-1;
+        if ($copyAvailable == "") $copyAvailable = -1;
         return $copyAvailable;
     }
 
@@ -38,19 +37,19 @@ class Available
         $smallDateReserveStart = "";
 
         $datesReserves = Available::copyDayReserved($id_copy);
-        if (sizeof($datesReserves)< 1) {
+        if (sizeof($datesReserves) < 1) {
             $result = true;
         } else {
             foreach ($datesReserves as $dateReserve) echo "</br>date reserve = " . date_format($dateReserve, "Y/m/d");
 
             for ($i = 0; $i < count($datesReserves); $i++) {
 
-                if ($startDateNewReserve > $datesReserves[count($datesReserves) - 1]) {
+                if ($startDateNewReserve >= $datesReserves[count($datesReserves) - 1]) {
                     $bigDateReserveStart = date_create("1/1/3000");
                     $smallDateReserveStart = clone $datesReserves[count($datesReserves) - 1];
                 }
 
-                if ($startDateNewReserve < $datesReserves[$i]) {
+                if ($startDateNewReserve <= $datesReserves[$i]) {
                     $bigDateReserveStart = clone $datesReserves[$i];
                     if ($i - 1 < 0) {
                         $smallDateReserveStart = date_create("1/1/1900");
@@ -147,14 +146,22 @@ class Available
     static function copyLend($id_copy, $date)
     {
         include('connection_data2.inc');
+        $startDateNew = date_create($date);
+        $startDateLend="";
         $copyStatus = true;
 
-        $sentenciaSQL = "SELECT returned FROM lend WHERE id_copy='$id_copy'; ";
+        $sentenciaSQL = "SELECT returned,start_time_lend FROM lend WHERE id_copy='$id_copy'; ";
         $sql_result = $connexion->query($sentenciaSQL);
 
         while ($row = mysqli_fetch_assoc($sql_result)) {
+            $startDateLend=date_create($row['start_time_lend']);
             $copyStatus = $row['returned'];
         }
+
+        if ()
+
+
+
 
         return $copyStatus;
     }

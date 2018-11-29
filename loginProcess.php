@@ -35,6 +35,7 @@ while ($row = mysqli_fetch_assoc($sql_result)) {
     $_SESSION['user_type'] = $row['user_type'];
 }
 
+$_SESSION['value']=""; //value to save some data in the future
 $_SESSION['session_id'] = session_id();
 
 header("Location:http://localhost/library/pageUser.php"); /*LOG IN OK*/

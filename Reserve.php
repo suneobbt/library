@@ -66,7 +66,6 @@ class Reserve
     }
 
 
-
     public function __construct4($id_reserve, $start_time_reserve, $dni, $id_copy)
     {
         $this->id_reserve = $id_reserve;
@@ -78,12 +77,19 @@ class Reserve
     public function insertReserveToBD($isbn)
     {
         include_once('connection_data2.inc');
-        $copy="";
+        include_once('Available.php');
 
+        $copy = Available::bookAvailable($isbn, $this->start_time_reserve);
 
-
-        $this->id_copy=;
-
+        if ($copy < 0) {
+            setcookie("date",$this->start_time_reserve,time() + 1);
+            setcookie("dni",$this->dni,time() + 1);
+            setcookie("isbn",$isbn,time() + 1);
+            header("Location: pageForm.php?id=new&ref=reserve&msg=805");
+            die();
+        } else {
+            $this->id_copy = $copy;
+        }
 
 
         $sentenciaSQL = "INSERT INTO reserve VALUES( 
@@ -93,17 +99,20 @@ class Reserve
             '$this->id_copy'
             );";
 
-        echo $sentenciaSQL;
-
+        //echo $sentenciaSQL;
         $sql_result = $connexion->query($sentenciaSQL);
 
+        $sentenciaSQL = "SELECT MAX(id_reserve) as 'id_reserve' FROM reserve;";
 
-        if ($sql_result) {
-            header("Location: pageBrowse.php?id=" . $this->id_reserve . "&ref=reserve");
-        }else{
-            echo "<script type=\"text/javascript\">window.history.back();</script>";
+        $sql_result2 = $connexion->query($sentenciaSQL);
+
+        while ($row = mysqli_fetch_assoc($sql_result2)) {
+            $lastId_reserve= $row['id_reserve'];
 
         }
+        //echo $sentenciaSQL;
+
+        header("Location: pageBrowse.php?id=" . $lastId_reserve . "&ref=reserve");
 
     }
 
@@ -129,7 +138,7 @@ class Reserve
         echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
-        header ("Location: pageBrowse.php?id=".$this->id_reserve."&ref=reserve");
+        header("Location: pageBrowse.php?id=" . $this->id_reserve . "&ref=reserve");
     }
 
     /**

@@ -54,7 +54,7 @@ switch ($tableName) {
         break;
 
     case 'reserve':
-        $work_reserve = new Reserve ($_POST["id_reserve"], $_POST["start_time_reserve"], $_POST["dni"], "");
+        $work_reserve = new Reserve ("",$_POST["start_time_reserve"], $_POST["dni"], "");
 
         if ($new) {
             $work_reserve->insertReserveToBD($_POST["isbn"]);
