@@ -85,9 +85,49 @@ class Lend
     }
 
 
-    public function insertLendToBD()
+    public function insertLendToBD($isbn)
     {
-        //TODO: Implement method to insert the values from an object into a database
+        include_once('connection_data2.inc');
+        include_once('Available.php');
+
+        $date=date_create();
+        $this->start_time_lend=strval(date_format($date,"Y/m/d"));
+echo "date : ".$this->start_time_lend;
+        $copy = Available::bookAvailable($isbn, $this->start_time_lend);
+
+        if ($copy < 0) {
+            setcookie("dniLend",$this->dni,time() + 1);
+            setcookie("isbnLend",$isbn,time() + 1);
+            header("Location: pageForm.php?id=new&ref=lend&msg=804");
+            die();
+        } else {
+            $this->id_copy = $copy;
+        }
+
+
+        $sentenciaSQL = "INSERT INTO lend VALUES( 
+            '$this->id_lend',
+            '$this->start_time_lend',
+            '$this->dni',
+            '$this->id_copy',
+            '$this->returned'
+            );";
+
+        echo $sentenciaSQL;
+        $sql_result = $connexion->query($sentenciaSQL);
+
+        $sentenciaSQL = "SELECT MAX(id_lend) as 'id_lend' FROM lend;";
+
+        $sql_result2 = $connexion->query($sentenciaSQL);
+
+        while ($row = mysqli_fetch_assoc($sql_result2)) {
+            $lastId_lend= $row['id_lend'];
+
+        }
+        echo $sentenciaSQL;
+
+        header("Location: pageBrowse.php?id=" . $lastId_lend . "&ref=lend");
+
     }
 
     public function updateLendOfBD()

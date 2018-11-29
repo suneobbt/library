@@ -10,8 +10,8 @@ include ("Available.php");
 
 
 
-echo "copylend: ".  Available::copyLend("4","");
-
+//$testvar= Available::copyLend("35","")."";
+//echo "test ".$testvar;
 //echo Available::copyAvailable("4","2018/11/22");
 
-echo Available::bookAvailable("9788445000663","2018/12/01");
+echo Available::bookAvailable("9788484376866","2018/11/29");

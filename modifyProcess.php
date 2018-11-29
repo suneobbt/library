@@ -43,10 +43,10 @@ switch ($tableName) {
         break;
 
     case 'lend':
-        $work_lend = new Lend ($_POST["id_lend"], $_POST["start_time_lend"], $_POST["dni"], $_POST["id_copy"],$_POST['returned']);
+        $work_lend = new Lend ( "","", $_POST["dni"], "",false);
 
         if ($new) {
-            $work_lend->insertLendToBD();
+            $work_lend->insertLendToBD($_POST["isbn"]);
         } else {
             $work_lend->updateLendOfBD();
         }

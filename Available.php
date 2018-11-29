@@ -33,6 +33,8 @@ class Available
         $startDateNewReserve = date_create($date);
         $result = false;
 
+        if (!Available::copyLend($id_copy,$date))return false;
+
         $bigDateReserveStart = "";
         $smallDateReserveStart = "";
 
@@ -147,23 +149,29 @@ class Available
     {
         include('connection_data2.inc');
         $startDateNew = date_create($date);
-        $startDateLend="";
-        $copyStatus = true;
+        $startDateLend = "";
+        $copyStatus = "";
 
         $sentenciaSQL = "SELECT returned,start_time_lend FROM lend WHERE id_copy='$id_copy'; ";
         $sql_result = $connexion->query($sentenciaSQL);
 
         while ($row = mysqli_fetch_assoc($sql_result)) {
-            $startDateLend=date_create($row['start_time_lend']);
+            $startDateLend = date_create($row['start_time_lend']);
             $copyStatus = $row['returned'];
         }
 
-        if ()
+        if ($copyStatus == "") return true;
 
+        $diffDate = date_diff($startDateLend, $startDateNew);
+        $diffValue = intval($diffDate->format("%R%a"));
 
+        // echo $diffValue;
 
-
-        return $copyStatus;
+        if ($diffValue > 20 || $copyStatus == true) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

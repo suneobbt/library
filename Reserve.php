@@ -82,9 +82,9 @@ class Reserve
         $copy = Available::bookAvailable($isbn, $this->start_time_reserve);
 
         if ($copy < 0) {
-            setcookie("date",$this->start_time_reserve,time() + 1);
-            setcookie("dni",$this->dni,time() + 1);
-            setcookie("isbn",$isbn,time() + 1);
+            setcookie("dateReserve",$this->start_time_reserve,time() + 1);
+            setcookie("dniReserve",$this->dni,time() + 1);
+            setcookie("isbnReserve",$isbn,time() + 1);
             header("Location: pageForm.php?id=new&ref=reserve&msg=805");
             die();
         } else {
