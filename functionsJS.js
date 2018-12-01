@@ -5,4 +5,3 @@ function deleteRow (id,table,url){
         window.location=url+"?ref="+table+"&id="+id;
     }
 }
-

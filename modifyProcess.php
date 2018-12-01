@@ -13,7 +13,8 @@ require_once('Copy.php');
 
 
 $tableName = $_GET['ref'];
-$new = $_GET['new'] === 'true'? true: false;
+if (isset($_GET['new']))$new = $_GET['new'] === 'true' ? true : false;
+if (isset($_GET['id'])) $id = $_GET['id'];
 
 
 switch ($tableName) {
@@ -43,7 +44,7 @@ switch ($tableName) {
         break;
 
     case 'lend':
-        $work_lend = new Lend ( "","", $_POST["dni"], "",false);
+        $work_lend = new Lend ("", "", $_POST["dni"], "", false);
 
         if ($new) {
             $work_lend->insertLendToBD($_POST["isbn"]);
@@ -53,8 +54,16 @@ switch ($tableName) {
 
         break;
 
+    case 'return':
+        $work_lend = new Lend ($id);
+        $work_lend->setReturned(1);
+
+        $work_lend->updateLendOfBD();
+
+        break;
+
     case 'reserve':
-        $work_reserve = new Reserve ("",$_POST["start_time_reserve"], $_POST["dni"], "");
+        $work_reserve = new Reserve ("", $_POST["start_time_reserve"], $_POST["dni"], "");
 
         if ($new) {
             $work_reserve->insertReserveToBD($_POST["isbn"]);

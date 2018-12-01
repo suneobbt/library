@@ -75,7 +75,7 @@ class Lend
      * @param $id_copy
      * @param $returned
      */
-    public function __construct5($id_lend, $start_time_lend, $dni, $id_copy,$returned)
+    public function __construct5($id_lend, $start_time_lend, $dni, $id_copy, $returned)
     {
         $this->id_lend = $id_lend;
         $this->start_time_lend = $start_time_lend;
@@ -90,14 +90,14 @@ class Lend
         include_once('connection_data2.inc');
         include_once('Available.php');
 
-        $date=date_create();
-        $this->start_time_lend=strval(date_format($date,"Y/m/d"));
-echo "date : ".$this->start_time_lend;
+        $date = date_create();
+        $this->start_time_lend = strval(date_format($date, "Y/m/d"));
+        echo "date : " . $this->start_time_lend;
         $copy = Available::bookAvailable($isbn, $this->start_time_lend);
 
         if ($copy < 0) {
-            setcookie("dniLend",$this->dni,time() + 1);
-            setcookie("isbnLend",$isbn,time() + 1);
+            setcookie("dniLend", $this->dni, time() + 1);
+            setcookie("isbnLend", $isbn, time() + 1);
             header("Location: pageForm.php?id=new&ref=lend&msg=804");
             die();
         } else {
@@ -121,7 +121,7 @@ echo "date : ".$this->start_time_lend;
         $sql_result2 = $connexion->query($sentenciaSQL);
 
         while ($row = mysqli_fetch_assoc($sql_result2)) {
-            $lastId_lend= $row['id_lend'];
+            $lastId_lend = $row['id_lend'];
 
         }
         echo $sentenciaSQL;
@@ -132,30 +132,24 @@ echo "date : ".$this->start_time_lend;
 
     public function updateLendOfBD()
     {
-        include_once('connection_data.inc');
+        include_once('connection_data2.inc');
 
-        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
+        // $returnedValue = $this->returned === 'true' ? 1 : 0;
 
-        if ($connexion->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            die();
-        }
-
-        $returnedValue = $this->returned === 'true'? 1: 0;
 
         $sentenciaSQL = "UPDATE lend SET 
             id_lend='$this->id_lend',
             start_time_lend='$this->start_time_lend',
             dni='$this->dni',
             id_copy='$this->id_copy',
-            returned='$returnedValue'
+            returned='$this->returned'
 
             WHERE id_lend='$this->id_lend';";
 
         echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
-        header ("Location: pageBrowse.php?id=".$this->id_lend."&ref=lend");
+        header("Location: pageBrowse.php?id=" . $this->id_lend . "&ref=lend");
     }
 
     /**

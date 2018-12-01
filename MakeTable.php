@@ -11,13 +11,13 @@ class MakeTable
     private $row;
     //private $nextRow;
     private $registers;
-    private $fileBrowse, $fileUpdate, $fileDelete;
+    private $fileBrowse, $fileUpdate, $fileDelete, $filePickUp, $fileReturn;
     private $condition;
     private $condition2;
     private $fieldCondition;
 
 
-    function __construct($dbName, $tableName, $fieldList, $fileBrowse = "", $fileUpdate = "", $fileDelete = "", $condition = "", $fieldCondition = "",$condition2="")
+    function __construct($dbName, $tableName, $fieldList, $fileBrowse = "", $fileUpdate = "", $fileDelete = "", $condition = "", $fieldCondition = "", $condition2 = "", $filePickUp = "", $fileReturn = "")
     {
         $this->dbName = $dbName;
         $this->tableName = $tableName;
@@ -30,6 +30,8 @@ class MakeTable
         $this->fileBrowse = $fileBrowse;
         $this->fileUpdate = $fileUpdate;
         $this->fileDelete = $fileDelete;
+        $this->filePickUp = $filePickUp;
+        $this->fileReturn = $fileReturn;
 
         $this->condition = $condition;
         $this->condition2 = $condition2;
@@ -78,6 +80,12 @@ class MakeTable
         if ($this->fileUpdate != "") {
             echo "<td  width='30' height='30' align = 'center'><b> UPDATE </b></td>";
         }
+        if ($this->filePickUp != "") {
+            echo "<td  width='30' height='30' align = 'center'><b> PICKUP </b></td>";
+        }
+        if ($this->fileReturn != "") {
+            echo "<td  width='30' height='30' align = 'center'><b> RETURN </b></td>";
+        }
         if ($this->fileDelete != "") {
             echo "<td  width='30' height='30' align = 'center'><b> DELETE </b></td>";
         }
@@ -100,10 +108,9 @@ class MakeTable
             $sentenciaSQL = $sentenciaSQL . " WHERE " . $this->fieldCondition . "=" . $this->condition;
         }
 
-        if ($this->condition2!="")
-        {
+        if ($this->condition2 != "") {
             $sentenciaSQL = $sentenciaSQL . $this->condition2 . ";";
-        }else{
+        } else {
             $sentenciaSQL = $sentenciaSQL . ";";
         }
 
@@ -124,6 +131,8 @@ class MakeTable
         }
 
         $idToGiveInGet = $this->row[$this->fieldList[0]];
+        $dniToGiveInGet = $this->row[$this->fieldList[1]];
+
         if ($this->fileBrowse != "") {
             echo "<td  width='30' height='30' align = 'center'><a href='$this->fileBrowse?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/browse.png'> </a></td>";
         }
@@ -132,8 +141,21 @@ class MakeTable
             echo "<td  width='30' height='30' align = 'center'><a href='$this->fileUpdate?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/edit.png'> </a></td>";
         }
 
+        if ($this->filePickUp != "") {
+            include_once ("Copy.php");
+            $idToGiveInGet = $this->row[$this->fieldList[3]];
+            $workcopy = new Copy($idToGiveInGet);
+            $idToGiveInGet = $workcopy->getIsbn();
+            echo "<td  width='30' height='30' align = 'center'><a href='$this->filePickUp?id=new&ref=lend&dniLend=" . $dniToGiveInGet . "&isbnLend=" . $idToGiveInGet . "'> <img src='res/icons/pickup.png'> </a></td>";
+        }
+
+        if ($this->fileReturn != "") {
+
+            echo "<td  width='30' height='30' align = 'center'><a href='$this->fileReturn?id=" . $idToGiveInGet . "&ref=return" . "'> <img src='res/icons/return.png'> </a></td>";
+        }
+
         if ($this->fileDelete != "") {
-           // echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/delete.png'> </a></td>";
+            // echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/delete.png'> </a></td>";
             echo "<td width='30' height='30' align = 'center' onclick=\"deleteRow('$idToGiveInGet','$this->tableName','$this->fileDelete')\"> <a href=#> <img src='res/icons/delete.png'> </a></td>";
         }
 

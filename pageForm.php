@@ -102,6 +102,12 @@ include('confirmIfSessionSet.php');
                         $dniLend = $_COOKIE['dniLend'];
                         $isbnLend = $_COOKIE['isbnLend'];
                     }
+
+                    if (isset($_GET['dniLend'])) {
+                        $dniLend = $_GET['dniLend'];
+                        $isbnLend = $_GET['isbnLend'];
+                    }
+
                     // $data->addField("id_lend", "Lend ID", "text", "required", "disabled", "");
                     // $data->addField("start_time_lend", "Start day of the lend", "date", "required", "", "");
                     $data->addField("dni", "DNI", "text", "required", "", $dniLend);
@@ -167,24 +173,24 @@ include('confirmIfSessionSet.php');
 
                 case 'lend':
                     $work_lend = new Lend($id);
-                    $data->addField("id_lend", "Lend ID*", "text", "required", "readonly", $work_lend->getIdLend());
+                    $data->addField("id_lend", "Lend ID", "text", "required", "readonly", $work_lend->getIdLend());
                     $data->addField("start_time_lend", "Start day of the lend", "date", "required", "", $work_lend->getStartTimeLend());
                     $data->addField("dni", "DNI", "text", "required", "readonly", $work_lend->getDni());
                     $data->addField("id_copy", "Copy ID", "text", "required", "readonly", $work_lend->getIdCopy());
                     $returnedValue = $work_lend->getReturned() === '1' ? 'true' : 'false';
                     $data->addField("returned", "Returned", "text", "required", "", $returnedValue);
-                    $data->addNote("* If you change this values, is like make a new lend. For it, delete the lend and create a new one.");
+                    $data->addNote("If you change this values, is like make a new lend. For it, delete the lend and create a new one.");
 
 
                     break;
 
                 case 'reserve':
                     $work_reserve = new Reserve($id);
-                    $data->addField("id_reserve", "Reserve ID*", "text", "required", "readonly", $work_reserve->getIdReserve());
+                    $data->addField("id_reserve", "Reserve ID", "text", "required", "readonly", $work_reserve->getIdReserve());
                     $data->addField("start_time_reserve", "Start day of the lend", "date", "required", "", $work_reserve->getStartTimeReserve());
-                    $data->addField("dni", "DNI*", "text", "required", "readonly", $work_reserve->getDni());
-                    $data->addField("id_copy", "Copy ID*", "text", "required", "readonly", $work_reserve->getIdCopy());
-                    $data->addNote("* If you change this values, is like make a new reserve. For it, delete the reserve and create a new one.");
+                    $data->addField("dni", "DNI", "text", "required", "readonly", $work_reserve->getDni());
+                    $data->addField("id_copy", "Copy ID", "text", "required", "readonly", $work_reserve->getIdCopy());
+                    $data->addNote("If you change this values, is like make a new reserve. For it, delete the reserve and create a new one.");
                     break;
 
                 case 'copy':

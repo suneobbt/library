@@ -50,17 +50,19 @@ if (isset($_GET['id'])) {
         $fieldCondition = "";
 
         //list search values
-        $condition2="";
-        if (isset($_POST['patternSearch'])) $condition2=$_POST['fieldSearch'] ." LIKE '%".$_POST['patternSearch']."%'";
+        $condition2 = "";
+        if (isset($_POST['patternSearch'])) $condition2 = $_POST['fieldSearch'] . " LIKE '%" . $_POST['patternSearch'] . "%'";
 
 
-        $adminUser=false;
-        if ($_SESSION['user_type']==2) $adminUser=true;
+        $adminUser = false;
+        if ($_SESSION['user_type'] == 2) $adminUser = true;
 
         // files where to jump to Browse, Edit and Delete the selected row.
         $fileBrowse = "pageBrowse.php";
         $fileUpdate = "";
         $fileDelete = "";
+        $filePickUp = "";
+        $fileReturn = "";
 
         if ($_SESSION['user_type'] != '0') {
             $fileUpdate = "pageForm.php";
@@ -74,8 +76,11 @@ if (isset($_GET['id'])) {
             case "lend":
                 $fields = array("id_lend", "dni", "start_time_lend");
 
+
                 if ($_SESSION['user_type'] != '0') {
                     $fields[] = "id_copy";
+                    $fileReturn = "modifyProcess.php";
+                    $fileUpdate = "";
                 } else {
                     //add condition to show only her lends
                     $fieldCondition = "dni";
@@ -85,8 +90,11 @@ if (isset($_GET['id'])) {
             case "reserve":
                 $fields = array("id_reserve", "dni", "start_time_reserve");
 
+
                 if ($_SESSION['user_type'] != '0') {
                     $fields[] = "id_copy";
+                    $filePickUp = "pageForm.php";
+                    $fileUpdate = "";
                 } else {
                     //add condition to show only her reserves
                     $fieldCondition = "dni";
@@ -95,16 +103,16 @@ if (isset($_GET['id'])) {
 
             case "book":
                 $fields = array("isbn", "title", "author", "editorial", "year", "language");
-                if ($condition2!="")$condition2=" WHERE ".$condition2;
+                if ($condition2 != "") $condition2 = " WHERE " . $condition2;
 
                 break;
 
             case "users":
                 $fields = array("dni", "name", "surname", "user_type");
-                if ($condition2!="") $condition2=" AND ".$condition2;
+                if ($condition2 != "") $condition2 = " AND " . $condition2;
 
 
-                if (!$adminUser){
+                if (!$adminUser) {
                     $fieldCondition = "user_type";
                     $condition = "'0' OR user_type='1'";
                 }
@@ -112,7 +120,7 @@ if (isset($_GET['id'])) {
         }
 
         $t = new MakeTable($dbName, $tableName, $fields, $fileBrowse,
-            $fileUpdate, $fileDelete, $condition, $fieldCondition,$condition2);
+            $fileUpdate, $fileDelete, $condition, $fieldCondition, $condition2, $filePickUp, $fileReturn);
 
         $t->paintTable();
 
