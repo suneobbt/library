@@ -6,6 +6,7 @@
  * Time: 0:12
  */
 
+
 Class Book
 {
     private $isbn;
@@ -50,14 +51,7 @@ Class Book
      */
     public function __construct1($isbn)
     {
-        include("connection_data.inc");
-
-        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
-
-        if ($connexion->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            die();
-        }
+        include("connection_data2.inc");
 
         $sentenciaSQL = "SELECT * FROM book where isbn='$isbn';";
 
@@ -114,16 +108,10 @@ Class Book
     /**
      *
      */
-    public function insertBookToBD()
+    public function insertBookToBD($copies)
     {
-        include_once('connection_data.inc');
-
-        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
-
-        if ($connexion->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            die();
-        }
+        include_once('connection_data2.inc');
+        include_once ('Available.php');
 
         $sentenciaSQL = "INSERT INTO book VALUES( 
             '$this->isbn',
@@ -145,6 +133,9 @@ Class Book
         $sql_result = $connexion->query($sentenciaSQL);
 
          if ($sql_result) {
+             for ($i=0;$i<$copies;$i++){
+                 Copy::addCopy($this->isbn);
+             }
              header("Location: pageBrowse.php?id=" . $this->isbn . "&ref=book");
          }else{
              header("Location:".$_SERVER['HTTP_REFERER']."&msg=805");
@@ -155,9 +146,10 @@ Class Book
 
     /**
      */
-    public function updateBookOfBD()
+    public function updateBookOfBD($copies)
     {
         include_once('connection_data.inc');
+        include_once ('Available.php');
 
         $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
 
@@ -184,6 +176,9 @@ Class Book
         //echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
+        while (Available::numberOfCopies($this->getIsbn())!= $copies){
+            Copy::addCopy($this->isbn);
+        }
         header("Location: pageBrowse.php?id=" . $this->isbn . "&ref=book");
     }
 

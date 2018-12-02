@@ -24,9 +24,9 @@ switch ($tableName) {
             $_POST["book_condition"], $_POST["continuous_of"], $_POST["continued_by"]);
 
         if ($new) {
-            $work_book->insertBookToBD();
+            $work_book->insertBookToBD($_POST["copies"]);
         } else {
-            $work_book->updateBookOfBD();
+            $work_book->updateBookOfBD($_POST["copies"]);
         }
 
         break;

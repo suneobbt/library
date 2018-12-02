@@ -92,7 +92,7 @@ class Lend
 
         $date = date_create();
         $this->start_time_lend = strval(date_format($date, "Y/m/d"));
-        echo "date : " . $this->start_time_lend;
+
         $copy = Available::bookAvailable($isbn, $this->start_time_lend);
 
         if ($copy < 0) {
@@ -103,7 +103,6 @@ class Lend
         } else {
             $this->id_copy = $copy;
         }
-
 
         $sentenciaSQL = "INSERT INTO lend VALUES( 
             '$this->id_lend',

@@ -39,14 +39,7 @@ class Copy
      */
     public function __construct1($id_copy)
     {
-        include("connection_data.inc");
-
-        $connexion = new mysqli ($mysql_server, $mysql_login, $mysql_pass, "library");
-
-        if ($connexion->connect_errno) {
-            echo "Failed to connect to MySQL: " . $mysqli->connect_error;
-            die();
-        }
+        include("connection_data2.inc");
 
         $sentenciaSQL = "SELECT * FROM copy where id_copy='$id_copy';";
 
@@ -71,15 +64,21 @@ class Copy
     }
 
 
+    public static function addCopy($isbn){
+        include "connection_data2.inc";
+
+        $sentenciaSQL = "INSERT INTO copy VALUES('','$isbn')";
+
+        echo $sentenciaSQL;
+        $sql_result = $connexion->query($sentenciaSQL);
+
+    }
+
     public function insertCopyToBD()
     {
         //TODO: Implement method to insert the values from an object into a database
     }
 
-    public function updateCopyOfBD()
-    {
-        //TODO: Implement method who modify the data from database with the received data from the object
-    }
 
     /**
      * @return mixed

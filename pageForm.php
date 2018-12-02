@@ -49,6 +49,7 @@ include('confirmIfSessionSet.php');
         require_once("Book.php");
         require_once("Lend.php");
         require_once("Reserve.php");
+        require_once("Available.php");
         //lets modify some tables
 
         $tableName = $_GET['ref'];
@@ -73,6 +74,8 @@ include('confirmIfSessionSet.php');
                     $data->addField("book_condition", "Book Condition", "text", "", "", "");
                     $data->addField("continuous_of", "Continuous Of", "text", "", "", "");
                     $data->addField("continued_by", "Continued By", "text", "", "", "");
+                    $data->addField("copies", "Number of copies", "number", "required", "", "");
+
                     break;
 
                 case 'users':
@@ -155,6 +158,7 @@ include('confirmIfSessionSet.php');
                     $data->addField("book_condition", "Book Condition", "text", "", "", $work_book->getBookCondition());
                     $data->addField("continuous_of", "Continuous Of", "text", "", "", $work_book->getContinuousOf());
                     $data->addField("continued_by", "Continued By", "text", "", "", $work_book->getContinuedBy());
+                    $data->addField("copies", "Number of copies", "number", "required", "", Available::numberOfCopies($work_book->getIsbn()));
                     break;
 
                 case 'users':
@@ -179,8 +183,7 @@ include('confirmIfSessionSet.php');
                     $data->addField("id_copy", "Copy ID", "text", "required", "readonly", $work_lend->getIdCopy());
                     $returnedValue = $work_lend->getReturned() === '1' ? 'true' : 'false';
                     $data->addField("returned", "Returned", "text", "required", "", $returnedValue);
-                    $data->addNote("If you change this values, is like make a new lend. For it, delete the lend and create a new one.");
-
+                    //$data->addNote("If you change this values, is like make a new lend. For it, delete the lend and create a new one.");
 
                     break;
 
@@ -190,15 +193,15 @@ include('confirmIfSessionSet.php');
                     $data->addField("start_time_reserve", "Start day of the lend", "date", "required", "", $work_reserve->getStartTimeReserve());
                     $data->addField("dni", "DNI", "text", "required", "readonly", $work_reserve->getDni());
                     $data->addField("id_copy", "Copy ID", "text", "required", "readonly", $work_reserve->getIdCopy());
-                    $data->addNote("If you change this values, is like make a new reserve. For it, delete the reserve and create a new one.");
+                    //$data->addNote("If you change this values, is like make a new reserve. For it, delete the reserve and create a new one.");
                     break;
 
-                case 'copy':
+                /*case 'copy':
                     $work_copy = new Copy($id);
                     $data->addField("isbn", "ISBN", "text", "required", "", $work_copy->getIsbn());
                     $data->addField("id_copy", "Copy ID", "text", "required", "", $work_copy->getIdCopy());
 
-                    break;
+                    break;*/
             }
         }
 

@@ -31,8 +31,6 @@ class ShowData
             $this->buttonDeleteOn = true;
             $this->actionDelete = $actionDelete;
         }
-
-
     }
 
     public function addLine($name, $data)
@@ -41,7 +39,7 @@ class ShowData
         $this->lines[$this->NLines]['data'] = $data;
 
         $this->NLines++;
-    } // addField
+    } // addLine
 
     /* Display data function to display the data.*/
     public function displayData()
@@ -56,6 +54,6 @@ class ShowData
         if ($this->buttonModifyOn) echo "<a href='{$this->actionModify}'>Modify data</a>";
         if ($this->buttonDeleteOn) echo "<a onclick='{$this->actionDelete}'>Delete it</a>";
 
-    } // displayForm
+    } // displayData
 
 } // class ShowData
