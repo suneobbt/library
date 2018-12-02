@@ -1,3 +1,5 @@
+<script type="text/javascript" src="functionsJS.js"></script>
+
 <?php
 /**
  * Created by PhpStorm.
@@ -52,7 +54,7 @@ class ShowData
         } // for
 
         if ($this->buttonModifyOn) echo "<a href='{$this->actionModify}'>Modify data</a>";
-        if ($this->buttonDeleteOn) echo "<a onclick='{$this->actionDelete}'>Delete it</a>";
+        if ($this->buttonDeleteOn) echo "<a href=# onclick=\"{$this->actionDelete}\"  >Delete it</a>";
 
     } // displayData
 

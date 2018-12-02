@@ -150,12 +150,10 @@ class MakeTable
         }
 
         if ($this->fileReturn != "") {
-
             echo "<td  width='30' height='30' align = 'center'><a href='$this->fileReturn?id=" . $idToGiveInGet . "&ref=return" . "'> <img src='res/icons/return.png'> </a></td>";
         }
 
         if ($this->fileDelete != "") {
-            // echo "<td width='30' height='30' align = 'center'><a href='$this->fileDelete?id=" . $idToGiveInGet . "&ref=" . $this->tableName . "'> <img src='res/icons/delete.png'> </a></td>";
             echo "<td width='30' height='30' align = 'center' onclick=\"deleteRow('$idToGiveInGet','$this->tableName','$this->fileDelete')\"> <a href=#> <img src='res/icons/delete.png'> </a></td>";
         }
 

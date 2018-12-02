@@ -15,7 +15,7 @@ include('confirmIfSessionSet.php');
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
     <title>The Library - Browse </title>
@@ -63,7 +63,7 @@ include('confirmIfSessionSet.php');
 
         $actionModify = "pageForm.php?ref=" . $tableName . "&id=" . $id;
         //TODO: Implement button delete url
-        $actionDelete = "delete";
+        $actionDelete = "deleteRow('$id','$tableName','pageListed.php')";
 
         switch ($tableName) {
             case 'book':

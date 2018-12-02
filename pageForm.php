@@ -15,7 +15,7 @@ include('confirmIfSessionSet.php');
 
 <!DOCTYPE html>
 
-<html>
+<html lang="en">
 
 <head>
     <title>The Library - Form </title>
@@ -163,7 +163,7 @@ include('confirmIfSessionSet.php');
 
                 case 'users':
                     $work_user = new User($id);
-                    $data->addField("dni", "DNI", "text", "required", "", $work_user->getDni());
+                    $data->addField("dni", "DNI", "text", "required", "readonly", $work_user->getDni());
                     $data->addField("name", "Name", "text", "required", "", $work_user->getName());
                     $data->addField("surname", "Surname", "text", "required", "", $work_user->getSurname());
                     $data->addField("pass", "Password", "password", "required", "", $work_user->getPass());
