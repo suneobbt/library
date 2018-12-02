@@ -105,7 +105,7 @@ class MakeTable
         $sentenciaSQL .= $this->fieldList[$this->numFields - 1] . " FROM " . $this->tableName;
 
         if ($this->fieldCondition != "") {
-            $sentenciaSQL = $sentenciaSQL . " WHERE " . $this->fieldCondition . "=" . $this->condition;
+            $sentenciaSQL = $sentenciaSQL . " WHERE " . $this->fieldCondition . "='" . $this->condition . "'";
         }
 
         if ($this->condition2 != "") {
@@ -142,7 +142,7 @@ class MakeTable
         }
 
         if ($this->filePickUp != "") {
-            include_once ("Copy.php");
+            include_once("Copy.php");
             $idToGiveInGet = $this->row[$this->fieldList[3]];
             $workcopy = new Copy($idToGiveInGet);
             $idToGiveInGet = $workcopy->getIsbn();
