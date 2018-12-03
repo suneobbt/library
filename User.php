@@ -77,9 +77,10 @@ class User
         mysqli_close($connexion);
     }
 
-    function __construct10($dni,$name,$surname,$pass,$user_type,$phone_number,$city,$postal_code,$email,$direction){
+    function __construct10($dni, $name, $surname, $pass, $user_type, $phone_number, $city, $postal_code, $email, $direction)
+    {
         $this->dni = $dni;
-        $this->name =$name;
+        $this->name = $name;
         $this->surname = $surname;
         $this->user_type = $user_type;
         $this->phone_number = $phone_number;
@@ -90,7 +91,7 @@ class User
         $this->pass = $pass;
     }
 
-    public function insertUserToBD()
+    public function insertUserToBD($register)
     {
         include_once('connection_data.inc');
 
@@ -119,9 +120,21 @@ class User
         $sql_result = $connexion->query($sentenciaSQL);
 
         if ($sql_result) {
-            header("Location: pageBrowse.php?id=" . $this->dni . "&ref=users");
-        }else{
-            header("Location:".$_SERVER['HTTP_REFERER']."&msg=805");
+
+            if ($register) {
+                header("Location: index.php?msg=806");
+            } else {
+                header("Location: pageBrowse.php?id=" . $this->dni . "&ref=users");
+            }
+
+        } else {
+
+            if ($register) {
+                header("Location: index.php?register=true&msg=807");
+            } else {
+                header("Location:" . $_SERVER['HTTP_REFERER'] . "&msg=805");
+            }
+
         }
 
     }
@@ -154,7 +167,7 @@ class User
         //echo $sentenciaSQL;
 
         $sql_result = $connexion->query($sentenciaSQL);
-        header ("Location: pageBrowse.php?id=".$this->dni."&ref=users");
+        header("Location: pageBrowse.php?id=" . $this->dni . "&ref=users");
     }
     //Getters and setters
 

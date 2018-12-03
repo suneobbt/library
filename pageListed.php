@@ -114,7 +114,7 @@ if (isset($_GET['id'])) {
 
                 if (!$adminUser) {
                     $fieldCondition = "user_type";
-                    $condition = "'0' OR user_type='1'";
+                    $condition = "0' OR user_type='1";
                 }
                 break;
         }

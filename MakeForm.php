@@ -57,7 +57,7 @@ class MakeForm
         } // for
 
         if ($this->Nnote > 0) {
-            echo "<p><i>($this->note)<i></p>";
+            echo "<p><i>($this->note)</i></p>";
         }
 
         echo "<p><input type='submit' value='{$this->submit}'></p>";

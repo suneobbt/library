@@ -54,13 +54,35 @@
                 <br/><br/>
                 <input type=\"submit\" value=\"Get in\"/>
                 <br/><br/>
-                <div>You aren't a client yet? <a href=\"pageForm.php?id=register&ref=user\">Register here</a></div>
+                <div>You aren't a client yet? <a href=\"index.php?&register=true\">Register here</a></div>
             </form>";
         }
         ?>
     </aside>
 
     <section>
+        <?php
+            if (isset($_GET['register'])){
+                require_once("MakeForm.php");
+
+                echo "<h2>Register your self</h2>";
+                $data = new MakeForm("modifyProcess.php?ref=users&new=true&register=true", "Submit");
+                $data->addField("dni", "DNI", "text", "required", "", "");
+                $data->addField("name", "Name", "text", "required", "", "");
+                $data->addField("surname", "Surname", "text", "required", "", "");
+                $data->addField("pass", "Password", "password", "required", "", "");
+                $data->addField("email", "E-Mail", "email", "required", "", "");
+                $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "readonly", "0");
+                $data->addField("phone_number", "Phone Number", "text", "", "", "");
+                $data->addField("direction", "Direction", "text", "", "", "");
+                $data->addField("city", "City", "text", "", "", "");
+                $data->addField("postal_code", "Postal Code", "text", "", "", "");
+                $data->addNote("<b>* To formalize your registration, on your first book lend, you must show your ID to the librarian.</b>");
+
+                $data->displayForm();
+
+            }else{
+        ?>
         <h2>Search</h2>
         <article>
             <label for="search">Find your book</label>
@@ -71,6 +93,7 @@
             <h3>Iaculis tortor</h3>
             In iaculis tortor quis nulla congue finibus. Curabitur egestas efficitur elementum.
         </article>
+        <?php }?>
     </section>
 
     <section>

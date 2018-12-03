@@ -9,6 +9,7 @@
 session_cache_limiter('nocache,private');
 session_start();
 
+
 include('confirmIfSessionSet.php');
 
 ?>
@@ -55,7 +56,10 @@ include('confirmIfSessionSet.php');
         $tableName = $_GET['ref'];
         $id = $_GET['id'];
         $superUser = false;
-        if ($_SESSION['user_type'] == 2) $superUser = true;
+
+        if (isset($_SESSION['user_type'])) {
+            if ($_SESSION['user_type'] == 2) $superUser = true;
+        }
 
         if ($id == "new") {
             $data = new MakeForm("modifyProcess.php?ref=" . $tableName . "&new=true", "Insert new " . $tableName);

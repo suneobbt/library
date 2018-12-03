@@ -11,11 +11,11 @@ require_once('Reserve.php');
 require_once('Lend.php');
 require_once('Copy.php');
 
-
 $tableName = $_GET['ref'];
-if (isset($_GET['new']))$new = $_GET['new'] === 'true' ? true : false;
+$register = false;
+if (isset($_GET['new'])) $new = $_GET['new'] === 'true' ? true : false;
 if (isset($_GET['id'])) $id = $_GET['id'];
-
+if (isset($_GET['register'])) $register = true;
 
 switch ($tableName) {
     case 'book':
@@ -36,7 +36,7 @@ switch ($tableName) {
             $_POST["phone_number"], $_POST["city"], $_POST["postal_code"], $_POST["email"], $_POST["direction"]);
 
         if ($new) {
-            $work_user->insertUserToBD();
+            $work_user->insertUserToBD($register);
         } else {
             $work_user->updateUserOfBD();
         }
