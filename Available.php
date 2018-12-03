@@ -174,4 +174,23 @@ class Available
         }
     }
 
+    static function bookReserved($dni)
+    {
+        include('connection_data2.inc');
+
+        $copyReserved="";
+        $startDate = strval(date_format(date_create(), "Y/m/d"));
+
+        $sentenciaSQL = "SELECT id_copy FROM reserve WHERE start_time_reserve='$startDate' AND dni='$dni'";
+        $sql_result = $connexion->query($sentenciaSQL);
+
+        while ($row = mysqli_fetch_assoc($sql_result)) {
+            $copyReserved = $row['id_copy'];
+        }
+
+        if ($copyReserved == "") $copyReserved = -1;
+        return $copyReserved;
+
+    }
+
 }

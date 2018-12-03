@@ -143,10 +143,10 @@ class MakeTable
 
         if ($this->filePickUp != "") {
             include_once("Copy.php");
-            $idToGiveInGet = $this->row[$this->fieldList[3]];
-            $workcopy = new Copy($idToGiveInGet);
-            $idToGiveInGet = $workcopy->getIsbn();
-            echo "<td  width='30' height='30' align = 'center'><a href='$this->filePickUp?id=new&ref=lend&dniLend=" . $dniToGiveInGet . "&isbnLend=" . $idToGiveInGet . "'> <img src='res/icons/pickup.png'> </a></td>";
+            $isbnToGiveInGet = $this->row[$this->fieldList[3]];
+            $workcopy = new Copy($isbnToGiveInGet);
+            $isbnToGiveInGet = $workcopy->getIsbn();
+            echo "<td  width='30' height='30' align = 'center'><a href='$this->filePickUp?id=new&ref=lend&dniLend=" . $dniToGiveInGet . "&isbnLend=" . $isbnToGiveInGet . "'> <img src='res/icons/pickup.png'> </a></td>";
         }
 
         if ($this->fileReturn != "") {
