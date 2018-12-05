@@ -74,11 +74,30 @@ if (isset($_GET['id'])) {
 
         switch ($tableName) {
             case "lend":
-                $fields = array("id_lend", "dni", "start_time_lend");
+                if ($_SESSION['user_type'] != '0') {
+                    ?>
 
+                    <h3>Find a lend</h3>
+                    <form method="post" action="pageListed.php?ref=lend">
+                        <label for="patternSearch">Search:</label>
+                        <input type="text" name="patternSearch" id="patternSearch" required=""/>
+
+                        <label for="fieldSearch">Search by: </label>
+                        <select id="fieldSearch" name="fieldSearch" required="">
+                            <option value="isbn" selected="selected">ISBN</option>
+                            <option value="dni">DNI</option>
+                        </select>
+                        <input type="submit" value="Search"/>
+                    </form>
+                    <br/>
+
+                    <?php
+                }
+                $fields = array("id_lend", "dni", "start_time_lend");
+                if ($condition2 != "") $condition2 = " JOIN `copy` ON copy.id_copy=lend.id_copy WHERE " . $condition2;
 
                 if ($_SESSION['user_type'] != '0') {
-                    $fields[] = "id_copy";
+                    $fields[] = "lend.id_copy";
                     $fileReturn = "modifyProcess.php";
                     $fileUpdate = "";
                 } else {
@@ -88,11 +107,30 @@ if (isset($_GET['id'])) {
                 break;
 
             case "reserve":
-                $fields = array("id_reserve", "dni", "start_time_reserve");
+                if ($_SESSION['user_type'] != '0') {
+                    ?>
 
+                    <h3>Find a reserve</h3>
+                    <form method="post" action="pageListed.php?ref=reserve">
+                        <label for="patternSearch">Search:</label>
+                        <input type="text" name="patternSearch" id="patternSearch" required=""/>
+
+                        <label for="fieldSearch">Search by: </label>
+                        <select id="fieldSearch" name="fieldSearch" required="">
+                            <option value="isbn" selected="selected">ISBN</option>
+                            <option value="dni">DNI</option>
+                        </select>
+                        <input type="submit" value="Search"/>
+                    </form>
+                    <br/>
+
+                    <?php
+                }
+                $fields = array("id_reserve", "dni", "start_time_reserve");
+                if ($condition2 != "") $condition2 = " JOIN `copy` ON copy.id_copy=reserve.id_copy WHERE " . $condition2;
 
                 if ($_SESSION['user_type'] != '0') {
-                    $fields[] = "id_copy";
+                    $fields[] = "reserve.id_copy";
                     $filePickUp = "pageForm.php";
                     $fileUpdate = "";
                 } else {
@@ -101,14 +139,53 @@ if (isset($_GET['id'])) {
                 }
                 break;
 
-            case "book":
-                $fields = array("isbn", "title", "author", "editorial", "year", "language");
+            case "book": ?>
+
+                <h3>Find a book</h3>
+                <form method="post" action="pageListed.php?ref=book">
+                    <label for="patternSearch">Search:</label>
+                    <input type="text" name="patternSearch" id="patternSearch" required=""/>
+
+                    <label for="fieldSearch">Search by: </label>
+                    <select id="fieldSearch" name="fieldSearch" required="">
+                        <option value="isbn" selected="selected">ISBN</option>
+                        <option value="title">Title</option>
+                        <option value="author">Author</option>
+                        <option value="editorial">Editorial</option>
+                        <option value="year">Year</option>
+                        <option value="category">Category</option>
+                        <option value="language">Language</option>
+                    </select>
+                    <input type="submit" value="Search"/>
+                </form>
+                <br/>
+
+                <?php $fields = array("isbn", "title", "author", "editorial", "year", "language");
                 if ($condition2 != "") $condition2 = " WHERE " . $condition2;
 
                 break;
 
-            case "users":
-                $fields = array("dni", "name", "surname", "user_type");
+            case "users": ?>
+
+                <h3>Find a user</h3>
+                <form method="post" action="pageListed.php?ref=users">
+                    <label for="patternSearch">Search: </label>
+                    <input type="text" name="patternSearch" id="patternSearch" placeholder="" required=""/>
+                    <label for="fieldSearch">Search by: </label>
+                    <select id="fieldSearch" name="fieldSearch" required="">
+                        <option value="dni" selected="selected">DNI</option>
+                        <option value="name">Name</option>
+                        <option value="surname">Surname</option>
+                        <option value="email">E-Mail</option>
+                        <option value="phone_number">Phone number</option>
+                        <option value="postal_code">Postal code</option>
+                        <option value="city">City</option>
+                    </select>
+                    <input type="submit" value="Search"/>
+                </form>
+                <br/>
+
+                <?php $fields = array("dni", "name", "surname", "user_type");
                 if ($condition2 != "") $condition2 = " AND " . $condition2;
 
 

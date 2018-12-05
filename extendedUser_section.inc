@@ -53,9 +53,8 @@ switch ($work_user->getUserType()) {
         <article>
             <h3>Find a book</h3>
             <form method="post" action="pageListed.php?ref=book">
-                <label for="patternSearch">Search</label>
-                <input type="text" name="patternSearch" id="patternSearch" required=""/><br/>
-
+                <label for="patternSearch">Search:</label>
+                <input type="text" name="patternSearch" id="patternSearch" required=""/>
                 <label for="fieldSearch">Search by: </label>
                 <select id="fieldSearch" name="fieldSearch" required="">
                     <option value="isbn" selected="selected">ISBN</option>
@@ -65,31 +64,10 @@ switch ($work_user->getUserType()) {
                     <option value="year">Year</option>
                     <option value="category">Category</option>
                     <option value="language">Language</option>
-                </select><br/>
-
+                </select>
                 <input type="submit" value="Search"/>
             </form>
-        </article>
 
-        <article>
-            <h3>Find a user</h3>
-            <form method="post" action="pageListed.php?ref=users">
-                <label for="patternSearch">Search </label>
-                <input type="text" name="patternSearch" id="patternSearch" placeholder="" required=""/><br/>
-
-                <label for="fieldSearch">Search by: </label>
-                <select id="fieldSearch" name="fieldSearch" required="">
-                    <option value="dni" selected="selected">Dni</option>
-                    <option value="name">Name</option>
-                    <option value="surname">Surname</option>
-                    <option value="email">E-Mail</option>
-                    <option value="phone_number">Phone number</option>
-                    <option value="postal_code">Postal code</option>
-                    <option value="city">City</option>
-                </select><br/>
-
-                <input type="submit" value="Search"/>
-            </form>
         </article>
 
         <article>

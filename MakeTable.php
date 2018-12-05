@@ -53,19 +53,21 @@ class MakeTable
 
     public function paintTable()
     {
+        $empty=true;// if we don't have any result will print a message
         $this->paintHeader();
 
         while ($row = $this->moreRegisters()) { //add results
+            $empty=false;
             $this->paintRow();
         }
-
         $this->paintFooter();
+
+        if($empty)echo "<p><b>Sorry, no results for this search. Try again.</b></p>";
     }
 
 
     public function paintHeader()
     {
-        //echo "<h2 align = center> Content of table <u>" . $this->tableName . "</u> from DB <u>". $this->dbName . "</u></h2><br>";
         echo "<table border = \"1\" align = \"center\" width=\"100%\"><tr>";
 
         for ($i = 0; $i < $this->numFields; $i++) //add fields
@@ -91,7 +93,6 @@ class MakeTable
         }
         echo "</tr>";
 
-        // to paint in different colors
         $this->row = 0;
 
         // builing select string
@@ -127,7 +128,11 @@ class MakeTable
         echo "<tr>";
 
         for ($i = 0; $i < $this->numFields; $i++) {
-            echo "<td  width='40' height='30' align = 'center'>" . $this->row[$this->fieldList[$i]] . "</td>";
+            if ($this->fieldList[$i] == "reserve.id_copy" || $this->fieldList[$i] == "lend.id_copy") {
+                echo "<td  width='40' height='30' align = 'center'>" . $this->row["id_copy"] . "</td>";
+            } else {
+                echo "<td  width='40' height='30' align = 'center'>" . $this->row[$this->fieldList[$i]] . "</td>";
+            }
         }
 
         $idToGiveInGet = $this->row[$this->fieldList[0]];
@@ -143,7 +148,7 @@ class MakeTable
 
         if ($this->filePickUp != "") {
             include_once("Copy.php");
-            $isbnToGiveInGet = $this->row[$this->fieldList[3]];
+            $isbnToGiveInGet = $this->row["id_copy"];
             $workcopy = new Copy($isbnToGiveInGet);
             $isbnToGiveInGet = $workcopy->getIsbn();
             echo "<td  width='30' height='30' align = 'center'><a href='$this->filePickUp?id=new&ref=lend&dniLend=" . $dniToGiveInGet . "&isbnLend=" . $isbnToGiveInGet . "'> <img src='res/icons/pickup.png'> </a></td>";
