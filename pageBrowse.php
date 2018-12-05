@@ -56,6 +56,7 @@ include('confirmIfSessionSet.php');
         $tableName = $_GET['ref'];
         $id = $_GET['id'];
         $superUser=false;
+        $librarianPermits =false;
 
         if ($_SESSION['user_type'] == 2) $superUser = true;
         if ($_SESSION['user_type'] != 0) $librarianPermits = true;

@@ -158,7 +158,7 @@ if (isset($_GET['id'])) {
                 <br/>
 
                 <?php $fields = array("isbn", "title", "author", "editorial", "year", "language");
-                if ($condition2 != "") $condition2 = " WHERE " . $condition2;
+                if ($condition2 != "" ) $condition2 = " WHERE " . $condition2;
 
                 break;
 
@@ -183,12 +183,13 @@ if (isset($_GET['id'])) {
                 <br/>
 
                 <?php $fields = array("dni", "name", "surname", "user_type");
-                if ($condition2 != "") $condition2 = " AND " . $condition2;
+                if ($condition2 != ""&& !$adminUser) $condition2 = " AND " . $condition2;
+                if ($condition2 != ""&& $adminUser) $condition2=" WHERE ".$condition2;
 
 
                 if (!$adminUser) {
                     $fieldCondition = "user_type";
-                    $condition = "0' OR user_type='1";
+                    $condition = "0";
                 }
                 break;
         }
