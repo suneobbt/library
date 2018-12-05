@@ -36,7 +36,6 @@
     <!-- Aside 2(right top) for login -->
     <aside id="ad2">
         <?php
-        //TODO : Page generator html
         session_start();
         $valid_session = isset($_SESSION['session_id']) ? $_SESSION['session_id'] === session_id() : FALSE;
 

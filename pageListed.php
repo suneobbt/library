@@ -69,9 +69,6 @@ if (isset($_GET['id'])) {
             $fileDelete = "pageListed.php";
         }
 
-        // name of fields to be shown
-        //TODO: Implement copy list
-
         switch ($tableName) {
             case "lend":
                 if ($_SESSION['user_type'] != '0') {

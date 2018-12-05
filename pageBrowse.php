@@ -50,6 +50,7 @@ include('confirmIfSessionSet.php');
         require_once("Lend.php");
         require_once("Reserve.php");
         require_once("Available.php");
+        require_once("Copy.php");
         //lets modify some tables
 
         $tableName = $_GET['ref'];
@@ -57,12 +58,12 @@ include('confirmIfSessionSet.php');
         $superUser=false;
 
         if ($_SESSION['user_type'] == 2) $superUser = true;
+        if ($_SESSION['user_type'] != 0) $librarianPermits = true;
 
 
         $data = new ShowData();
 
         $actionModify = "pageForm.php?ref=" . $tableName . "&id=" . $id;
-        //TODO: Implement button delete url
         $actionDelete = "deleteRow('$id','$tableName','pageListed.php')";
 
         switch ($tableName) {
@@ -81,9 +82,9 @@ include('confirmIfSessionSet.php');
                 $data->addLine("Book Condition", $work_book->getBookCondition());
                 $data->addLine("Continuous Of", $work_book->getContinuousOf());
                 $data->addLine("Continued By", $work_book->getContinuedBy());
-                if ($_SESSION['user_type'] != '0') $data->addLine("Copies", Available::numberOfCopies($work_book->getIsbn()));
 
-                if ($_SESSION['user_type'] != '0') {
+                if ($librarianPermits) {
+                    $data->addLine("Copies", Available::numberOfCopies($work_book->getIsbn()));
                     $data->addButtons($actionDelete, $actionModify);
                 }
 
@@ -103,7 +104,7 @@ include('confirmIfSessionSet.php');
                 $data->addLine("City", $work_user->getCity());
                 $data->addLine("Postal Code", $work_user->getPostalCode());
 
-                if ($_SESSION['user_type'] != '0') {
+                if ($librarianPermits) {
                     $data->addButtons($actionDelete, $actionModify);
                 }else{
                     $actionDelete="";
@@ -114,17 +115,22 @@ include('confirmIfSessionSet.php');
             case 'lend':
                 $work_lend = new Lend($id);
                 echo "<h2>Lend ID: " . $work_lend->getIdLend() . "</h2>";
+                $work_copy =new Copy($work_lend->getIdCopy());
+                $work_book = new Book($work_copy->getIsbn());
                 $data->addLine("Lend ID", $work_lend->getIdLend());
+                $data->addLine("ISBN", $work_copy->getIsbn());
+                if ($librarianPermits) $data->addLine("Copy ID", $work_lend->getIdCopy());
+                $data->addLine("Title",$work_book->getTitle());
                 $data->addLine("Start day of the lend", $work_lend->getStartTimeLend());
                 $date=date_add(date_create($work_lend->getStartTimeLend()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
                 $data->addLine("End day of the lend", strval(date_format($date, "Y-m-d")));
                 $data->addLine("DNI", $work_lend->getDni());
-                $data->addLine("Copy ID", $work_lend->getIdCopy());
+
 
                 $returnedValue = $work_lend->getReturned() === '1'? 'true': 'false';
                 $data->addLine("Returned", $returnedValue);
 
-                if ($_SESSION['user_type'] != '0') {
+                if ($librarianPermits) {
                 $actionModify="";
                     $data->addButtons($actionDelete, $actionModify);
                  }
@@ -134,24 +140,30 @@ include('confirmIfSessionSet.php');
             case 'reserve':
                 $work_reserve = new Reserve($id);
                 echo "<h2>Reserve ID: " . $work_reserve->getIdReserve() . "</h2>";
+                $work_copy =new Copy($work_reserve->getIdCopy());
+                $work_book = new Book($work_copy->getIsbn());
+
                 $data->addLine("Reserve ID", $work_reserve->getIdReserve());
+                $data->addLine("ISBN", $work_copy->getIsbn());
+                if ($librarianPermits) $data->addLine("Copy ID", $work_reserve->getIdCopy());
+                $data->addLine("Title",$work_book->getTitle());
                 $data->addLine("Start day of the lend", $work_reserve->getStartTimeReserve());
                 $date=date_add(date_create($work_reserve->getStartTimeReserve()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
                 $data->addLine("End day of the reserve", strval(date_format($date, "Y-m-d")));
                 $data->addLine("DNI", $work_reserve->getDni());
-                $data->addLine("Copy ID", $work_reserve->getIdCopy());
+
 
                 $actionModify="";
                 $data->addButtons($actionDelete, $actionModify);
                 break;
 
-            case 'copy':
+            /*case 'copy':
                 $work_copy = new Copy($id);
                 echo "<h2>ISBN: " . $work_copy->getIsbn() . " - Copy ID: " . $work_copy->getIdCopy() . "</h2>";
                 $data->addLine("ISBN", $work_copy->getIsbn());
                 $data->addLine("Copy ID", $work_copy->getIdCopy());
 
-                break;
+                break;*/
         }
 
 
