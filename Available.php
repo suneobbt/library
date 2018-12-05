@@ -93,7 +93,7 @@ class Available
         return $result;
     }
 
-//TODO: limit the quantity of date returned adding sql condition like: where start_time_reserve > today -20 days
+
     static function copyDayReserved($id_copy)
     {
         include('connection_data2.inc');

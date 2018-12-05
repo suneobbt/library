@@ -116,6 +116,8 @@ include('confirmIfSessionSet.php');
                 echo "<h2>Lend ID: " . $work_lend->getIdLend() . "</h2>";
                 $data->addLine("Lend ID", $work_lend->getIdLend());
                 $data->addLine("Start day of the lend", $work_lend->getStartTimeLend());
+                $date=date_add(date_create($work_lend->getStartTimeLend()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
+                $data->addLine("End day of the lend", strval(date_format($date, "Y-m-d")));
                 $data->addLine("DNI", $work_lend->getDni());
                 $data->addLine("Copy ID", $work_lend->getIdCopy());
 
@@ -134,6 +136,8 @@ include('confirmIfSessionSet.php');
                 echo "<h2>Reserve ID: " . $work_reserve->getIdReserve() . "</h2>";
                 $data->addLine("Reserve ID", $work_reserve->getIdReserve());
                 $data->addLine("Start day of the lend", $work_reserve->getStartTimeReserve());
+                $date=date_add(date_create($work_reserve->getStartTimeReserve()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
+                $data->addLine("End day of the reserve", strval(date_format($date, "Y-m-d")));
                 $data->addLine("DNI", $work_reserve->getDni());
                 $data->addLine("Copy ID", $work_reserve->getIdCopy());
 
