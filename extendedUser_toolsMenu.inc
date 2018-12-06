@@ -15,7 +15,7 @@ switch ($_SESSION['user_type']) {
 
     case 0:
         echo "
-            <h2>Actions</h2>
+        <h2>Actions</h2>
             <a href=\"pageUser.php\">Home panel</a></br>
             <a href=\"pageBrowse.php?id=" . $_SESSION['user_id'] . "&ref=users\">My data</a></br>
             <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
@@ -27,17 +27,19 @@ switch ($_SESSION['user_type']) {
 
     case 1:
         echo "
-            <h2>Actions</h2>
-            <a href=\"pageUser.php\">Home panel</a></br>
-            <a href=\"pageBrowse.php?id=" . $_SESSION['user_id'] . "&ref=users\">My data</a></br>
-            <a href=\"pageListed.php?ref=users\">Users</a></br>
-            <a href=\"pageForm.php?id=new&ref=users\">Add user</a></br>        
-            <a href=\"pageListed.php?ref=book\">Books</a></br>
-            <a href=\"pageForm.php?id=new&ref=book\">Add book</a></br>
-            <a href=\"pageListed.php?ref=reserve\">Reserves</a></br>
-            <a href=\"pageForm.php?id=new&ref=reserve\">New reserve</a></br>
-            <a href=\"pageListed.php?ref=lend\">Lends</a></br>
-            <a href=\"pageForm.php?id=new&ref=lend\">New lend</a></br>";
+        <h2>Actions</h2>
+            <div class=\"list-group\">
+            <a class=\"list-group-item list-group-item-action\" href=\"pageUser.php\">Home panel</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageBrowse.php?id=" . $_SESSION['user_id'] . "&ref=users\">My data</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageListed.php?ref=users\">Users</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageForm.php?id=new&ref=users\">Add user</a></br>        
+            <a class=\"list-group-item list-group-item-action\" href=\"pageListed.php?ref=book\">Books</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageForm.php?id=new&ref=book\">Add book</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageListed.php?ref=reserve\">Reserves</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageForm.php?id=new&ref=reserve\">New reserve</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageListed.php?ref=lend\">Lends</a></br>
+            <a class=\"list-group-item list-group-item-action\" href=\"pageForm.php?id=new&ref=lend\">New lend</a></br>
+            </div>";
         //<a href=\"index.php\">Stadistics</a></br>";
         break;
     //end case 1
@@ -45,7 +47,7 @@ switch ($_SESSION['user_type']) {
 
     case 2:
         echo "
-            <h2>Actions</h2>
+        <h2>Actions</h2>
             <a href=\"pageUser.php\">Home panel</a></br>
             <a href=\"pageBrowse.php?id=" . $_SESSION['user_id'] . "&ref=users\">My data</a></br>
             <a href=\"pageListed.php?ref=users\">Users</a></br>

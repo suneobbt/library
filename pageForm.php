@@ -15,22 +15,9 @@ include('confirmIfSessionSet.php');
 ?>
 
 <!DOCTYPE html>
-
 <html lang="en">
 
-<head>
-    <title>The Library - Form </title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-</head>
-
-<body>
-<header>
-    <h1><a href="index.php">The Library</a></h1>
-    <h2>Where knowledge occupies place</h2>
-</header>
-
-<nav>Link1 | Link2 | Link3 | Link4</nav>
+<?php require("head.php"); ?>
 
 <main>
     <!-- Aside 1(left top) for tools acces -->

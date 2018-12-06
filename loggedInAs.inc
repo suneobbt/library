@@ -12,9 +12,9 @@ $work_user=new User($_SESSION['user_id']);
 // $work_user created on first include in extendedUser_toolsMenu
 
 echo "
-    <h3>You are logged in as " . $work_user->getName() . " " . $work_user->getSurname() . "." . " </h3>
+    <h4>You are logged in as " . $work_user->getName() . " " . $work_user->getSurname() . "." . " </h4>
     <form action=\"logOut.php\">
-        <input type=\"submit\" value=\"Log Out\" />
+        <input type=\"submit\" class=\"btn btn-secondary\" value=\"Log Out\" />
     </form>";
 
 

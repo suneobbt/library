@@ -17,19 +17,7 @@ include('confirmIfSessionSet.php');
 
 <html lang="en">
 
-<head>
-    <title>The Library - Browse </title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-</head>
-
-<body>
-<header>
-    <h1><a href="index.php">The Library</a></h1>
-    <h2>Where knowledge occupies place</h2>
-</header>
-
-<nav>Link1 | Link2 | Link3 | Link4</nav>
+<?php require("head.php"); ?>
 
 <main>
     <!-- Aside 1(left top) for tools acces -->
@@ -55,8 +43,8 @@ include('confirmIfSessionSet.php');
 
         $tableName = $_GET['ref'];
         $id = $_GET['id'];
-        $superUser=false;
-        $librarianPermits =false;
+        $superUser = false;
+        $librarianPermits = false;
 
         if ($_SESSION['user_type'] == 2) $superUser = true;
         if ($_SESSION['user_type'] != 0) $librarianPermits = true;
@@ -107,8 +95,8 @@ include('confirmIfSessionSet.php');
 
                 if ($librarianPermits) {
                     $data->addButtons($actionDelete, $actionModify);
-                }else{
-                    $actionDelete="";
+                } else {
+                    $actionDelete = "";
                     $data->addButtons($actionDelete, $actionModify);
                 }
                 break;
@@ -116,45 +104,45 @@ include('confirmIfSessionSet.php');
             case 'lend':
                 $work_lend = new Lend($id);
                 echo "<h2>Lend ID: " . $work_lend->getIdLend() . "</h2>";
-                $work_copy =new Copy($work_lend->getIdCopy());
+                $work_copy = new Copy($work_lend->getIdCopy());
                 $work_book = new Book($work_copy->getIsbn());
                 $data->addLine("Lend ID", $work_lend->getIdLend());
                 $data->addLine("ISBN", $work_copy->getIsbn());
                 if ($librarianPermits) $data->addLine("Copy ID", $work_lend->getIdCopy());
-                $data->addLine("Title",$work_book->getTitle());
+                $data->addLine("Title", $work_book->getTitle());
                 $data->addLine("Start day of the lend", $work_lend->getStartTimeLend());
-                $date=date_add(date_create($work_lend->getStartTimeLend()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
+                $date = date_add(date_create($work_lend->getStartTimeLend()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
                 $data->addLine("End day of the lend", strval(date_format($date, "Y-m-d")));
                 $data->addLine("DNI", $work_lend->getDni());
 
 
-                $returnedValue = $work_lend->getReturned() === '1'? 'true': 'false';
+                $returnedValue = $work_lend->getReturned() === '1' ? 'true' : 'false';
                 $data->addLine("Returned", $returnedValue);
 
                 if ($librarianPermits) {
-                $actionModify="";
+                    $actionModify = "";
                     $data->addButtons($actionDelete, $actionModify);
-                 }
+                }
 
                 break;
 
             case 'reserve':
                 $work_reserve = new Reserve($id);
                 echo "<h2>Reserve ID: " . $work_reserve->getIdReserve() . "</h2>";
-                $work_copy =new Copy($work_reserve->getIdCopy());
+                $work_copy = new Copy($work_reserve->getIdCopy());
                 $work_book = new Book($work_copy->getIsbn());
 
                 $data->addLine("Reserve ID", $work_reserve->getIdReserve());
                 $data->addLine("ISBN", $work_copy->getIsbn());
                 if ($librarianPermits) $data->addLine("Copy ID", $work_reserve->getIdCopy());
-                $data->addLine("Title",$work_book->getTitle());
+                $data->addLine("Title", $work_book->getTitle());
                 $data->addLine("Start day of the lend", $work_reserve->getStartTimeReserve());
-                $date=date_add(date_create($work_reserve->getStartTimeReserve()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
+                $date = date_add(date_create($work_reserve->getStartTimeReserve()), date_interval_create_from_date_string(Available::DAYSOFLEND . "days"));
                 $data->addLine("End day of the reserve", strval(date_format($date, "Y-m-d")));
                 $data->addLine("DNI", $work_reserve->getDni());
 
 
-                $actionModify="";
+                $actionModify = "";
                 $data->addButtons($actionDelete, $actionModify);
                 break;
 
@@ -166,7 +154,6 @@ include('confirmIfSessionSet.php');
 
                 break;*/
         }
-
 
 
         $data->displayData();

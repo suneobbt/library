@@ -1,15 +1,13 @@
 header,nav,body,footer,aside,section {
-	border:  1px solid grey; 
-	margin:  1%;
+	/*border:  1px solid grey;*/
+	margin:  0.5%;
 	padding: 0.7%;
 }
 header{
-	/*background: linear-gradient(to right,rgba(0,0,0,100),rgba(0,0,0,0)),url(res/background_header_books.jpg);*/
-	
 	background: url(../res/img/background_header_books.jpg);
     background-repeat: repeat;
     background-size: auto;
-    background-position: right center;*/
+    background-position: right center;
 }
 
 aside#ad1{
@@ -25,8 +23,7 @@ aside#ad2{
 
 section {
 	float:	left;
-	width:	50%;
-	margin: 
+	width:	59%;
 }
 
 .nofloat{

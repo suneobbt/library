@@ -60,7 +60,7 @@ class MakeForm
             echo "<p><i>($this->note)</i></p>";
         }
 
-        echo "<p><input type='submit' value='{$this->submit}'></p>";
+        echo "<p><input type='submit' class=\"btn btn-primary\" value='{$this->submit}'></p>";
         echo "</form>";
     } // displayForm
 

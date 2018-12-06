@@ -11,21 +11,8 @@ if (isset($_GET['id'])) {
 
 <!DOCTYPE html>
 
-<html>
-
-<head>
-    <title>The Library - Listed </title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-</head>
-
-<body>
-<header>
-    <h1><a href="index.php">The Library</a></h1>
-    <h2>Where knowledge occupies place</h2>
-</header>
-
-<nav>Link1 | Link2 | Link3 | Link4</nav>
+<html lang="en">
+<?php require("head.php"); ?>
 
 <main>
     <!-- Aside 1(left top) for tools acces -->
@@ -157,7 +144,7 @@ if (isset($_GET['id'])) {
                 </form>
                 <br/>
 
-                <?php $fields = array("isbn", "title", "author", "editorial", "year", "language");
+                <?php $fields = array("isbn", "title", "author", "year");
                 if ($condition2 != "") $condition2 = " WHERE " . $condition2;
 
                 break;

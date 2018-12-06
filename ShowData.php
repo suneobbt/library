@@ -53,8 +53,8 @@ class ShowData
             echo " {$this->lines[$j - 1]['data']}</p>";
         } // for
 
-        if ($this->buttonModifyOn) echo "<a href='{$this->actionModify}'>Modify data</a>";
-        if ($this->buttonDeleteOn) echo "<a href=# onclick=\"{$this->actionDelete}\"  >Delete it</a>";
+        if ($this->buttonModifyOn) echo "<a href='{$this->actionModify}' class=\"btn btn-warning\">Modify data</a>&nbsp";
+        if ($this->buttonDeleteOn) echo "<a href=# onclick=\"{$this->actionDelete}\"  class=\"btn btn-danger\" >Delete it</a>";
 
     } // displayData
 

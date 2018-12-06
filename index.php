@@ -1,20 +1,10 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
-<head>
-    <title>The Library</title>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-</head>
-<body>
-<header>
-    <h1>The Library</h1>
-    <h2>Where knowledge occupies place</h2>
-</header>
-
-<nav><a href="pageUser.php">User Page</a> | Link2 | Link3 | Link4</nav>
+<?php require("head.php"); ?>
 
 <main>
+
     <!-- Aside 1(left top) for news -->
     <aside id="ad1">
         <h2>News</h2>
@@ -23,13 +13,8 @@
             ullamcorper dui. Cras eleifend leo non neque aliquet vestibulum. Cras cursus urna nec lorem varius dapibus.
             Donec a volutpat nisi. Interdum et malesuada fames ac ante ipsum primis in faucibus. Integer convallis velit
             ligula, sed hendrerit nibh fringilla quis. n iaculis tortor quis nulla congue finibus. Curabitur egestas
-            efficitur elementum. Donec auctor est dui. Vestibulum rutrum, odio ut interdum scelerisque, mi sapien
-            pellentesque sem, sit amet blandit lectus arcu et metus. Nullam diam ipsum, iaculis in nisl sed, aliquet
-            elementum magna. Phasellus eleifend faucibus magna vitae feugiat. Proin ac euismod metus, sit amet vulputate
-            lacus. Nulla eget fermentum ex, a faucibus nisl. Curabitur sem elit, iaculis vitae consectetur a, lobortis
-            nec lectus. In maximus magna at felis rutrum, id dignissim leo suscipit. Cras vestibulum cursus augue, vitae
-            sodales erat finibus a. In varius ante eu libero bibendum tincidunt. Proin lacinia dolor id tellus blandit,
-            porttitor rhoncus est mollis.
+            efficitur elementum. Donec auctor est dui.
+
         </div>
     </aside>
 
@@ -45,14 +30,14 @@
             echo "
             <form action=\"loginProcess.php\" method=\"post\">
                 <h2>Login</h2>
-                <label for=\"user\">User</label>
+                <label for=\"user\">User</label><br/>
                 <input type=\"text\" name=\"user\" id=\"user\" placeholder=\"DNI+letter\" required=\"\"/>
-                <br/><br/>
-                <label for=\"pass\">Password</label>
+                <br/>
+                <label for=\"pass\">Password</label><br/>
                 <input type=\"password\" name=\"pass\" id=\"pass\" required=\"\"/>
                 <br/><br/>
-                <input type=\"submit\" value=\"Get in\"/>
-                <br/><br/>
+                <input type=\"submit\" class=\"btn btn-primary\" value=\"Get in\"/>
+                <br/>
                 <div>You aren't a client yet? <a href=\"index.php?&register=true\">Register here</a></div>
             </form>";
         }
@@ -60,39 +45,40 @@
     </aside>
 
     <section>
+
         <?php
-            if (isset($_GET['register'])){
-                require_once("MakeForm.php");
+        if (isset($_GET['register'])) {
+            require_once("MakeForm.php");
 
-                echo "<h2>Register your self</h2>";
-                $data = new MakeForm("modifyProcess.php?ref=users&new=true&register=true", "Submit");
-                $data->addField("dni", "DNI", "text", "required", "", "");
-                $data->addField("name", "Name", "text", "required", "", "");
-                $data->addField("surname", "Surname", "text", "required", "", "");
-                $data->addField("pass", "Password", "password", "required", "", "");
-                $data->addField("email", "E-Mail", "email", "required", "", "");
-                $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "readonly", "0");
-                $data->addField("phone_number", "Phone Number", "text", "", "", "");
-                $data->addField("direction", "Direction", "text", "", "", "");
-                $data->addField("city", "City", "text", "", "", "");
-                $data->addField("postal_code", "Postal Code", "text", "", "", "");
-                $data->addNote("<b>* To formalize your registration, on your first book lend, you must show your ID to the librarian.</b>");
+            echo "<h2>Register your self</h2>";
+            $data = new MakeForm("modifyProcess.php?ref=users&new=true&register=true", "Submit");
+            $data->addField("dni", "DNI", "text", "required", "", "");
+            $data->addField("name", "Name", "text", "required", "", "");
+            $data->addField("surname", "Surname", "text", "required", "", "");
+            $data->addField("pass", "Password", "password", "required", "", "");
+            $data->addField("email", "E-Mail", "email", "required", "", "");
+            $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "readonly", "0");
+            $data->addField("phone_number", "Phone Number", "text", "", "", "");
+            $data->addField("direction", "Direction", "text", "", "", "");
+            $data->addField("city", "City", "text", "", "", "");
+            $data->addField("postal_code", "Postal Code", "text", "", "", "");
+            $data->addNote("<b>* To formalize your registration, on your first book lend, you must show your ID to the librarian.</b>");
 
-                $data->displayForm();
+            $data->displayForm();
 
-            }else{
-        ?>
-        <h2>Search</h2>
-        <article>
-            <label for="search">Find your book</label>
-            <input type="text" name="search" id="search" placeholder="ISBN, title, author..." required=""/>
-            <input type="submit" value="Search"/>
-        </article>
-        <article>
-            <h3>Iaculis tortor</h3>
-            In iaculis tortor quis nulla congue finibus. Curabitur egestas efficitur elementum.
-        </article>
-        <?php }?>
+        } else {
+            ?>
+            <h2>Search</h2>
+            <article>
+                <label for="search">Find your book</label>
+                <input type="text" name="search" id="search" placeholder="ISBN, title, author..." required=""/>
+                <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
+            </article>
+            <article>
+                <h3>Iaculis tortor</h3>
+                In iaculis tortor quis nulla congue finibus. Curabitur egestas efficitur elementum.
+            </article>
+        <?php } ?>
     </section>
 
     <section>
