@@ -52,16 +52,16 @@
 
             echo "<h2>Register your self</h2>";
             $data = new MakeForm("modifyProcess.php?ref=users&new=true&register=true", "Submit");
-            $data->addField("dni", "DNI", "text", "required", "", "");
-            $data->addField("name", "Name", "text", "required", "", "");
-            $data->addField("surname", "Surname", "text", "required", "", "");
-            $data->addField("pass", "Password", "password", "required", "", "");
-            $data->addField("email", "E-Mail", "email", "required", "", "");
-            $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "readonly", "0");
-            $data->addField("phone_number", "Phone Number", "text", "", "", "");
-            $data->addField("direction", "Direction", "text", "", "", "");
-            $data->addField("city", "City", "text", "", "", "");
-            $data->addField("postal_code", "Postal Code", "text", "", "", "");
+            $data->addField("dni", "DNI", "text", "required", "", "", "");
+            $data->addField("name", "Name", "text", "required", "", "", "");
+            $data->addField("surname", "Surname", "text", "required", "", "", "");
+            $data->addField("pass", "Password", "password", "required", "", "", "");
+            $data->addField("email", "E-Mail", "email", "required", "", "", "");
+            $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "readonly", "0", "");
+            $data->addField("phone_number", "Phone Number", "text", "", "", "", "");
+            $data->addField("direction", "Direction", "text", "", "", "", "");
+            $data->addField("city", "City", "text", "", "", "", "");
+            $data->addField("postal_code", "Postal Code", "text", "", "", "", "");
             $data->addNote("<b>* To formalize your registration, on your first book lend, you must show your ID to the librarian.</b>");
 
             $data->displayForm();

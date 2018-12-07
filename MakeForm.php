@@ -25,7 +25,7 @@ class MakeForm
 
 // Function that adds a field to the form. The user needs to
 // send the name of the field and a label to be displayed.
-    public function addField($id, $label, $type, $required = "", $disabled = "", $value = "", $placeholder = "")
+    public function addField($id, $label, $type, $required="", $pattern="",$title="", $value="",$disabled="", $placeholder="")
     {
         $this->fields[$this->Nfields]['id'] = $id;
         $this->fields[$this->Nfields]['label'] = $label;
@@ -34,6 +34,8 @@ class MakeForm
         $this->fields[$this->Nfields]['placeholder'] = $placeholder;
         $this->fields[$this->Nfields]['disabled'] = $disabled;
         $this->fields[$this->Nfields]['required'] = $required;
+        $this->fields[$this->Nfields]['pattern'] = $pattern;
+        $this->fields[$this->Nfields]['title'] = $title;
 
 
         $this->Nfields++;
@@ -49,18 +51,21 @@ class MakeForm
     /* Display form function to display the form.*/
     public function displayForm()
     {
-        echo "<form action='{$this->actionValue}' method='POST'>";
+        echo "<form action='{$this->actionValue}' method='POST'><div class=\"form-group\">";
         for ($j = 1; $j <= sizeof($this->fields); $j++) {
-            echo "<p><label for='{$this->fields[$j - 1]['id']}'><b>{$this->fields[$j - 1]['label']}:</b> </label>";
+            echo "<label for='{$this->fields[$j - 1]['id']}'><b>{$this->fields[$j - 1]['label']}:</b> </label>";
 
-            echo "<input type='{$this->fields[$j - 1]['type']}' id='{$this->fields[$j - 1]['id']}' name='{$this->fields[$j - 1]['id']}' placeholder='{$this->fields[$j - 1]['placeholder']}' value='{$this->fields[$j - 1]['value']}' {$this->fields[$j - 1]['disabled']} {$this->fields[$j - 1]['required']}><br/>";
+            echo "<input type='{$this->fields[$j - 1]['type']}' class=\"form-control\" id='{$this->fields[$j - 1]['id']}' 
+                name='{$this->fields[$j - 1]['id']}' placeholder='{$this->fields[$j - 1]['placeholder']}' 
+                value='{$this->fields[$j - 1]['value']}' {$this->fields[$j - 1]['disabled']} pattern=\"{$this->fields[$j - 1]['pattern']}\"
+                title='{$this->fields[$j - 1]['title']}' {$this->fields[$j - 1]['required']}>";
         } // for
 
         if ($this->Nnote > 0) {
             echo "<p><i>($this->note)</i></p>";
         }
 
-        echo "<p><input type='submit' class=\"btn btn-primary\" value='{$this->submit}'></p>";
+        echo "</div><input type='submit' class=\"btn btn-primary\" value='{$this->submit}'>";
         echo "</form>";
     } // displayForm
 

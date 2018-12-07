@@ -1,5 +1,5 @@
 header,nav,body,footer,aside,section {
-	/*border:  1px solid grey;*/
+	border:  1px solid grey;
 	margin:  0.5%;
 	padding: 0.7%;
 }
