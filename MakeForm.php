@@ -53,7 +53,7 @@ class MakeForm
     {
         echo "<form action='{$this->actionValue}' method='POST'><div class=\"form-group\">";
         for ($j = 1; $j <= sizeof($this->fields); $j++) {
-            echo "<label for='{$this->fields[$j - 1]['id']}'><b>{$this->fields[$j - 1]['label']}:</b> </label>";
+            echo "<label for='{$this->fields[$j - 1]['id']}'><b>{$this->fields[$j - 1]['label']}</b> </label>";
 
             echo "<input type='{$this->fields[$j - 1]['type']}' class=\"form-control\" id='{$this->fields[$j - 1]['id']}' 
                 name='{$this->fields[$j - 1]['id']}' placeholder='{$this->fields[$j - 1]['placeholder']}' 

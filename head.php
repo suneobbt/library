@@ -6,6 +6,7 @@
  * Time: 3:24
  */
 
+include_once ("constants.php");
 ?>
 
 <head>

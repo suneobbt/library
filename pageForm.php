@@ -18,7 +18,7 @@ include('confirmIfSessionSet.php');
 <html lang="en">
 
 <?php require("head.php"); ?>
-
+<body>
 <main>
     <!-- Aside 1(left top) for tools acces -->
     <aside id="ad1">
@@ -46,7 +46,7 @@ include('confirmIfSessionSet.php');
         $superUser = false;
 
         if (isset($_SESSION['user_type'])) {
-            if ($_SESSION['user_type'] > 1) $superUser = true;
+            if ($_SESSION['user_type'] > USER_TYPE_LIBRARIAN) $superUser = true;
         }
 
         if ($id == "new") {
@@ -75,7 +75,7 @@ include('confirmIfSessionSet.php');
                     $data->addField("name", "Name", "text", "required", PATTERN_TEXT, TITLE_TEXT);
                     $data->addField("surname", "Surname", "text", "required", PATTERN_TEXT, TITLE_TEXT);
                     $data->addField("pass", "Password", "password", "required", PATTERN_PASSWORD, TITLE_PASSWORD);
-                    $data->addField("email", "E-Mail", "email", "required");
+                    $data->addField("email", "E-Mail", "email", "required", PATTERN_EMAIL,TITLE_EMAIL);
 
                     if ($superUser) {
                         $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", PATTERN_USER_TYPE, TITLE_USER_TYPE);
@@ -102,10 +102,8 @@ include('confirmIfSessionSet.php');
                         $dniLend = $_GET['dniLend'];
                         $isbnLend = $_GET['isbnLend'];
                     }
-
                     $data->addField("dni", "DNI", "text", "required", PATTERN_DNI, TITLE_DNI, $dniLend);
                     $data->addField("isbn", "ISBN", "text", "required", PATTERN_ISBN, TITLE_ISBN, $isbnLend);
-
                     break;
 
                 case 'reserve':
@@ -118,86 +116,75 @@ include('confirmIfSessionSet.php');
                         $dniReserve = $_COOKIE['dniReserve'];
                         $isbnReserve = $_COOKIE['isbnReserve'];
                     }
-                    // $data->addField("id_reserve", "Reserve ID", "text", "required", "disabled", "", "");
                     $data->addField("start_time_reserve", "Start day of the reserve", "date", "required", "", "", $dateReserve);
                     $data->addField("dni", "DNI", "text", "required", PATTERN_DNI, TITLE_DNI, $dniReserve);
                     $data->addField("isbn", "ISBN", "text", "required", PATTERN_ISBN, TITLE_ISBN, $isbnReserve);
                     break;
-
             }
         } else {
-            $data = new MakeForm("modifyProcess.php?ref=" . $tableName . "&new=false", "Modify " . $tableName);
 
+            $data = new MakeForm("modifyProcess.php?ref=" . $tableName . "&new=false", "Modify " . $tableName);
             switch ($tableName) {
                 case 'book':
                     $work_book = new Book($id);
-                    $data->addField("isbn", "ISBN", "text", "required", "", $work_book->getIsbn(), "");
-                    $data->addField("title", "Title", "text", "", "required", $work_book->getTitle(), "");
-                    $data->addField("author", "Author", "text", "", "required", $work_book->getAuthor(), "");
-                    $data->addField("editorial", "Editorial", "text", "required", "", $work_book->getEditorial(), "");
-                    $data->addField("edition", "Edition", "text", "", "", $work_book->getEdition(), "");
-                    $data->addField("year", "Year", "text", "required", "", $work_book->getYear(), "");
-                    $data->addField("category", "Category", "text", "", "", $work_book->getCategory(), "");
-                    $data->addField("language", "Language", "text", "required", "", $work_book->getLanguage(), "");
-                    $data->addField("description", "Description", "text", "", "", $work_book->getDescription(), "");
-                    $data->addField("book_condition", "Book Condition", "text", "", "", $work_book->getBookCondition(), "");
-                    $data->addField("continuous_of", "Continuous Of", "text", "", "", $work_book->getContinuousOf(), "");
-                    $data->addField("continued_by", "Continued By", "text", "", "", $work_book->getContinuedBy(), "");
-                    $data->addField("copies", "Number of copies", "number", "required", "", Available::numberOfCopies($work_book->getIsbn()), "");
+                    $data->addField("isbn", "ISBN", "text", "required", PATTERN_ISBN,TITLE_ISBN, $work_book->getIsbn());
+                    $data->addField("title", "Title", "text", "required", PATTERN_TEXT,TITLE_TEXT, $work_book->getTitle());
+                    $data->addField("author", "Author", "text", "required", PATTERN_TEXT,TITLE_TEXT, $work_book->getAuthor());
+                    $data->addField("editorial", "Editorial", "text", "required", PATTERN_TEXT,PATTERN_TEXT, $work_book->getEditorial());
+                    $data->addField("edition", "Edition", "text", "", PATTERN_EDITION,TITLE_EDITION, $work_book->getEdition());
+                    $data->addField("year", "Year", "text", "required", PATTERN_YEAR,TITLE_YEAR, $work_book->getYear());
+                    $data->addField("category", "Category", "text", "", PATTERN_TEXT, $work_book->getCategory());
+                    $data->addField("language", "Language", "text", "required", PATTERN_TEXT,TITLE_TEXT, $work_book->getLanguage());
+                    $data->addField("description", "Description", "text", "", PATTERN_DESCRIPTION,PATTERN_DESCRIPTION, $work_book->getDescription());
+                    $data->addField("book_condition", "Book Condition", "text", "", PATTERN_CONDITION,TITLE_CONDITION, $work_book->getBookCondition());
+                    $data->addField("continuous_of", "Continuous Of", "text", "", PATTERN_ISBN,TITLE_ISBN, $work_book->getContinuousOf());
+                    $data->addField("continued_by", "Continued By", "text", "", PATTERN_ISBN,TITLE_ISBN, $work_book->getContinuedBy());
+                    $data->addField("copies", "Number of copies", "number", "min=1 required", "", Available::numberOfCopies($work_book->getIsbn()));
                     break;
 
                 case 'users':
                     $work_user = new User($id);
-                    $data->addField("dni", "DNI", "text", "required", "readonly", $work_user->getDni(), "");
-                    $data->addField("name", "Name", "text", "required", "", $work_user->getName(), "");
-                    $data->addField("surname", "Surname", "text", "required", "", $work_user->getSurname(), "");
-                    $data->addField("pass", "Password", "password", "required", "", $work_user->getPass(), "");
-                    $data->addField("email", "E-Mail", "email", "required", "", $work_user->getEmail(), "");
+                    $data->addField("dni", "DNI", "text", "required", PATTERN_DNI,TITLE_DNI, $work_user->getDni(), "readonly");
+                    $data->addField("name", "Name", "text", "required", PATTERN_TEXT,TITLE_TEXT, $work_user->getName());
+                    $data->addField("surname", "Surname", "text", "required", PATTERN_TEXT,TITLE_TEXT, $work_user->getSurname(), "");
+                    $data->addField("pass", "Password", "password", "required", PATTERN_PASSWORD, TITLE_PASSWORD, $work_user->getPass(), "");
+                    $data->addField("email", "E-Mail", "email", "required", PATTERN_EMAIL,TITLE_EMAIL, $work_user->getEmail(), "");
+
                     if ($superUser) {
-                        $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "", $work_user->getUserType(), "");
+                        $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", PATTERN_USER_TYPE,TITLE_USER_TYPE, $work_user->getUserType());
                     } else {
-                        $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "readonly", $work_user->getUserType(), "");
+                        $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", PATTERN_USER_TYPE,TITLE_USER_TYPE, $work_user->getUserType(), "readonly");
                     }
-                    $data->addField("phone_number", "Phone Number", "text", "", "", $work_user->getPhoneNumber(), "");
-                    $data->addField("direction", "Direction", "text", "", "", $work_user->getDirection(), "");
-                    $data->addField("city", "City", "text", "", "", $work_user->getCity(), "");
-                    $data->addField("postal_code", "Postal Code", "text", "", "", $work_user->getPostalCode(), "");
+
+                    $data->addField("phone_number", "Phone Number", "text", "", PATTERN_PHONE_NUMBER,TITLE_PHONE_NUMBER, $work_user->getPhoneNumber());
+                    $data->addField("direction", "Direction", "text", "", PATTERN_TEXT,TITLE_TEXT, $work_user->getDirection());
+                    $data->addField("city", "City", "text", "", PATTERN_TEXT,TITLE_TEXT, $work_user->getCity());
+                    $data->addField("postal_code", "Postal Code", "text", "", PATTERN_POSTAL_CODE,TITLE_POSTAL_CODE, $work_user->getPostalCode());
                     break;
 
                 case 'lend':
                     $work_lend = new Lend($id);
-                    $data->addField("id_lend", "Lend ID", "text", "required", "readonly", $work_lend->getIdLend(), "");
-                    $data->addField("start_time_lend", "Start day of the lend", "date", "required", "", $work_lend->getStartTimeLend(), "");
-                    $data->addField("dni", "DNI", "text", "required", "readonly", $work_lend->getDni(), "");
-                    $data->addField("id_copy", "Copy ID", "text", "required", "readonly", $work_lend->getIdCopy(), "");
-                    $returnedValue = $work_lend->getReturned() === '1' ? 'true' : 'false';
-                    $data->addField("returned", "Returned", "text", "required", "", $returnedValue, "");
-                    //$data->addNote("If you change this values, is like make a new lend. For it, delete the lend and create a new one.");
-
+                    $data->addField("id_lend", "Lend ID", "text", "required", PATTERN_EDITION,TITLE_EDITION, $work_lend->getIdLend(), "readonly");
+                    $data->addField("start_time_lend", "Start day of the lend", "date", "required", "", $work_lend->getStartTimeLend());
+                    $data->addField("dni", "DNI", "text", "required", PATTERN_DNI,TITLE_DNI, $work_lend->getDni(), "readonly");
+                    $data->addField("id_copy", "Copy ID", "text", "required", PATTERN_EDITION,TITLE_EDITION, $work_lend->getIdCopy(), "readonly");
+                    $returnedValue = $work_lend->getReturned() === '1' ? 'true' : 'false'; //convert number(0-1) to string(true-false)
+                    $data->addField("returned", "Returned", "text", "required", PATTERN_BOOLEAN,TITLE_BOOLEAN, $returnedValue, "");
                     break;
 
                 case 'reserve':
                     $work_reserve = new Reserve($id);
-                    $data->addField("id_reserve", "Reserve ID", "text", "required", "readonly", $work_reserve->getIdReserve(), "");
-                    $data->addField("start_time_reserve", "Start day of the lend", "date", "required", "", $work_reserve->getStartTimeReserve(), "");
-                    $data->addField("dni", "DNI", "text", "required", "readonly", $work_reserve->getDni(), "");
-                    $data->addField("id_copy", "Copy ID", "text", "required", "readonly", $work_reserve->getIdCopy(), "");
-                    //$data->addNote("If you change this values, is like make a new reserve. For it, delete the reserve and create a new one.");
+                    $data->addField("id_reserve", "Reserve ID", "text", "required", PATTERN_EDITION,TITLE_EDITION, $work_reserve->getIdReserve(), "readonly");
+                    $data->addField("start_time_reserve", "Start day of the lend", "date", "required", "", $work_reserve->getStartTimeReserve());
+                    $data->addField("dni", "DNI", "text", "required", PATTERN_DNI,TITLE_DNI, $work_reserve->getDni(), "readonly");
+                    $data->addField("id_copy", "Copy ID", "text", "required", PATTERN_EDITION,TITLE_EDITION, $work_reserve->getIdCopy(), "readonly");
                     break;
-
             }
         }
-
         $data->displayForm();
-
-
         ?>
-
     </section>
 </main>
-
 <footer class="nofloat">@2018 The Library. \/ Design by A.Babot</footer>
-
 </body>
-
 </html>

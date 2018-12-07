@@ -6,8 +6,8 @@
  * Time: 4:59
  */
 
-const PATTERN_="";
-const TITLE_="";
+//const PATTERN_="";
+//const TITLE_="";
 
 const PATTERN_TEXT ="[^*,]+";
 const TITLE_TEXT ="No accepted *, $ characters";
@@ -40,4 +40,11 @@ const PATTERN_PHONE_NUMBER="[0-9]{9}";
 const TITLE_PHONE_NUMBER="Phone numbers need to have 9 numeric characters";
 
 const PATTERN_POSTAL_CODE="[0-9]{5}";
-const TITLE_POSTAL_CODE="Phone numbers need to have 5 numeric characters";
+const TITLE_POSTAL_CODE="Postal codes need to have 5 numeric characters";
+
+const PATTERN_BOOLEAN="((true)|(false))";
+const TITLE_BOOLEAN="True or false?";
+
+const PATTERN_EMAIL="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$";
+const TITLE_EMAIL="Standard e-mail required";
+

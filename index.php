@@ -49,19 +49,20 @@
         <?php
         if (isset($_GET['register'])) {
             require_once("MakeForm.php");
+            include_once("patterns.php");
 
             echo "<h2>Register your self</h2>";
             $data = new MakeForm("modifyProcess.php?ref=users&new=true&register=true", "Submit");
-            $data->addField("dni", "DNI", "text", "required", "", "", "");
-            $data->addField("name", "Name", "text", "required", "", "", "");
-            $data->addField("surname", "Surname", "text", "required", "", "", "");
-            $data->addField("pass", "Password", "password", "required", "", "", "");
-            $data->addField("email", "E-Mail", "email", "required", "", "", "");
-            $data->addField("user_type", "User Type (0-Normal user, 1-Librarian, 2-Administrator)", "text", "required", "readonly", "0", "");
-            $data->addField("phone_number", "Phone Number", "text", "", "", "", "");
-            $data->addField("direction", "Direction", "text", "", "", "", "");
-            $data->addField("city", "City", "text", "", "", "", "");
-            $data->addField("postal_code", "Postal Code", "text", "", "", "", "");
+            $data->addField("dni", "DNI", "text", "required", PATTERN_DNI, TITLE_DNI);
+            $data->addField("name", "Name", "text", "required", PATTERN_TEXT, TITLE_TEXT);
+            $data->addField("surname", "Surname", "text", "required", PATTERN_TEXT, TITLE_TEXT);
+            $data->addField("pass", "Password", "password", "required", PATTERN_PASSWORD, TITLE_PASSWORD);
+            $data->addField("email", "E-Mail", "email", "required", PATTERN_EMAIL, TITLE_EMAIL);
+            $data->addField("user_type", "", "hidden", "required", PATTERN_USER_TYPE, TITLE_USER_TYPE, "0", "readonly");
+            $data->addField("phone_number", "Phone Number", "text", "", PATTERN_PHONE_NUMBER, TITLE_PHONE_NUMBER);
+            $data->addField("direction", "Direction", "text", "", PATTERN_TEXT, TITLE_TEXT);
+            $data->addField("city", "City", "text", "", PATTERN_TEXT, TITLE_TEXT);
+            $data->addField("postal_code", "Postal Code", "text", "", PATTERN_POSTAL_CODE, TITLE_POSTAL_CODE);
             $data->addNote("<b>* To formalize your registration, on your first book lend, you must show your ID to the librarian.</b>");
 
             $data->displayForm();
