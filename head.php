@@ -21,10 +21,24 @@ include_once ("constants.php");
 </head>
 <body>
 <header>
-    <h1><a href="index.php">The Library</a></h1>
-    <h2>Where knowledge occupies place</h2>
+    <span id="headerTitle"><a href="index.php">The Library</a>&nbsp
+    </span><span id="headerSubtitle"> Where knowledge occupies place</span>
 </header>
 
-<nav><a href="pageUser.php">User Page</a> | Link2 | Link3 | Link4
+<nav>
+    <ul class="nav nav-tabs">
+        <li class="nav-item">
+            <a class="nav-link" href="index.php">Home</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" href="pageUser.php">User Page</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#" title="Coming soon">Help</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link disabled" href="#" title="Coming soon">Contact</a>
+        </li>
+    </ul>
     <?php include "alertsMsg.php"; ?>
 </nav>

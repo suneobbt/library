@@ -68,7 +68,7 @@ class MakeTable
 
     public function paintHeader()
     {
-        echo "<table border = \"1\" align = \"center\" width=\"100%\"><tr>";
+        echo "<table class=\"table table-hover table-dark table-sm\" border = \"1\" align = \"center\" width=\"100%\"><tr>";
 
         for ($i = 0; $i < $this->numFields; $i++) //add fields
         {
@@ -95,7 +95,6 @@ class MakeTable
 
         $this->row = 0;
 
-        // builing select string
         $sentenciaSQL = "SELECT ";
 
         for ($i = 0; $i < $this->numFields - 1; $i++) // adding fields to show exc. last.

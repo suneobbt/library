@@ -2,11 +2,11 @@
 <html lang="en">
 
 <?php require("head.php"); ?>
-
+<body>
 <main>
 
     <!-- Aside 1(left top) for news -->
-    <aside id="ad1">
+    <aside id="news">
         <h2>News</h2>
         <div>Sed scelerisque gravida elementum. Morbi vitae maximus neque, et fermentum mauris. Suspendisse ut
             consectetur odio. Nulla mi mi, mattis id placerat non, semper vitae nibh. Integer sit amet iaculis ex, vitae
@@ -38,7 +38,7 @@
                 <br/><br/>
                 <input type=\"submit\" class=\"btn btn-primary\" value=\"Get in\"/>
                 <br/>
-                <div>You aren't a client yet? <a href=\"index.php?&register=true\">Register here</a></div>
+                <div class=\"text-left\">You aren't a client yet? <a href=\"index.php?&register=true\">Register here</a></div>
             </form>";
         }
         ?>
@@ -85,19 +85,24 @@
     <section>
         <h2>Activities</h2>
         <article>
-            <h3>Lorem ipsum</h3>
-            <div>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed non ante at purus hendrerit elementum. In
-                aliquet erat ac purus fermentum facilisis sed in arcu. Fusce id lacus ac dolor condimentum placerat
-                vitae id nisl. Pellentesque vehicula augue in ex condimentum auctor. Duis nec est augue. Nam sed neque
-                dui. Ut quis nunc pretium, dictum erat in, lobortis massa. Pellentesque auctor nisl sit amet ullamcorper
-                mattis. Maecenas tristique libero eget metus mattis dignissim. Proin ut suscipit mauris, vel ornare
-                nulla. Fusce id congue eros.
+            <div> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin et justo risus. Sed lacinia orci a
+                magna sodales facilisis. Ut dolor elit, bibendum ac est quis, tempus sollicitudin nibh. Proin luctus
+                placerat purus, et fermentum risus vestibulum ac. Nam non rutrum eros, sed venenatis enim. Nullam orci
+                dolor, semper nec neque at, tempor vulputate lectus. Praesent vitae consectetur dolor, in convallis
+                dolor. Sed malesuada magna non tempus facilisis. Cras rhoncus eget libero sit amet congue. Aenean
+                mattis, est nec dapibus faucibus, lacus elit elementum metus, hendrerit euismod turpis neque sit amet
+                dolor. Fusce in laoreet nibh, at blandit nisi. Aenean feugiat iaculis elementum. Proin ut vehicula leo.
+            </div><div>
+                Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ut ipsum at nisl consectetur
+                consequat. In sit amet ante in diam tristique pellentesque. Curabitur accumsan felis ac volutpat
+                elementum. Proin molestie elementum nulla sit amet varius. Donec ut orci dui. Ut ut imperdiet nunc.
+                Nunc leo ex, eleifend non finibus et, pretium sed massa.
             </div>
         </article>
     </section>
 </main>
 
-<footer class="nofloat">@2018 The Library. \/ Design by A.Babot</footer>
+<?php include('footer.php') ?>
 
 </body>
 

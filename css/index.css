@@ -1,33 +1,45 @@
-header,nav,body,footer,aside,section {
-	border:  1px solid grey;
-	margin:  0.5%;
-	padding: 0.7%;
-}
-header{
-	background: url(../res/img/background_header_books.jpg);
-    background-repeat: repeat;
-    background-size: auto;
-    background-position: right center;
+@font-face {
+    font-family: title_font ;
+    src: url('../res/typography/DejaVuSerif.ttf')
 }
 
-aside#ad1{
-	float: 	left;
-	width:	19%	;
+header, nav, body, footer, aside, section {
+    margin: 0.5%;
+    padding: 0.7%;
 }
 
-aside#ad2{
-	float: 	right;
-	width:	19%;
+header {
+    display: inline;
+    font-family: title_font;
+    color:black;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+    background: url('../res/img/background_header_books.jpg') repeat right center;
+    border: 1px solid grey;
+}
+
+header a:hover{
+    text-decoration: none;
+    color:darkgrey;
+    filter:blur(1px);
+}
+header a{
+    text-decoration: none;
+    color:grey;
 }
 
 
-section {
-	float:	left;
-	width:	59%;
+#headerTitle {
+    font-size: 500%;
+    font-weight: 900;
 }
 
-.nofloat{
-	clear:	both;
+#headerSubtitle {
+    font-size: 200%;
+    font-weight: 500;
+    font-style: italic;
+}
+
+nav {
 }
 
 div {
@@ -35,3 +47,56 @@ div {
     text-justify: inter-word;
 }
 
+aside#ad1 {
+    float: left;
+    width: 19%;
+}
+
+#profileImg{
+    border-radius: 50% !important;
+}
+
+#news {
+    float: left;
+    width: 19%;
+    border: 1px solid lightgrey;
+}
+
+aside#ad2 {
+    float: right;
+    width: 15%;
+    text-align: left;
+    border: 1px solid lightgrey;
+    background-color: whitesmoke;
+}
+
+section {
+    float: left;
+    width: 63%;
+    border: 1px solid lightgrey;
+}
+
+footer {
+    clear: both;
+    text-align: center;
+    border: 1px solid lightgrey;
+    background-color: whitesmoke;
+
+
+}
+
+div[role=alert] {
+    margin-top: 0.6%;
+    margin-bottom: -1%;
+}
+
+html:before {
+    content: "";
+    position: fixed;
+    z-index: -1;
+    display: block;
+    background: white url('../res/img/book.png') no-repeat fixed center;
+    width: 100%;
+    height: 100%;
+    filter: opacity(18%);
+}

@@ -18,7 +18,7 @@ include('confirmIfSessionSet.php');
 <html lang="en">
 
 <?php require("head.php"); ?>
-
+<body>
 <main>
     <!-- Aside 1(left top) for tools acces -->
     <aside id="ad1">
@@ -164,7 +164,7 @@ include('confirmIfSessionSet.php');
     </section>
 </main>
 
-<footer class="nofloat">@2018 The Library. \/ Design by A.Babot</footer>
+<?php include('footer.php') ?>
 
 </body>
 

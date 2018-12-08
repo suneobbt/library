@@ -191,7 +191,7 @@ if (isset($_GET['id'])) {
     </section>
 </main>
 
-<footer class="nofloat">@2018 The Library. \/ Design by A.Babot</footer>
+<?php include('footer.php') ?>
 
 </body>
 

@@ -9,7 +9,7 @@
 //const PATTERN_="";
 //const TITLE_="";
 
-const PATTERN_TEXT ="[^*,]+";
+const PATTERN_TEXT ="[^*]+";
 const TITLE_TEXT ="No accepted *, $ characters";
 
 const PATTERN_ISBN ="[0-9]{13}";
