@@ -39,6 +39,7 @@ include('confirmIfSessionSet.php');
         require_once("Reserve.php");
         require_once("Available.php");
         require_once("Copy.php");
+        require_once("constants.php");
         //lets modify some tables
 
         $tableName = $_GET['ref'];
@@ -46,8 +47,8 @@ include('confirmIfSessionSet.php');
         $superUser = false;
         $librarianPermits = false;
 
-        if ($_SESSION['user_type'] == 2) $superUser = true;
-        if ($_SESSION['user_type'] != 0) $librarianPermits = true;
+        if ($_SESSION['user_type'] == USER_TYPE_ADMIN) $superUser = true;
+        if ($_SESSION['user_type'] != USER_TYPE_USER) $librarianPermits = true;
 
 
         $data = new ShowData();
@@ -146,18 +147,10 @@ include('confirmIfSessionSet.php');
                 $data->addButtons($actionDelete, $actionModify);
                 break;
 
-            /*case 'copy':
-                $work_copy = new Copy($id);
-                echo "<h2>ISBN: " . $work_copy->getIsbn() . " - Copy ID: " . $work_copy->getIdCopy() . "</h2>";
-                $data->addLine("ISBN", $work_copy->getIsbn());
-                $data->addLine("Copy ID", $work_copy->getIdCopy());
-
-                break;*/
         }
 
 
         $data->displayData();
-
 
         ?>
 

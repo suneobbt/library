@@ -7,6 +7,7 @@
  */
 
 include_once('User.php');
+include_once('MakeSearchForm.php');
 
 // $work_user=new User($_GET['sessionName']);
 // $work_user created on first include in extendedUser_toolsMenu
@@ -16,30 +17,35 @@ switch ($work_user->getUserType()) {
         ?>
         <section>
             <article>
-                <h3>Find your next book</h3>
-                <form method="post" action="pageListed.php?ref=book">
-                    <label for="patternSearch">Search</label>
-                    <input type="text" name="patternSearch" id="patternSearch" required=""/><br/>
-
-                    <label for="fieldSearch">Search by: </label>
-                    <select id="fieldSearch" name="fieldSearch" required="">
-                        <option value="isbn" selected="selected">ISBN</option>
-                        <option value="title">Title</option>
-                        <option value="author">Author</option>
-                        <option value="editorial">Editorial</option>
-                        <option value="year">Year</option>
-                        <option value="category">Category</option>
-                        <option value="language">Language</option>
-                    </select><br/>
-
-                    <input type="submit" value="Search"/>
-                </form>
+                <h3>Find a Book</h3>
+                <?php
+                $search = new MakeSearchForm("book", true);
+                $search->displayForm();
+                ?>
             </article>
         </section>
         <section>
             <article>
                 <h3>Recomendations</h3>
-                In iaculis tortor quis nulla congue finibus. Curabitur egestas efficitur elementum.
+                <div>
+                    Duis cursus a elit non suscipit. Suspendisse augue nulla, rhoncus non ullamcorper hendrerit,
+                    lacinia ac nunc. Aliquam vitae maximus erat. Vivamus quis sapien quis purus pulvinar elementum.
+                    Donec non velit nibh. Aliquam pulvinar hendrerit ante. Nullam at nunc erat. Proin sed enim eget
+                    mi maximus convallis. Nullam vel posuere felis. Sed ac sollicitudin odio. Nullam elementum vulputate
+                    scelerisque.
+                </div>
+                <div>
+                    Nullam lobortis felis vitae orci placerat ullamcorper. Mauris accumsan elit lorem, non finibus enim
+                    molestie vel. Proin finibus justo a tincidunt congue. Proin sit amet orci non neque posuere euismod
+                    non in augue. Donec sodales maximus tellus id accumsan. Nunc sit amet tristique ante. Duis
+                    vestibulum lectus et rutrum venenatis.
+                </div>
+                <div>
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed placerat libero sed lorem ultricies
+                    varius.Sed enim ex, finibus ac dolor sit amet, condimentum ullamcorper diam. Nam cursus neque eget
+                    mauris tincidunt accumsan. Aliquam ac augue ligula. Vestibulum scelerisque mollis metus, at
+                    vulputate risus dictum et. Suspendisse commodo urna at lacinia pharetra.
+                </div>
             </article>
         </section>
         <?php
@@ -51,44 +57,48 @@ switch ($work_user->getUserType()) {
         <section>
             <article>
                 <h3>Return Book</h3>
-                <form method="post" action="pageListed.php?ref=lend">
-                    <label for="patternSearch">Search:</label>
-                    <input type="text" name="patternSearch" id="patternSearch" required="" placeholder="Scan a book"/>
-                    <input type="hidden" name="fieldSearch" id="fieldSearch" value="isbn"/>
-                    <input type="submit" class="btn btn-primary" value="Search"/>
-                </form>
+                <?php
+                $search = new MakeSearchForm("lend", false);
+                    $search->displayForm();
+                ?>
             </article>
         </section>
         <section>
             <article>
                 <h3>Pick Up Book</h3>
-                <form method="post" action="pageListed.php?ref=reserve">
-                    <label for="patternSearch">Search:</label>
-                    <input type="text" name="patternSearch" id="patternSearch" required="" placeholder="Scan a book"/>
-                    <input type="hidden" name="fieldSearch" id="fieldSearch" value="isbn"/>
-                    <input type="submit" class="btn btn-primary" value="Search"/>
-                </form>
+                <?php
+                $search = new MakeSearchForm("reserve", false);
+                $search->displayForm();
+                ?>
+            </article>
+        </section>
+
+        <section>
+            <article>
+                <h3>Find a Book</h3>
+
+                <?php
+                $search = new MakeSearchForm("book", true);
+                $search->displayForm();
+                ?>
             </article>
         </section>
         <section>
             <article>
-                <h3>Find a book</h3>
-                <form method="post" action="pageListed.php?ref=book">
-                    <label for="patternSearch">Search:</label>
-                    <input type="text" name="patternSearch" id="patternSearch" required=""/>
-                    <label for="fieldSearch">Search by: </label>
-                    <select id="fieldSearch" name="fieldSearch" required="">
-                        <option value="isbn" selected="selected">ISBN</option>
-                        <option value="title">Title</option>
-                        <option value="author">Author</option>
-                        <option value="editorial">Editorial</option>
-                        <option value="year">Year</option>
-                        <option value="category">Category</option>
-                        <option value="language">Language</option>
-                    </select>
-                    <input type="submit" class="btn btn-primary" value="Search"/>
-                </form>
-
+                <h3>Extra information for Librarian</h3>
+                <div>
+                    Duis cursus a elit non suscipit. Suspendisse augue nulla, rhoncus non ullamcorper hendrerit,
+                    lacinia ac nunc. Aliquam vitae maximus erat. Vivamus quis sapien quis purus pulvinar elementum.
+                    Donec non velit nibh. Aliquam pulvinar hendrerit ante. Nullam at nunc erat. Proin sed enim eget
+                    mi maximus convallis. Nullam vel posuere felis. Sed ac sollicitudin odio. Nullam elementum vulputate
+                    scelerisque.
+                </div>
+                <div>
+                    Nullam lobortis felis vitae orci placerat ullamcorper. Mauris accumsan elit lorem, non finibus enim
+                    molestie vel. Proin finibus justo a tincidunt congue. Proin sit amet orci non neque posuere euismod
+                    non in augue. Donec sodales maximus tellus id accumsan. Nunc sit amet tristique ante. Duis
+                    vestibulum lectus et rutrum venenatis.
+                </div>
             </article>
         </section>
         <?php
@@ -100,44 +110,39 @@ switch ($work_user->getUserType()) {
         <section>
             <article>
                 <h3>Find a user</h3>
-                <form method="post" action="pageListed.php?ref=users">
-                    <label for="patternSearch">Search: </label>
-                    <input type="text" name="patternSearch" id="patternSearch" placeholder="" required=""/>
-                    <label for="fieldSearch">Search by: </label>
-                    <select id="fieldSearch" name="fieldSearch" required="">
-                        <option value="dni" selected="selected">DNI</option>
-                        <option value="name">Name</option>
-                        <option value="surname">Surname</option>
-                        <option value="email">E-Mail</option>
-                        <option value="phone_number">Phone number</option>
-                        <option value="postal_code">Postal code</option>
-                        <option value="city">City</option>
-                    </select>
-                    <input type="submit" class="btn btn-primary" value="Search"/>
-                </form>
+                <?php
+                $search = new MakeSearchForm("users", true);
+                $search->displayForm();
+                ?>
             </article>
         </section>
         <section>
             <article>
-                <h3>Find a book</h3>
-                <form method="post" action="pageListed.php?ref=book">
-                    <label for="patternSearch">Search:</label>
-                    <input type="text" name="patternSearch" id="patternSearch" required=""/>
-                    <label for="fieldSearch">Search by: </label>
-                    <select id="fieldSearch" name="fieldSearch" required="">
-                        <option value="isbn" selected="selected">ISBN</option>
-                        <option value="title">Title</option>
-                        <option value="author">Author</option>
-                        <option value="editorial">Editorial</option>
-                        <option value="year">Year</option>
-                        <option value="category">Category</option>
-                        <option value="language">Language</option>
-                    </select>
-                    <input type="submit" class="btn btn-primary" value="Search"/>
-                </form>
+                <h3>Find a Book</h3>
+                <?php
+                $search = new MakeSearchForm("book", true);
+                $search->displayForm();
+                ?>
             </article>
         </section>
-
+        <section>
+            <article>
+                <h3>Extra information for administrator</h3>
+                <div>
+                    Duis cursus a elit non suscipit. Suspendisse augue nulla, rhoncus non ullamcorper hendrerit,
+                    lacinia ac nunc. Aliquam vitae maximus erat. Vivamus quis sapien quis purus pulvinar elementum.
+                    Donec non velit nibh. Aliquam pulvinar hendrerit ante. Nullam at nunc erat. Proin sed enim eget
+                    mi maximus convallis. Nullam vel posuere felis. Sed ac sollicitudin odio. Nullam elementum vulputate
+                    scelerisque.
+                </div>
+                <div>
+                    Nullam lobortis felis vitae orci placerat ullamcorper. Mauris accumsan elit lorem, non finibus enim
+                    molestie vel. Proin finibus justo a tincidunt congue. Proin sit amet orci non neque posuere euismod
+                    non in augue. Donec sodales maximus tellus id accumsan. Nunc sit amet tristique ante. Duis
+                    vestibulum lectus et rutrum venenatis.
+                </div>
+            </article>
+        </section>
         <?php
         break;
     //end case 2

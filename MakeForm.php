@@ -8,9 +8,9 @@
 
 class MakeForm
 {
-    private $fields = array();         # contains field names and labels
+    private $fields = array();        # contains field names and labels
     private $actionValue;             # name of script to process form
-    private $submit = "Submit Form"; # value on submit button
+    private $submit = "Submit Form";  # value on submit button
     private $Nfields = 0;             # number of fields added to the form
     private $note;
     private $Nnote = 0;

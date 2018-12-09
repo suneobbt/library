@@ -13,7 +13,7 @@ if (isset($_GET['id'])) {
 
 <html lang="en">
 <?php require("head.php"); ?>
-
+<body>
 <main>
     <!-- Aside 1(left top) for tools acces -->
     <aside id="ad1">
@@ -29,6 +29,7 @@ if (isset($_GET['id'])) {
 
         <?php
         include_once('MakeTable.php');
+        include_once('MakeSearchForm.php');
 
         // variables to create a MakeTable object
         $dbName = "library";
@@ -40,9 +41,8 @@ if (isset($_GET['id'])) {
         $condition2 = "";
         if (isset($_POST['patternSearch'])) $condition2 = $_POST['fieldSearch'] . " LIKE '%" . $_POST['patternSearch'] . "%'";
 
-
-        $adminUser = false;
-        if ($_SESSION['user_type'] == 2) $adminUser = true;
+        $superUser = false;
+        if ($_SESSION['user_type'] == USER_TYPE_ADMIN) $superUser = true;
 
         // files where to jump to Browse, Edit and Delete the selected row.
         $fileBrowse = "pageBrowse.php";
@@ -58,26 +58,14 @@ if (isset($_GET['id'])) {
 
         switch ($tableName) {
             case "lend":
-                if ($_SESSION['user_type'] != '0') {
-                    ?>
 
-                    <h3>Find a lend</h3>
-                    <form method="post" action="pageListed.php?ref=lend">
-                        <label for="patternSearch">Search:</label>
-                        <input type="text" name="patternSearch" id="patternSearch" required=""/>
-
-                        <label for="fieldSearch">Search by: </label>
-                        <select id="fieldSearch" name="fieldSearch" required="">
-                            <option value="isbn" selected="selected">ISBN</option>
-                            <option value="dni">DNI</option>
-                        </select>
-                        <input type="submit" value="Search"/>
-                    </form>
-                    <br/>
-
-                    <?php
+                if ($_SESSION['user_type'] != USER_TYPE_USER) {
+                    echo "<h3>Find a lend</h3>";
+                    $search = new MakeSearchForm("lend", true);
+                    $search->displayForm();
+                    echo "<br/>";
                 }
-                $fields = array("id_lend", "dni", "start_time_lend");
+                $fields = array("id_lend", "dni", "start_time_lend","returned");
                 if ($condition2 != "") $condition2 = " JOIN `copy` ON copy.id_copy=lend.id_copy WHERE " . $condition2;
 
                 if ($_SESSION['user_type'] != '0') {
@@ -88,32 +76,21 @@ if (isset($_GET['id'])) {
                     //add condition to show only her lends
                     $fieldCondition = "dni";
                 }
+
+                echo "<h3>Lends</h3>";
                 break;
 
             case "reserve":
-                if ($_SESSION['user_type'] != '0') {
-                    ?>
-
-                    <h3>Find a reserve</h3>
-                    <form method="post" action="pageListed.php?ref=reserve">
-                        <label for="patternSearch">Search:</label>
-                        <input type="text" name="patternSearch" id="patternSearch" required=""/>
-
-                        <label for="fieldSearch">Search by: </label>
-                        <select id="fieldSearch" name="fieldSearch" required="">
-                            <option value="isbn" selected="selected">ISBN</option>
-                            <option value="dni">DNI</option>
-                        </select>
-                        <input type="submit" value="Search"/>
-                    </form>
-                    <br/>
-
-                    <?php
+                if ($_SESSION['user_type'] != USER_TYPE_USER) {
+                    echo "<h3>Find a reserve</h3>";
+                    $search = new MakeSearchForm("reserve", true);
+                    $search->displayForm();
+                    echo "<br/>";
                 }
                 $fields = array("id_reserve", "dni", "start_time_reserve");
                 if ($condition2 != "") $condition2 = " JOIN `copy` ON copy.id_copy=reserve.id_copy WHERE " . $condition2;
 
-                if ($_SESSION['user_type'] != '0') {
+                if ($_SESSION['user_type'] != USER_TYPE_USER) {
                     $fields[] = "reserve.id_copy";
                     $filePickUp = "pageForm.php";
                     $fileUpdate = "";
@@ -121,63 +98,36 @@ if (isset($_GET['id'])) {
                     //add condition to show only her reserves
                     $fieldCondition = "dni";
                 }
+                echo "<h3>Reserves</h3>";
                 break;
 
-            case "book": ?>
+            case "book":
+                echo "<h3>Find a book</h3>";
+                $search = new MakeSearchForm("book", true);
+                $search->displayForm();
+                echo "<br/>";
 
-                <h3>Find a book</h3>
-                <form method="post" action="pageListed.php?ref=book">
-                    <label for="patternSearch">Search:</label>
-                    <input type="text" name="patternSearch" id="patternSearch" required=""/>
-
-                    <label for="fieldSearch">Search by: </label>
-                    <select id="fieldSearch" name="fieldSearch" required="">
-                        <option value="isbn" selected="selected">ISBN</option>
-                        <option value="title">Title</option>
-                        <option value="author">Author</option>
-                        <option value="editorial">Editorial</option>
-                        <option value="year">Year</option>
-                        <option value="category">Category</option>
-                        <option value="language">Language</option>
-                    </select>
-                    <input type="submit" value="Search"/>
-                </form>
-                <br/>
-
-                <?php $fields = array("isbn", "title", "author", "year");
+                $fields = array("isbn", "title", "author", "year");
                 if ($condition2 != "") $condition2 = " WHERE " . $condition2;
-
+                echo "<h3>Books</h3>";
                 break;
 
-            case "users": ?>
+            case "users":
 
-                <h3>Find a user</h3>
-                <form method="post" action="pageListed.php?ref=users">
-                    <label for="patternSearch">Search: </label>
-                    <input type="text" name="patternSearch" id="patternSearch" placeholder="" required=""/>
-                    <label for="fieldSearch">Search by: </label>
-                    <select id="fieldSearch" name="fieldSearch" required="">
-                        <option value="dni" selected="selected">DNI</option>
-                        <option value="name">Name</option>
-                        <option value="surname">Surname</option>
-                        <option value="email">E-Mail</option>
-                        <option value="phone_number">Phone number</option>
-                        <option value="postal_code">Postal code</option>
-                        <option value="city">City</option>
-                    </select>
-                    <input type="submit" value="Search"/>
-                </form>
-                <br/>
+                echo "<h3>Find a user</h3>";
+                $search = new MakeSearchForm("book", true);
+                $search->displayForm();
+                echo "<br/>";
 
-                <?php $fields = array("dni", "name", "surname", "user_type");
-                if ($condition2 != "" && !$adminUser) $condition2 = " AND " . $condition2;
-                if ($condition2 != "" && $adminUser) $condition2 = " WHERE " . $condition2;
+                $fields = array("dni", "name", "surname", "user_type");
+                if ($condition2 != "" && !$superUser) $condition2 = " AND " . $condition2;
+                if ($condition2 != "" && $superUser) $condition2 = " WHERE " . $condition2;
 
-
-                if (!$adminUser) {
+                if (!$superUser) {
                     $fieldCondition = "user_type";
-                    $condition = "0";
+                    $condition = USER_TYPE_USER;
                 }
+                echo "<h3>Users</h3>";
                 break;
         }
 
@@ -189,6 +139,28 @@ if (isset($_GET['id'])) {
         ?>
 
     </section>
+
+    <?php if ($_SESSION['user_type'] == USER_TYPE_USER) { ?>
+        <section>
+            <h2>Information about <?php echo $tableName?></h2>
+            <article>
+                <div> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam turpis lorem, faucibus eget
+                    aliquet quis, finibus id dolor. Aenean condimentum ut turpis non finibus. Ut ac odio nec massa
+                    condimentum aliquet. Quisque eu feugiat est, ac consectetur justo. Pellentesque id porta lectus.
+                    Nulla ac sem ac enim maximus ultricies ac vel diam. Ut pretium sagittis consequat. In hac
+                    habitasse platea dictumst. Cras sed efficitur augue, a elementum mi. Donec facilisis vel quam
+                    porta hendrerit. Morbi vehicula maximus est, aliquam iaculis nunc fringilla sed. Praesent sed
+                    suscipit risus, non gravida eros.
+                </div>
+                <div>
+                    Proin mi tortor, tempor a dictum ac, tempus ut tellus. In a nisi sed ante rhoncus tincidunt.
+                    Vestibulum non massa sapien. Etiam blandit tincidunt ligula at maximus. Mauris ac lobortis lacus.
+                    Aliquam erat volutpat. Mauris ac iaculis libero. Aliquam tincidunt magna urna, vel tristique nibh
+                    dapibus vitae. Quisque efficitur eleifend pulvinar. Nullam vel congue lacus, vel dapibus mi.
+                </div>
+            </article>
+        </section>
+    <?php } ?>
 </main>
 
 <?php include('footer.php') ?>

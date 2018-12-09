@@ -28,17 +28,16 @@
             include('loggedInAs.inc');
         } else {
             echo "
-            <form action=\"loginProcess.php\" method=\"post\">
+            <form action=\"loginProcess.php\" method=\"post\" class=\"form-group\">
                 <h2>Login</h2>
                 <label for=\"user\">User</label><br/>
-                <input type=\"text\" name=\"user\" id=\"user\" placeholder=\"DNI+letter\" required=\"\"/>
-                <br/>
+                <input type=\"text\" name=\"user\" class=\"form-control\" id=\"user\" placeholder=\"DNI+Letter\" required=\"\"/>
                 <label for=\"pass\">Password</label><br/>
-                <input type=\"password\" name=\"pass\" id=\"pass\" required=\"\"/>
-                <br/><br/>
+                <input type=\"password\" name=\"pass\" class=\"form-control\" id=\"pass\" required=\"\"/>
+                <br/>
                 <input type=\"submit\" class=\"btn btn-primary\" value=\"Get in\"/>
                 <br/>
-                <div class=\"text-left\">You aren't a client yet? <a href=\"index.php?&register=true\">Register here</a></div>
+                <div class=\"text-left\">You aren't a client yet? <a href=\"index.php?&register=true\">Register here!</a></div>
             </form>";
         }
         ?>
@@ -69,19 +68,23 @@
 
         } else {
             ?>
-            <h2>Search</h2>
             <article>
-                <label for="search">Find your book</label>
-                <input type="text" name="search" id="search" placeholder="ISBN, title, author..." required=""/>
-                <input type="submit" class="btn btn-primary btn-sm" value="Search"/>
-            </article>
-            <article>
-                <h3>Iaculis tortor</h3>
-                In iaculis tortor quis nulla congue finibus. Curabitur egestas efficitur elementum.
+            <h2>New arrivals</h2>
+            <div>
+                Donec aliquet sodales sem, eget rhoncus neque rutrum at. Aenean sollicitudin eros feugiat est sagittis
+                pellentesque. Nam vestibulum orci vel velit sodales accumsan. Ut varius, neque nec fermentum auctor,
+                mauris libero rutrum orci, vel ornare ipsum lacus sed ipsum. Ut odio lacus, malesuada et aliquam ut,
+                fermentum eget tellus. Mauris rutrum in erat ut fringilla. Quisque dapibus felis ac massa hendrerit
+                sagittis. Donec ullamcorper molestie turpis, vitae ultricies risus efficitur a. Nullam porta vulputate
+                dui, nec interdum augue lacinia sed. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices
+                posuere cubilia Curae; Nam sagittis lorem eu risus semper, ut tincidunt urna vestibulum.
+            </div>
             </article>
         <?php } ?>
     </section>
 
+    <?php
+        if (!isset($_GET['register'])) {?>
     <section>
         <h2>Activities</h2>
         <article>
@@ -92,7 +95,8 @@
                 dolor. Sed malesuada magna non tempus facilisis. Cras rhoncus eget libero sit amet congue. Aenean
                 mattis, est nec dapibus faucibus, lacus elit elementum metus, hendrerit euismod turpis neque sit amet
                 dolor. Fusce in laoreet nibh, at blandit nisi. Aenean feugiat iaculis elementum. Proin ut vehicula leo.
-            </div><div>
+            </div>
+            <div>
                 Interdum et malesuada fames ac ante ipsum primis in faucibus. Vestibulum ut ipsum at nisl consectetur
                 consequat. In sit amet ante in diam tristique pellentesque. Curabitur accumsan felis ac volutpat
                 elementum. Proin molestie elementum nulla sit amet varius. Donec ut orci dui. Ut ut imperdiet nunc.
@@ -100,6 +104,7 @@
             </div>
         </article>
     </section>
+    <?php }?>
 </main>
 
 <?php include('footer.php') ?>
