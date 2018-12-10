@@ -6,6 +6,11 @@
  * Time: 20:50
  */
 
+include ("patterns.php");
+
+/**
+ * Class MakeSearchForm
+ */
 class MakeSearchForm
 {
 
@@ -47,8 +52,8 @@ class MakeSearchForm
                                 </div>
                                 <input type=\"text\" class=\"form-control\" name=\"patternSearch\" id=\"patternSearch\"
                                        required=\"\"
-                                       placeholder=\"Scan a book\">
-                                       ";
+                                       placeholder=\"Scan a book\">";
+
         if ($this->findEngine) {
             if ($this->searched == "book") {
                 echo " &nbsp <select class=\"form-control\" id=\"fieldSearch\" name=\"fieldSearch\" required=\"\">

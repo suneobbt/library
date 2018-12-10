@@ -9,10 +9,21 @@
 class Copy
 {
 
+    /**
+     * ID copy
+     * @var
+     */
     private $id_copy;
+    /**
+     * ISBN related to de copy
+     * @var
+     */
     private $isbn;
 
 
+    /**
+     * Copy constructor. Overload.
+     */
     public function __construct()
     {
         //get an array with the parameters sent to the function
@@ -54,6 +65,7 @@ class Copy
 
 
     /**
+     * Constructor 2. Create a new object of copy based on the values received on args.
      * @param $id_copy
      * @param $isbn
      */
@@ -64,6 +76,10 @@ class Copy
     }
 
 
+    /**
+     * Adds a copy to the DB
+     * @param $isbn
+     */
     public static function addCopy($isbn){
         include "connection_data2.inc";
 
@@ -74,10 +90,14 @@ class Copy
 
     }
 
+    /*
+     * NOT IMPLEMENTED YET
+
     public function insertCopyToBD()
     {
         //TODO: Implement method to insert the values from an object into a database
     }
+    */
 
 
     /**

@@ -2,21 +2,93 @@
 
 <?php
 
+/**
+ * Class MakeTable
+ */
 class MakeTable
 {
+    /**
+     * Table name
+     * @var
+     */
     private $tableName;
+    /**
+     * Number of fields
+     * @var int
+     */
     private $numFields;
+    /**
+     * Values of the fields
+     * @var array
+     */
     private $fieldList = array();
+    /**
+     * Value DB
+     * @var
+     */
     private $mysqli;
+    /**
+     * Number of row
+     * @var
+     */
     private $row;
-    //private $nextRow;
+    /**
+     * Value -
+     * @var
+     */
     private $registers;
+    /**
+     * Action on click browse button
+     * @var string
+     */
+    /**
+     * Action on click update button
+     * @var string
+     */
+    /**
+     * Action on click delete button
+     * @var string
+     */
+    /**
+     * Action on click pick up button
+     * @var string
+     */
+    /**
+     * Action on click return button
+     * @var string
+     */
     private $fileBrowse, $fileUpdate, $fileDelete, $filePickUp, $fileReturn;
+    /**
+     * Condition to select the data from the DB
+     * @var string
+     */
     private $condition;
+    /**
+     * Condition 2 to select the data from the DB
+     * @var string
+     */
     private $condition2;
+    /**
+     * Field to aply the conditions.
+     * @var string
+     */
     private $fieldCondition;
 
 
+    /**
+     * MakeTable constructor.
+     * @param $dbName
+     * @param $tableName
+     * @param $fieldList
+     * @param string $fileBrowse
+     * @param string $fileUpdate
+     * @param string $fileDelete
+     * @param string $condition
+     * @param string $fieldCondition
+     * @param string $condition2
+     * @param string $filePickUp
+     * @param string $fileReturn
+     */
     function __construct($dbName, $tableName, $fieldList, $fileBrowse = "", $fileUpdate = "", $fileDelete = "", $condition = "", $fieldCondition = "", $condition2 = "", $filePickUp = "", $fileReturn = "")
     {
         $this->dbName = $dbName;
@@ -41,6 +113,10 @@ class MakeTable
     }
 
 
+    /**
+     * Connects to DB
+     * @param $dbName
+     */
     private function connectDB($dbName)
     {
         include("connection_data.inc");
@@ -51,6 +127,9 @@ class MakeTable
     }
 
 
+    /**
+     * Generate the html code of the table
+     */
     public function paintTable()
     {
         $empty=true;// if we don't have any result will print a message
@@ -66,6 +145,10 @@ class MakeTable
     }
 
 
+    /**
+     * Return the part of code for de header of teh table
+     * @return mixed
+     */
     public function paintHeader()
     {
         echo "<table class=\"table table-hover table-dark table-sm\" border = \"1\" align = \"center\" width=\"100%\"><tr>";
@@ -122,6 +205,9 @@ class MakeTable
     } // paintHeader
 
 
+    /**
+     * Prints the code for one row
+     */
     public function paintRow()
     {
         echo "<tr>";
@@ -164,6 +250,10 @@ class MakeTable
     } // paintRow
 
 
+    /**
+     * Determine if there are more registers to add to the table
+     * @return mixed
+     */
     public function moreRegisters()
     {
         $this->row = $this->registers->fetch_assoc();
@@ -171,6 +261,9 @@ class MakeTable
     } // moreRegisters
 
 
+    /**
+     * Prints the code for the footer of the table
+     */
     public function paintFooter() // closes table and connection DB
     {
         echo "</table>";

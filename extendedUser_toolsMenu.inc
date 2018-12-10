@@ -20,8 +20,10 @@ switch ($_SESSION['user_type']) {
             <a class="list-group-item list-group-item-action text-primary" href="pageUser.php">Home panel</a><br/>
             <a class="list-group-item list-group-item-action text-primary"
                href="pageListed.php?ref=reserve">Reserves</a><br/>
+            <a class="list-group-item list-group-item-action text-primary"
+               href="pageForm.php?id=new&ref=reserve">New reserve</a><br/>
             <a class="list-group-item list-group-item-action text-primary" href="pageListed.php?ref=lend">Lends</a><br/>
-            <a class="list-group-item list-group-item-action text-muted " href="#">Stadistics</a><br/>
+            <a class="list-group-item list-group-item-action text-muted " href="#">Statistics</a><br/>
         </div>
 
         <?php
@@ -50,7 +52,7 @@ switch ($_SESSION['user_type']) {
                href="pageListed.php?ref=lend">Lends</a><br/>
             <a class="list-group-item list-group-item-action text-primary" href="pageForm.php?id=new&ref=lend">New
                 lend</a><br/>
-            <a class="list-group-item list-group-item-action text-muted" href="#">Stadistics</a><br/>
+            <a class="list-group-item list-group-item-action text-muted" href="#">Statistics</a><br/>
         </div>
         <?php
         break;
@@ -75,7 +77,7 @@ switch ($_SESSION['user_type']) {
             <a class="list-group-item list-group-item-action text-primary" href="pageListed.php?ref=lend">Lends</a><br/>
             <a class="list-group-item list-group-item-action text-primary" href="pageForm.php?id=new&ref=lend">New
                 lend</a><br/>
-            <a class="list-group-item list-group-item-action text-muted" href="#">Stadistics</a><br/>
+            <a class="list-group-item list-group-item-action text-muted" href="#">Statistics</a><br/>
         </div>
         <?php
         break;

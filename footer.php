@@ -15,5 +15,5 @@
     <a target="_blank" rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">
         Attribution-ShareAlike 4.0 Internacional de Creative Commons.
     </a>
-    <b>The Library 2018.</b> <i>Design by <a target="_blank" href="http://babot.cat">Adrià Babot</a>, with Bootstrap tecnologies.</i>
+    <b>The Library 2018 - help@thelibrary.com</b> <i>Design by <a target="_blank" href="http://babot.cat">Adrià Babot</a>, with Bootstrap technologies.</i>
 </footer>

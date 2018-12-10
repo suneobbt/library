@@ -8,15 +8,54 @@
 
 class User
 {
+    /**
+     * User DNI
+     * @var
+     */
     private $dni;
+    /**
+     * User Name
+     * @var
+     */
     private $name;
+    /**
+     * User Surname
+     * @var
+     */
     private $surname;
+    /**
+     * Type of user (0-Normal user, 1-Librarian, 2-Administrator)
+     * @var
+     */
     private $user_type;
+    /**
+     * User phone number
+     * @var
+     */
     private $phone_number;
+    /**
+     * User city
+     * @var
+     */
     private $city;
+    /**
+     * User Postal Code
+     * @var
+     */
     private $postal_code;
+    /**
+     * User email
+     * @var
+     */
     private $email;
+    /**
+     * @var
+     */
     private $direction;
+    /**
+     * User phisical direction
+     * @var
+     */
     private $pass;
 
 
@@ -44,6 +83,7 @@ class User
     }
 
     /**
+     * Constructor 1. Constructs an user object with the data already saved in DB.
      * @param $dni
      */
     function __construct1($dni)
@@ -77,6 +117,19 @@ class User
         mysqli_close($connexion);
     }
 
+    /**
+     * Constructor 10. Creates an user object with the data received by args.
+     * @param $dni
+     * @param $name
+     * @param $surname
+     * @param $pass
+     * @param $user_type
+     * @param $phone_number
+     * @param $city
+     * @param $postal_code
+     * @param $email
+     * @param $direction
+     */
     function __construct10($dni, $name, $surname, $pass, $user_type, $phone_number, $city, $postal_code, $email, $direction)
     {
         $this->dni = $dni;
@@ -91,6 +144,10 @@ class User
         $this->pass = $pass;
     }
 
+    /**
+     * Insert a new user to de DB.
+     * @param $register
+     */
     public function insertUserToBD($register)
     {
         include_once('connection_data.inc');
@@ -139,6 +196,9 @@ class User
 
     }
 
+    /**
+     * Modify an user from the DB.
+     */
     public function updateUserOfBD()
     {
         include_once('connection_data.inc');

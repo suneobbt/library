@@ -9,9 +9,25 @@
 class Reserve
 {
 
+    /**
+     * ID of the reserve
+     * @var
+     */
     private $id_reserve;
+    /**
+     * Date start of teh reserve
+     * @var
+     */
     private $start_time_reserve;
+    /**
+     * DNI of teh user who made the reserve
+     * @var
+     */
     private $dni;
+    /**
+     * ID copy reserved
+     * @var
+     */
     private $id_copy;
 
     /**
@@ -66,6 +82,13 @@ class Reserve
     }
 
 
+    /**
+     * Constructor 4. Create a reserve object with the data received by args.
+     * @param $id_reserve
+     * @param $start_time_reserve
+     * @param $dni
+     * @param $id_copy
+     */
     public function __construct4($id_reserve, $start_time_reserve, $dni, $id_copy)
     {
         $this->id_reserve = $id_reserve;
@@ -74,6 +97,10 @@ class Reserve
         $this->id_copy = $id_copy;
     }
 
+    /**
+     * Inserts new reserve to the DB.
+     * @param $isbn
+     */
     public function insertReserveToBD($isbn)
     {
         include_once('connection_data2.inc');
@@ -116,6 +143,9 @@ class Reserve
 
     }
 
+    /**
+     * Modify a reserve from the DB.
+     */
     public function updateReserveOfBD()
     {
         include_once('connection_data.inc');

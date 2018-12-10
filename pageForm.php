@@ -110,14 +110,21 @@ include('confirmIfSessionSet.php');
                     $dateReserve = "";
                     $dniReserve = "";
                     $isbnReserve = "";
+                    $valueReadOnly="";
+
+                    if ($_SESSION['user_type']==USER_TYPE_USER){
+                        $dniReserve=$_SESSION['user_id'];
+                        $valueReadOnly="readonly";
+                    }
 
                     if (isset($_COOKIE['dateReserve'])) {
                         $dateReserve = $_COOKIE['dateReserve'];
                         $dniReserve = $_COOKIE['dniReserve'];
                         $isbnReserve = $_COOKIE['isbnReserve'];
                     }
+
                     $data->addField("start_time_reserve", "Start day of the reserve", "date", "required", "", "", $dateReserve);
-                    $data->addField("dni", "DNI", "text", "required", PATTERN_DNI, TITLE_DNI, $dniReserve);
+                    $data->addField("dni", "DNI", "text", "required", PATTERN_DNI, TITLE_DNI, $dniReserve,$valueReadOnly);
                     $data->addField("isbn", "ISBN", "text", "required", PATTERN_ISBN, TITLE_ISBN, $isbnReserve);
                     break;
             }

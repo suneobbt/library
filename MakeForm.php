@@ -8,14 +8,41 @@
 
 class MakeForm
 {
-    private $fields = array();        # contains field names and labels
-    private $actionValue;             # name of script to process form
-    private $submit = "Submit Form";  # value on submit button
-    private $Nfields = 0;             # number of fields added to the form
+    /**
+     * Contains field names and labels
+     * @var array
+     */
+    private $fields = array();
+    /**
+     * Name of script to process form
+     * @var
+     */
+    private $actionValue;
+    /**
+     * Value on submit button
+     * @var string
+     */
+    private $submit = "Submit Form";
+    /**
+     * Number of fields added to the form
+     * @var int
+     */
+    private $Nfields = 0;
+    /**
+     * Note value.
+     * @var
+     */
     private $note;
+    /**
+     * Number of notes
+     * @var int
+     */
     private $Nnote = 0;
-
-
+    /**
+     * MakeForm constructor.
+     * @param $actionValue
+     * @param $submit
+     */
     public function __construct($actionValue, $submit)
     {
         $this->actionValue = $actionValue;
@@ -23,9 +50,20 @@ class MakeForm
     } // __construct
 
 
-// Function that adds a field to the form. The user needs to
-// send the name of the field and a label to be displayed.
-    public function addField($id, $label, $type, $required="", $pattern="",$title="", $value="",$disabled="", $placeholder="")
+
+    /**
+     * Function that adds a field to the form. The user needs to send the name of the field and a label to be displayed.
+     * @param $id
+     * @param $label
+     * @param $type
+     * @param string $required
+     * @param string $pattern
+     * @param string $title
+     * @param string $value
+     * @param string $disabled
+     * @param string $placeholder
+     */
+    public function addField($id, $label, $type, $required="", $pattern="", $title="", $value="", $disabled="", $placeholder="")
     {
         $this->fields[$this->Nfields]['id'] = $id;
         $this->fields[$this->Nfields]['label'] = $label;
@@ -42,6 +80,10 @@ class MakeForm
     } // addField
 
     //function to add a note at the end of the form
+    /**
+     * Ad a field note. Interesting for add some important information or some advice.
+     * @param $note
+     */
     public function addNote($note)
     {
         $this->note = $note;
@@ -49,6 +91,9 @@ class MakeForm
     } // addNote
 
     /* Display form function to display the form.*/
+    /**
+     * Prints all the code for html form
+     */
     public function displayForm()
     {
         echo "<form action='{$this->actionValue}' method='POST'><div class=\"form-group\">";

@@ -9,8 +9,21 @@
 
 class Available
 {
+    /**
+     * Days to have the book at home
+     */
     const DAYSOFLEND = 20;
+    /**
+     * Limit of books to have at home
+     */
+    const LIMITBOOKS = 20;
 
+    /**
+     * Determine if a book is available for a date. Return the iID Copy if is available, else -1.
+     * @param $isbn
+     * @param $date
+     * @return int|mixed|string
+     */
     static function bookAvailable($isbn, $date)
     {
         $copies = Available::copiesOfBook($isbn);
@@ -27,6 +40,12 @@ class Available
     }
 
 
+    /**
+     * Determine if one copy is available.
+     * @param $id_copy
+     * @param $date
+     * @return bool
+     */
     static function copyAvailable($id_copy, $date)
     {
         echo "id_copy = " . $id_copy . "<br/>";
@@ -94,6 +113,11 @@ class Available
     }
 
 
+    /**
+     * Return de dates what a copy reserved
+     * @param $id_copy
+     * @return array
+     */
     static function copyDayReserved($id_copy)
     {
         include('connection_data2.inc');
@@ -111,6 +135,11 @@ class Available
         return $dateReserved;
     }
 
+    /**
+     * Return teh number of copys for one ISBN
+     * @param $isbn
+     * @return string
+     */
     static function numberOfCopies($isbn)
     {
         include('connection_data2.inc');
@@ -126,6 +155,11 @@ class Available
         return $nCopies;
     }
 
+    /**
+     * Return the number of copys for one ISBN
+     * @param $isbn
+     * @return array
+     */
     static function copiesOfBook($isbn)
     {
         include('connection_data2.inc');
@@ -145,6 +179,12 @@ class Available
 
     }
 
+    /**
+     * Return if a copy is lend now or not
+     * @param $id_copy
+     * @param $date
+     * @return bool
+     */
     static function copyLend($id_copy, $date)
     {
         include('connection_data2.inc');
@@ -174,6 +214,11 @@ class Available
         }
     }
 
+    /**
+     * Determine if a book is previously reserved.
+     * @param $dni
+     * @return int|string
+     */
     static function bookReserved($dni)
     {
         include('connection_data2.inc');

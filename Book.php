@@ -75,7 +75,7 @@ Class Book
     }
 
     /**
-     * Book constructor no12. Make an object book using recived via param.
+     * Book constructor no12. Make an object book using received via args.
      * @param $isbn
      * @param $title
      * @param $author
@@ -106,7 +106,7 @@ Class Book
     }
 
     /**
-     *
+     * Insert new book to de BD
      */
     public function insertBookToBD($copies)
     {
@@ -143,6 +143,7 @@ Class Book
     }
 
     /**
+     * Modifi a book data from de DB.
      */
     public function updateBookOfBD($copies)
     {

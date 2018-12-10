@@ -10,17 +10,50 @@
 
 class ShowData
 {
-    private $lines = array();         # contains field names and labels
-    private $NLines = 0;             # number of fields added to the form
+    /**
+     * Array of lines
+     * @var array
+     */
+    private $lines = array();
+    /**
+     * Number of lines
+     * @var int
+     */
+    private $NLines = 0;
+    /**
+     * Action to execute on modify button
+     * @var
+     */
     private $actionModify;
+    /**
+     * Action to execute on delete button
+     * @var
+     */
     private $actionDelete;
+    /**
+     * Determines if its necessary to insert the modify button
+     * @var bool
+     */
     private $buttonModifyOn = false;
+    /**
+     * Determines if its necessary to insert the delete button
+     * @var bool
+     */
     private $buttonDeleteOn = false;
 
 
+    /**
+     * Constructor. Empty constructor.
+     * ShowData constructor.
+     */
     public function __construct()
     {}
 
+    /**
+     * Adds buttons at the end.
+     * @param $actionDelete
+     * @param $actionModify
+     */
     public function addButtons($actionDelete, $actionModify)
     {
         if ($actionModify!="")
@@ -35,6 +68,11 @@ class ShowData
         }
     }
 
+    /**
+     * Adds a new data line.
+     * @param $name
+     * @param $data
+     */
     public function addLine($name, $data)
     {
         $this->lines[$this->NLines]['name'] = $name;
@@ -44,6 +82,9 @@ class ShowData
     } // addLine
 
     /* Display data function to display the data.*/
+    /**
+     * Prints all the data.
+     */
     public function displayData()
     {
 

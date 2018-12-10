@@ -9,10 +9,30 @@
 class Lend
 {
 
+    /**
+     * ID of a lend
+     * @var
+     */
     private $id_lend;
+    /**
+     * Date start the lend
+     * @var
+     */
     private $start_time_lend;
+    /**
+     * DNI of the lend owner
+     * @var
+     */
     private $dni;
+    /**
+     * ID of the copy lended
+     * @var
+     */
     private $id_copy;
+    /**
+     * VAlue if is returned(bool)
+     * @var
+     */
     private $returned;
 
     /**
@@ -69,6 +89,7 @@ class Lend
 
 
     /**
+     * Constructor5. Create a new lend based on de values received by args.
      * @param $id_lend
      * @param $start_time_lend
      * @param $dni
@@ -85,6 +106,10 @@ class Lend
     }
 
 
+    /**
+     * Insert new lend into DB
+     * @param $isbn
+     */
     public function insertLendToBD($isbn)
     {
         include_once('connection_data2.inc');
@@ -132,6 +157,9 @@ class Lend
 
     }
 
+    /**
+     * Update a lend entry from the DB
+     */
     public function updateLendOfBD()
     {
         include_once('connection_data2.inc');
